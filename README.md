@@ -136,7 +136,7 @@ And [this](https://github.com/STMicroelectronics/STM32CubeWB/tree/master/Project
 ![Reboot Panel](illustrations/rebootpanelselectbinary.png "Reboot Panel")  
 **Step 7. (Not mandatory)** Choose the first sector address from which the file will be write.  
 **Step 8.** Click on the upload button and wait for the disconnection.  
-![Reboot Panel](illustrations/startSector.png "Reboot Panel")  
+![Reboot Panel](illustrations/startSector.PNG "Reboot Panel")  
 *Congratulations, the new Application/Wireless stack is running and can be connected*  
 
 If you have updated the old application with a new application implementing the characteristic reboot OTA, like [BLE_p2pServer_ota_reference.bin]() or [BLE_HeartRate_ota_reference.bin]() a panel permitting to restart on the OTA application is available. From this panel you can jump on the Firmware Update Over The Air application, then reboot on another application.  
@@ -221,7 +221,7 @@ You need a P2Prouter running on a STM32WBA52 and at least another STM32WBAxx / S
 ![Step 8](illustrations/routerDevAppear.PNG "Step 8")  
 **Step 9.** On p2pServer device, a click on B1 send a notification to p2pRouter. 
 This notification message is forwarded to the smartphone and displayed on the interface.\
-![Step 9](illustrations/notifON.PNG "Step 9") 
+![Step 9](illustrations/notifON.PNG "Step 9") \
 **Step 10.** On Web Bluetooth interface click the Light button to write a message to the corresponding p2pServer devices. This write message is sent first to p2pRouter and then routed to its destination.
 ![Step 10](illustrations/lightON.PNG "Step 10") 
 
