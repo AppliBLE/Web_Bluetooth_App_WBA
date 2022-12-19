@@ -11,12 +11,11 @@ STM32WB firmware applications that could be downloaded to interact with Web Blue
 -	[HeartRate](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WB_HeartRate "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WB_HeartRate")
 -	Firmware Update Over The Air
 -	Data Throughput
--   P2Prouter
 
 
 
 Example of the interface when a connection is established with Firmware Update Over The Air application and HeartRate application
-![Firmware Update Over The Air on smartphone & Heart Rate on PC](illustrations/pannelExample.PNG "Firmware Update Over The Air on smartphone & Heart Rate on PC")
+![Firmware Update Over The Air on smartphone & Heart Rate on PC](illustrations/Capture1.PNG "Firmware Update Over The Air on smartphone & Heart Rate on PC")
 
 ***
 
@@ -26,8 +25,10 @@ The following [wiki page](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WB
 
 ## Hardware requirements
 
-To use the web interface, the following **STM32WBA** board is necessary .
-- [NUCLEO-WBA52](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html")
+To use the web interface, one of the following **STM32WB** boards is necessary .
+- [P-NUCLEO-WB55](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html")
+- [NUCLEO-WB15CC](https://www.st.com/en/evaluation-tools/nucleo-wb15cc.html "https://www.st.com/en/evaluation-tools/nucleo-wb15cc.html")
+- [STM32WB5MM-DK](https://www.st.com/en/evaluation-tools/stm32wb5mm-dk.html "https://www.st.com/en/evaluation-tools/stm32wb5mm-dk.html")  
 
 A PC or a smartphone is required to open the web interface in a browser.
 
@@ -88,7 +89,7 @@ The P2Pserver application demonstrates a bidirectional BLE communication between
 
 ### **Requierements**
 
-Example with the [NUCLEO-WBA52](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") board.  
+Example with the [P-NUCLEO-WB55](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") board.  
 One of the following binary has to be flashed on the wireless coprocessor.   
 - [stm32wb5x_BLE_Stack_full_fw.bin](https://github.com/STMicroelectronics/STM32CubeWB/blob/398d0fbc5ef491da30f777575b911e50e68fa77f/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_full_fw.bin?raw=true "https://github.com/STMicroelectronics/STM32CubeWB/blob/398d0fbc5ef491da30f777575b911e50e68fa77f/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_full_fw.bin?raw=true")  
 - [stm32wb5x_BLE_Stack_light_fw.bin](https://github.com/STMicroelectronics/STM32CubeWB/blob/master/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_light_fw.bin?raw=true "https://github.com/STMicroelectronics/STM32CubeWB/blob/master/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_light_fw.bin?raw=true")
@@ -101,9 +102,9 @@ If you don't know how to update the coprocessors firmware, click [here](https://
 
 **Step 1.** Power on the STM32WB board with the Ota application flashed in and activate the bluetooth® on your machine.   
 **Step 2.** Open [this](https://applible.github.io/Web_Bluetooth_App "https://applible.github.io/Web_Bluetooth_App") web page in your browser.  
-**Step 3.** Click on the connect button then select P2PS_WBAxx in the device list and click pair.   
+**Step 3.** Click on the connect button then select P2PSRV1 in the device list and click pair.   
 ![Step 3](illustrations/picture0.png "Step 3")  
-![Step 3](illustrations/Connection_popup.png "Step 3")  
+![Step 3](illustrations/picture1.png "Step 3")  
 **Step 4.** Click on P2Pserver to show the interface and **don't hesitate to read the tooltips**.  
 *Your are now connected.*  
 *You can now interact with the connected device.*  
@@ -117,26 +118,28 @@ The Firmware Update Over The Air (OTA) application allows a remote device to upd
 
 ### **Requierements**
 
-Example with the [NUCLEO-WBA52](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") board.  
+Example with the [P-NUCLEO-WB55](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") board.  
 One of the following binary has to be flashed on the wireless coprocessor.   
 - [stm32wb5x_BLE_Stack_full_fw.bin](https://github.com/STMicroelectronics/STM32CubeWB/blob/398d0fbc5ef491da30f777575b911e50e68fa77f/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_full_fw.bin?raw=true "https://github.com/STMicroelectronics/STM32CubeWB/blob/398d0fbc5ef491da30f777575b911e50e68fa77f/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_full_fw.bin?raw=true")  
 - [stm32wb5x_BLE_Stack_light_fw.bin](https://github.com/STMicroelectronics/STM32CubeWB/blob/master/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_light_fw.bin?raw=true "https://github.com/STMicroelectronics/STM32CubeWB/blob/master/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_light_fw.bin?raw=true")
 
 And [this](https://github.com/STMicroelectronics/STM32CubeWB/tree/master/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_Ota/Binary "https://github.com/STMicroelectronics/STM32CubeWB/tree/master/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_Ota/Binary") application binary file has to be flashed on the application coprocessor.  
 
+If you don't know how to update the coprocessors firmware, click [here](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WB_BLE_Hardware_Setup "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WB_BLE_Hardware_Setup").
 
 ### **Follow the next steps to learn how to use the application Firmware Update Over The Air.**  
-**Step 1.** Power on the STM32WBA board with the Ota application flashed in and activate the bluetooth® on your machine.   
-**Step 2.** Open [this](https://applible.github.io/Web_Bluetooth_App_WBA "https://applible.github.io/Web_Bluetooth_App") web page in your browser.  
-**Step 3.** Click on the connect button then select your device list and click pair.  
+**Step 1.** Power on the STM32WB board with the Ota application flashed in and activate the bluetooth® on your machine.   
+**Step 2.** Open [this](https://applible.github.io/Web_Bluetooth_App "https://applible.github.io/Web_Bluetooth_App") web page in your browser.  
+**Step 3.** Click on the connect button then select STM_OTA in the device list and click pair.  
 *You are now connected*  
-**Step 5.** Choose between updating the User Configuration Data and the Application.  
-![Reboot Panel](illustrations/OTA-update-choice.png "Reboot Panel")  
-**Step 6.** Select the binary to be downloaded. You can either fetch a binary file from the STMicroelectronics github repository STM32CubeWBA or upload a binary file stored on your machine.  
+**Step 4.** Select the correct STM32WB device by clicking on the radio button.  
+**Step 5.** Choose between Application Coprocessor Binary to update the Application and Wireless Coprocessor Binary to update the Wireless stack.  
+![Reboot Panel](illustrations/rebootpanelhalfexpanded.png "Reboot Panel")  
+**Step 6.** Select the binary to be downloaded. You can either fetch a binary file from the STMicroelectronics github repository STM32CubeWB or upload a binary file stored on your machine.  
 ![Reboot Panel](illustrations/rebootpanelselectbinary.png "Reboot Panel")  
 **Step 7. (Not mandatory)** Choose the first sector address from which the file will be write.  
 **Step 8.** Click on the upload button and wait for the disconnection.  
-![Reboot Panel](illustrations/startSector.png "Reboot Panel")  
+![Reboot Panel](illustrations/rebootpanelsectorsrebootota.png "Reboot Panel")  
 *Congratulations, the new Application/Wireless stack is running and can be connected*  
 
 If you have updated the old application with a new application implementing the characteristic reboot OTA, like [BLE_p2pServer_ota_reference.bin]() or [BLE_HeartRate_ota_reference.bin]() a panel permitting to restart on the OTA application is available. From this panel you can jump on the Firmware Update Over The Air application, then reboot on another application.  
@@ -151,10 +154,14 @@ The HeartRate application measures heart rate data and other information like th
 
 ### **Requierements**
 
-Example with the [NUCLEO-WBA52](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") board.  
+Example with the [P-NUCLEO-WB55](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") board.  
 One of the following binary has to be flashed on the wireless coprocessor.   
+- [stm32wb5x_BLE_Stack_full_fw.bin](https://github.com/STMicroelectronics/STM32CubeWB/blob/398d0fbc5ef491da30f777575b911e50e68fa77f/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_full_fw.bin?raw=true "https://github.com/STMicroelectronics/STM32CubeWB/blob/398d0fbc5ef491da30f777575b911e50e68fa77f/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_full_fw.bin?raw=true")  
+- [stm32wb5x_BLE_Stack_light_fw.bin](https://github.com/STMicroelectronics/STM32CubeWB/blob/master/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_light_fw.bin?raw=true "https://github.com/STMicroelectronics/STM32CubeWB/blob/master/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_light_fw.bin?raw=true")
 
 And [this](https://github.com/STMicroelectronics/STM32CubeWB/tree/master/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/Binary "https://github.com/STMicroelectronics/STM32CubeWB/tree/master/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/Binary") application binary file has to be flashed on the application coprocessor.  
+
+If you don't know how to update the coprocessors firmware, click [here](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WB_BLE_Hardware_Setup "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WB_BLE_Hardware_Setup").
 
 ### **Follow the next steps to learn how to use the application HeartRate**
 
@@ -164,7 +171,7 @@ And [this](https://github.com/STMicroelectronics/STM32CubeWB/tree/master/Project
 *You are now connected*  
 **Step 4.** Click on HeartRate to show the interface and **don't hesitate to read the tooltips**.  
 *You can now interact with the connected device.*  
-![Step 4](illustrations/rightPannel.png "Step 4")  
+![Step 4](illustrations/heartrate.png "Step 4")  
 
 ***
 
@@ -174,7 +181,7 @@ The Data Throughput application measures the upload (data transfer from web inte
 
 ### **Requierements**
 
-Example with the [NUCLEO-WBA52](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") board.  
+Example with the [P-NUCLEO-WB55](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") board.  
 One of the following binary has to be flashed on the wireless coprocessor.   
 - [stm32wb5x_BLE_Stack_full_fw.bin](https://github.com/STMicroelectronics/STM32CubeWB/blob/398d0fbc5ef491da30f777575b911e50e68fa77f/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_full_fw.bin?raw=true "https://github.com/STMicroelectronics/STM32CubeWB/blob/398d0fbc5ef491da30f777575b911e50e68fa77f/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_full_fw.bin?raw=true")  
 - [stm32wb5x_BLE_Stack_light_fw.bin](https://github.com/STMicroelectronics/STM32CubeWB/blob/master/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_light_fw.bin?raw=true "https://github.com/STMicroelectronics/STM32CubeWB/blob/master/Projects/STM32WB_Copro_Wireless_Binaries/STM32WB5x/stm32wb5x_BLE_Stack_light_fw.bin?raw=true")
@@ -194,41 +201,9 @@ If you don't know how to update the coprocessors firmware, click [here](https://
 ![Step 4](illustrations/datathroughput.png "Step 4")  
 
 ***
-## **P2P Router**
-
-The P2Prouter application demonstrates STM32WBA acting at the same time as both: BLE central and peripheral, GATT server and client.
-
-P2Prouter application scans to connect to P2Pserver devices and accept connection of ST Web Bluetooth app. It will route BLE messages received from both side.
-
-### **Requierements**
-
-Example with one [NUCLEO-WBA52](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") board as a P2Prouter, two [NUCLEO-WBA52](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html")  and one [P-NUCLEO-WB55](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") boards as P2Pserver.  
-
-You need a P2Prouter running on a STM32WBA52 and at least another STM32WBAxx / STM32WB Nucleo board to run a p2pServer application.
-
-### **Follow the next steps to learn how to use the application P2Prouter**
-
-**Step 1.** Power the board with the p2pRouter application flash and the others boards running the P2Pserver apps.\
-**Step 2.** Activate the bluetooth® on your machine.   
-**Step 3.** Open [this](https://applible.github.io/Web_Bluetooth_App/ "https://applible.github.io/Web_Bluetooth_App") web page in your browser.  
-**Step 4.** Click on the connect button then select P2PR_WBAxx in the device list and click pair.  
-*You are now connected*  
-**Step 5.** Click on P2P Router to show the interface and click the Start button.
-*You can now interact with the connected device.*  
-**Step 6.** Power up to 7 p2pServer devices next to p2pRouter device.\
-**Step 7.** On each click on B1, p2pRouter will scan and then connect to a p2pServer device surrounding.\
-**Step 8.** On the Web Bluetooth interface you can see devices appearing.
-![Step 8](illustrations/routerDevAppear.png "Step 8")  
-**Step 9.** On p2pServer device, a click on B1 send a notification to p2pRouter. 
-This notification message is forwarded to the smartphone and displayed on the interface.
-![Step 9](illustrations/notifON.png "Step 9") 
-**Step 10.** On Web Bluetooth interface click the Light button to write a message to the corresponding p2pServer devices. This write message is sent first to p2pRouter and then routed to its destination.
-![Step 10](illustrations/lightON.png "Step 10") 
-
-***
-
 # **Troubleshooting**  
 
 Caution : Issues and the pull-requests are not supported to submit problems or suggestions related to the software delivered in this repository. This example is being delivered as-is, and not necessarily supported by ST.
 
 For any other question related to the product, the hardware performance or characteristics, the tools, the environment, you can submit it to the ST Community on the STM32 MCUs related [page](https://community.st.com/s/topic/0TO0X000000BSqSWAW/stm32-mcus "https://community.st.com/s/topic/0TO0X000000BSqSWAW/stm32-mcus").
+# Web_Bluetooth_App_WB
