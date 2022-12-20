@@ -117,9 +117,8 @@ The [BLE_ApplicationInstallManager]() application, associated to a BLE applicati
 
 The BLE_ApplicationInstallManager application must run with BLE applications embedding OTA service like: [BLE_HeartRate_ota]() or [BLE_p2pServer_ota]() applications.
 
-BLE_ApplicationInstallManager is loaded at the memory address *0x08000000* and BLE_HeartRate_ota or BLE_p2pServer_ota application is loaded at the memory address *0x08004000*.
-
-
+BLE_ApplicationInstallManager is loaded at the memory address *0x08000000*.
+BLE_HeartRate_ota or BLE_p2pServer_ota application is loaded at the memory address *0x08004000*.
 
 ### **Follow the next steps to learn how to use the application Firmware Update Over The Air.**  
 **Step 1.** Power on the STM32WBA board with the Ota application flashed in and activate the bluetooth® on your machine.   
@@ -216,9 +215,9 @@ You need a P2Prouter running on a STM32WBA52 and at least another STM32WBAxx / S
 ![Step 8](illustrations/routerDevAppear.PNG "Step 8")  
 **Step 9.** On p2pServer device, a click on B1 send a notification to p2pRouter. 
 This notification message is forwarded to the smartphone and displayed on the interface.\
-![Step 9](illustrations/notifON.PNG "Step 9")\
-**Step 10.** On Web Bluetooth interface click the Light button to write a message to the corresponding p2pServer devices. This write message is sent first to p2pRouter and then routed to its destination.
-![Step 10](illustrations/lightON.PNG "Step 10") 
+![Step 9](illustrations/notifON.PNG "Step 9").\
+**Step 10.** On Web Bluetooth interface click the Light button to write a message to the corresponding p2pServer devices. This write message is sent first to p2pRouter and then routed to its destination.\
+![Step 10](illustrations/lightOn.PNG "Step 10").
 
 
 For more information about this application, please refer to [STM32 P2P Server](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer").
