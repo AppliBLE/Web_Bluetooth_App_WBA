@@ -215,9 +215,9 @@ You need a P2Prouter running on a STM32WBA52 and at least another STM32WBAxx / S
 ![Step 8](illustrations/routerDevAppear.PNG "Step 8")  
 **Step 9.** On p2pServer device, a click on B1 send a notification to p2pRouter. 
 This notification message is forwarded to the smartphone and displayed on the interface.\
-![Step 9](illustrations/notifON.PNG "Step 9").\
+![Step 9](illustrations/notifON.PNG "Step 9")\
 **Step 10.** On Web Bluetooth interface click the Light button to write a message to the corresponding p2pServer devices. This write message is sent first to p2pRouter and then routed to its destination.\
-![Step 10](illustrations/lightOn.PNG "Step 10").
+![Step 10](illustrations/lightOn.png "Step 10")
 
 
 For more information about this application, please refer to [STM32 P2P Server](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer").
