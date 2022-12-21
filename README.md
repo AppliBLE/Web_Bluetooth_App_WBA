@@ -94,7 +94,7 @@ BLE_HeartRate_ota or BLE_p2pServer_ota application is loaded at the memory addre
 ![Action Choice](illustrations/OTA-update-choice.png "Action Choice")  
 **Step 5.** Select the binary to be downloaded.
 
-![Choose File](illustrations/OTAchooseFile.PNG "Choose File")  
+![Choose File](illustrations/OTAchooseFile.PNG "Choose File") 
 **Step 6. (Not mandatory)** Choose the first sector address from which the file will be write.  
 **Step 7.** Click on the upload button and wait for the disconnection.  
 ![Start Sector](illustrations/startSector.PNG "Start Sector")  
