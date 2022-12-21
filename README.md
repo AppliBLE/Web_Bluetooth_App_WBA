@@ -1,4 +1,4 @@
-# **STM32WB Web Bluetooth App Interfaces**
+# **STM32WBA Web Bluetooth App Interfaces**
 
 # **Introduction**
 
@@ -117,8 +117,8 @@ Example with the [NUCLEO-WBA52]() board.
 
 ### **Follow the next steps to learn how to use the application HeartRate**
 
-**Step 1.** Power on the STM32WB board with the HeartRate application flashed in and activate the bluetooth® on your machine.   
-**Step 2.** Open [this](https://applible.github.io/Web_Bluetooth_App "https://applible.github.io/Web_Bluetooth_App") web page in your browser.  
+**Step 1.** Power on the STM32WBA board with the HeartRate application flashed in and activate the bluetooth® on your machine.   
+**Step 2.** Open [this](https://applible.github.io/Web_Bluetooth_App_WBA "https://applible.github.io/Web_Bluetooth_App_WBA") web page in your browser.  
 **Step 3.** Click on the connect button then select HRSTM in the device list and click pair.  
 *You are now connected*  
 **Step 4.** Click on HeartRate to show the interface and **don't hesitate to read the tooltips**.  
@@ -142,8 +142,8 @@ Example with the [NUCLEO-WBA52]() board.
 
 ### **Follow the next steps to learn how to use the application Data Throughput**
 
-**Step 1.** Power on the STM32WB board with the Data Throughput application flashed in and activate the bluetooth® on your machine.   
-**Step 2.** Open [this](https://applible.github.io/Web_Bluetooth_App/ "https://applible.github.io/Web_Bluetooth_App") web page in your browser.  
+**Step 1.** Power on the STM32WBA board with the Data Throughput application flashed in and activate the bluetooth® on your machine.   
+**Step 2.** Open [this](https://applible.github.io/Web_Bluetooth_App_WBA/ "https://applible.github.io/Web_Bluetooth_App_WBA") web page in your browser.  
 **Step 3.** Click on the connect button then select DT_SERVER in the device list and click pair.  
 *You are now connected*  
 **Step 4.** Click on Data Throughput to show the interface and **don't hesitate to read the tooltips**.  
