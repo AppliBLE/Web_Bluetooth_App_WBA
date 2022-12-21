@@ -40,41 +40,6 @@ For more information about Bluetooth® LE please refer to the [STMicroelectronic
 
 ***
 
-# **Usage**
-
-A github page hosting the web app is available [here](https://AppliBLE.github.io/Web_Bluetooth_App "https://AppliBLE.github.io/Web_Bluetooth_App").
-No installation is required to use it this way.
-
-You can host locally the server to update the source code, see Development mode section.
-
-***
-
-# **Development mode**
-
-To run the project in development mode, first be sure npm (node package manager) is installed on your machine.  
-Open a terminal and write the following command:  
-`npm -v` 
-
-If npm is not installed on your machine, install [Node.js](https://nodejs.org/en/download/ "https://nodejs.org/en/download/") then clone this repo and go to its root directory then proceed the following commands in a terminal:  
-
-To install all the dependencies:  
-`npm install`
-
-To start the application:  
-`npm start`
-
-Then open a compatible browser and go to http://localhost:3000
-
-***
-
-# **Browser compatibility with the API Web Bluetooth®.**
-
-On a **desktop** computer: Chrome, Edge and Opera browsers are compatible.  
-On a **smartphone** device: Chrome android is the only browser compatible.  
-See https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API documentation.
-You may need to enable experimental web platform features in your browser preference.
-
-***
 
 # **User's guide**
 
