@@ -5,13 +5,13 @@
 This is a web interface created with [React 18](https://reactjs.org/ "https://reactjs.org/") and [Bootstrap 5](https://getbootstrap.com/ "https://getbootstrap.com/").  
 This web interface using Web Bluetooth® APIs can be used to establish a Bluetooth® LE connection and exchange data with a STM32WBA board
 
-STM32WBA firmware applications that could be downloaded to interact with this Web Bluetooth application:  
+Here is the list of STM32WBA applications supported by this Bluetooth web application:
 
--	[P2Pserver](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer")
--	[HeartRate](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_HeartRate "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_HeartRate")
--	[Firmware Update Over The Air](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_FUOTA "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_FUOTA")
--	[Data Throughput](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput")
--   [P2Prouter](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer")
+-	Peer To Peer Server
+-	HeartRate
+-	Firmware Update Over The Air
+-   Data Throughput
+-   Peer To Peer Router
 
 Example of the interface when a connection is established with Firmware Update Over The Air application and HeartRate application
 ![Firmware Update Over The Air on smartphone & Heart Rate on PC](illustrations/pannelExample.PNG "Firmware Update Over The Air on smartphone & Heart Rate on PC")
@@ -66,7 +66,7 @@ Example with the [NUCLEO-WBA52]() board.
 *You can now interact with the connected device.*  
 ![Step 4](illustrations/picture5.png "Step 4")  
 
-For more information about this application, please refer to [STM32 P2P Server](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer").
+For more information about this application, please refer to [STM32WBA P2P Server](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer").
 
 ***
 
@@ -100,7 +100,7 @@ BLE_HeartRate_ota or BLE_p2pServer_ota application is loaded at the memory addre
 ![Start Sector](illustrations/startSector.PNG "Start Sector")  
 *Congratulations, the new Application/Wireless stack is running and can be connected*  
 
-For more information about this application, please refer to [STM32 FUOTA](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_FUOTA "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_FUOTA").
+For more information about this application, please refer to [STM32WBA FUOTA](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_FUOTA "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_FUOTA").
 
 
 ***
@@ -126,7 +126,7 @@ Example with the [NUCLEO-WBA52]() board.
 ![Step 4](illustrations/rightPannel.PNG "Step 4")  
 
 
-For more information about this application, please refer to [STM32 Heart Rate](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_HeartRate#Software_and_system_requirements "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_HeartRate#Software_and_system_requirements").
+For more information about this application, please refer to [STM32WBA Heart Rate](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_HeartRate#Software_and_system_requirements "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_HeartRate#Software_and_system_requirements").
 
 ***
 
@@ -151,7 +151,7 @@ Example with the [NUCLEO-WBA52]() board.
 ![Step 4](illustrations/datathroughput.png "Step 4")  
 
 
-For more information about this application, please refer to [STM32 Data Throughput](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput").
+For more information about this application, please refer to [STM32WBA Data Throughput](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput").
 
 ***
 ## **P2P Router**
@@ -186,7 +186,7 @@ This notification message is forwarded to the smartphone and displayed on the in
 ![Step 10](illustrations/lightOn.png "Step 10")
 
 
-For more information about this application, please refer to [STM32 P2P Server](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer").
+For more information about this application, please refer to [STM32WBA P2P Server](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer").
 
 ***
 
@@ -194,4 +194,4 @@ For more information about this application, please refer to [STM32 P2P Server](
 
 Caution : Issues and the pull-requests are not supported to submit problems or suggestions related to the software delivered in this repository. This example is being delivered as-is, and not necessarily supported by ST.
 
-For any other question related to the product, the hardware performance or characteristics, the tools, the environment, you can submit it to the ST Community on the STM32 MCUs related [page](https://community.st.com/s/topic/0TO0X000000BSqSWAW/stm32-mcus "https://community.st.com/s/topic/0TO0X000000BSqSWAW/stm32-mcus").
+For any other question related to the product, the hardware performance or characteristics, the tools, the environment, you can submit it to the ST Community on the STM32WBA MCUs related [page](https://community.st.com/s/topic/0TO0X000000BSqSWAW/stm32-mcus "https://community.st.com/s/topic/0TO0X000000BSqSWAW/stm32-mcus").
