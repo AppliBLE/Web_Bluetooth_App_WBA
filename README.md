@@ -1,11 +1,19 @@
-# **STM32WBA Web Bluetooth App Interfaces**
+# **STM32WBA Web Bluetooth® App Interfaces**
+
+Two github pages hosting the web app are available:
+-   [Web Bluetooth® **HOME PAGE**](https://applible.github.io/ST-Web-Bluetooth/ "https://applible.github.io/ST-Web-Bluetooth/").
+-   [Web Bluetooth® **STM32WBA**](https://AppliBLE.github.io/Web_Bluetooth_App_WBA "https://AppliBLE.github.io/Web_Bluetooth_App_WBA").
+  
+No installation is required to use it this way.
+
+***
 
 # **Introduction**
 
 This is a web interface created with [React 18](https://reactjs.org/ "https://reactjs.org/") and [Bootstrap 5](https://getbootstrap.com/ "https://getbootstrap.com/").  
 This web interface using Web Bluetooth® APIs can be used to establish a Bluetooth® LE connection and exchange data with a STM32WBA board
 
-Here is the list of STM32WBA applications supported by this Bluetooth web application:
+Here is the list of STM32WBA applications supported by this Bluetooth® web application:
 
 -	Peer To Peer Server
 -	HeartRate
@@ -36,7 +44,7 @@ For more information about STM32CubeWBA Software Architecture click [here](https
 All available binaries files are available [here]().  
 Refer to [UM2237](https://wiki.st.com/stm32mcu/wiki/STM32CubeProg_introduction "https://wiki.st.com/stm32mcu/wiki/STM32CubeProg_introduction") to learn how to install and use STM32CubeProgrammer.  
 
-For more information about Bluetooth® LE please refer to the [STMicroelectronics Bluetooth® LE Wiki](https://wiki.st.com/stm32mcu/wiki/Connectivity:BLE_overview "https://wiki.st.com/stm32mcu/wiki/Connectivity:BLE_overview").
+For more information about Bluetooth® LE please refer to the [STMicroelectronics  Wiki](https://wiki.st.com/stm32mcu/wiki/Connectivity:BLE_overview "https://wiki.st.com/stm32mcu/wiki/Connectivity:BLE_overview").
 
 ***
 
@@ -45,7 +53,7 @@ For more information about Bluetooth® LE please refer to the [STMicroelectronic
 
 ## **Peer To Peer Server**  
 
-The P2P Server application demonstrates a bidirectional BLE communication between a client and a server. The P2P Server interface proposes a set of buttons to interact with the connected device. A reboot panel is available only if a P2P Server service with the reboot OTA characteristic is detected on the device (see the Firmware Update Over The Air section to have more information related to OTA).  
+The P2P Server application demonstrates a bidirectional Bluetooth® LE communication between a client and a server. The P2P Server interface proposes a set of buttons to interact with the connected device. A reboot panel is available only if a P2P Server service with the reboot OTA characteristic is detected on the device (see the Firmware Update Over The Air section to have more information related to OTA).  
 
 ### **Requierements**
 
@@ -78,9 +86,9 @@ The Firmware Update Over The Air (OTA) application allows a remote device to upd
 
 Example with the [NUCLEO-WBA52]() board.  
 
-The [BLE_ApplicationInstallManager]() application, associated to a BLE application embedding OTA service, manages the firmware update over the air of a BLE application.
+The [BLE_ApplicationInstallManager]() application, associated to a Bluetooth® LE application embedding OTA service, manages the firmware update over the air of a Bluetooth® LE application.
 
-The BLE_ApplicationInstallManager application must run with BLE applications embedding OTA service like: [BLE_HeartRate_ota]() or [BLE_p2pServer_ota]() applications.
+The BLE_ApplicationInstallManager application must run with Bluetooth® LE applications embedding OTA service like: [BLE_HeartRate_ota]() or [BLE_p2pServer_ota]() applications.
 
 BLE_ApplicationInstallManager is loaded at the memory address *0x08000000*.
 BLE_HeartRate_ota or BLE_p2pServer_ota application is loaded at the memory address *0x08004000*.
@@ -156,9 +164,9 @@ For more information about this application, please refer to [STM32WBA Data Thro
 ***
 ## **Peer To Peer Router**
 
-The P2P Router application demonstrates STM32WBA acting at the same time as both: BLE central and peripheral, GATT server and client.
+The P2P Router application demonstrates STM32WBA acting at the same time as both: Bluetooth® LE central and peripheral, GATT server and client.
 
-P2P Router application scans to connect to P2P Server devices and accept connection of ST Web Bluetooth app. It will route BLE messages received from both side.
+P2P Router application scans to connect to P2P Server devices and accept connection of ST Web Bluetooth® app. It will route Bluetooth® LE messages received from both side.
 
 ### **Requierements**
 
@@ -177,12 +185,12 @@ You need a P2P Router running on a STM32WBA52 and at least another STM32WBAxx / 
 *You can now interact with the connected device.*  
 **Step 6.** Power up to 7 P2P Server devices next to P2P Router device.\
 **Step 7.** On each click on B1, P2P Router will scan and then connect to a P2P Server device surrounding.\
-**Step 8.** On the Web Bluetooth interface you can see devices appearing.\
+**Step 8.** On the Web Bluetooth® interface you can see devices appearing.\
 ![Step 8](illustrations/routerDevAppear.PNG "Step 8")  
 **Step 9.** On P2P Server device, a click on B1 send a notification to P2P Router. 
 This notification message is forwarded to the smartphone and displayed on the interface.\
 ![Step 9](illustrations/notifON.PNG "Step 9")\
-**Step 10.** On Web Bluetooth interface click the Light button to write a message to the corresponding P2P Server devices. This write message is sent first to P2P Router and then routed to its destination.\
+**Step 10.** On Web Bluetooth® interface click the Light button to write a message to the corresponding P2P Server devices. This write message is sent first to P2P Router and then routed to its destination.\
 ![Step 10](illustrations/lightOn.PNG "Step 10")
 
 
