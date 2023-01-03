@@ -67,7 +67,7 @@ Example with the [NUCLEO-WBA52]() board.
 **Step 1.** Power on the STM32WBA board with the P2P Server application flashed in and activate the bluetooth® on your machine.   
 **Step 2.** Open [this](https://applible.github.io/Web_Bluetooth_App_WBA "https://applible.github.io/Web_Bluetooth_App_WBA") web page in your browser.  
 **Step 3.** Click on the connect button then select P2PS_WBAxx in the device list and click pair.   
-![Step 3](.../public/illustrations/picture0.png "Step 3")  
+![Step 3](/public/illustrations/picture0.png "Step 3")  
 ![Step 3](/Web_Bluetooth_App_WBA_Actual/public/illustrations/Connection_popup.png "Step 3")  
 **Step 4.** Click on P2P Server to show the interface and **don't hesitate to read the tooltips**.  
 *Your are now connected.*  
