@@ -36,16 +36,16 @@ For more information about STM32CubeWBA Software Architecture click [here](https
 All available binaries files are available [here]().  
 Refer to [UM2237](https://wiki.st.com/stm32mcu/wiki/STM32CubeProg_introduction "https://wiki.st.com/stm32mcu/wiki/STM32CubeProg_introduction") to learn how to install and use STM32CubeProgrammer.  
 
-For more information about Bluetooth® LE please refer to the [STMicroelectronics BLE Wiki](https://wiki.st.com/stm32mcu/wiki/Connectivity:BLE_overview "https://wiki.st.com/stm32mcu/wiki/Connectivity:BLE_overview").
+For more information about Bluetooth® LE please refer to the [STMicroelectronics Bluetooth® LE Wiki](https://wiki.st.com/stm32mcu/wiki/Connectivity:BLE_overview "https://wiki.st.com/stm32mcu/wiki/Connectivity:BLE_overview").
 
 ***
 
 
 # **User's guide**
 
-## **P2Pserver**  
+## **Peer To Peer Server**  
 
-The P2Pserver application demonstrates a bidirectional BLE communication between a client and a server. The P2Pserver interface proposes a set of buttons to interact with the connected device. A reboot panel is available only if a P2Pserver service with the reboot OTA characteristic is detected on the device (see the Firmware Update Over The Air section to have more information related to OTA).  
+The P2P Server application demonstrates a bidirectional BLE communication between a client and a server. The P2P Server interface proposes a set of buttons to interact with the connected device. A reboot panel is available only if a P2P Server service with the reboot OTA characteristic is detected on the device (see the Firmware Update Over The Air section to have more information related to OTA).  
 
 ### **Requierements**
 
@@ -54,14 +54,14 @@ Example with the [NUCLEO-WBA52]() board.
 
 [This](https://github.com/STMicroelectronics/STM32CubeWB/tree/master/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_p2pServer/Binary "https://github.com/STMicroelectronics/STM32CubeWB/tree/master/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_p2pServer/Binary") binary file has to be flashed in the microcontroller.  
 
-### **Follow the next steps to learn how to use the application P2Pserver**
+### **Follow the next steps to learn how to use the application P2P Server**
 
-**Step 1.** Power on the STM32WBA board with the P2Pserver application flashed in and activate the bluetooth® on your machine.   
+**Step 1.** Power on the STM32WBA board with the P2P Server application flashed in and activate the bluetooth® on your machine.   
 **Step 2.** Open [this](https://applible.github.io/Web_Bluetooth_App_WBA "https://applible.github.io/Web_Bluetooth_App_WBA") web page in your browser.  
 **Step 3.** Click on the connect button then select P2PS_WBAxx in the device list and click pair.   
 ![Step 3](illustrations/picture0.png "Step 3")  
 ![Step 3](illustrations/Connection_popup.png "Step 3")  
-**Step 4.** Click on P2Pserver to show the interface and **don't hesitate to read the tooltips**.  
+**Step 4.** Click on P2P Server to show the interface and **don't hesitate to read the tooltips**.  
 *Your are now connected.*  
 *You can now interact with the connected device.*  
 ![Step 4](illustrations/picture5.png "Step 4")  
@@ -154,39 +154,39 @@ Example with the [NUCLEO-WBA52]() board.
 For more information about this application, please refer to [STM32WBA Data Throughput](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput").
 
 ***
-## **P2P Router**
+## **Peer To Peer Router**
 
-The P2Prouter application demonstrates STM32WBA acting at the same time as both: BLE central and peripheral, GATT server and client.
+The P2P Router application demonstrates STM32WBA acting at the same time as both: BLE central and peripheral, GATT server and client.
 
-P2Prouter application scans to connect to P2Pserver devices and accept connection of ST Web Bluetooth app. It will route BLE messages received from both side.
+P2P Router application scans to connect to P2P Server devices and accept connection of ST Web Bluetooth app. It will route BLE messages received from both side.
 
 ### **Requierements**
 
-Example with one [NUCLEO-WBA52]() board as a P2Prouter, two [NUCLEO-WBA52]()  and one [P-NUCLEO-WB55](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") boards as P2Pserver.  
+Example with one [NUCLEO-WBA52]() board as a P2P Router, two [NUCLEO-WBA52]()  and one [P-NUCLEO-WB55](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") boards as P2P Server.  
 
-You need a P2Prouter running on a STM32WBA52 and at least another STM32WBAxx / STM32WB Nucleo board to run a p2pServer application.
+You need a P2P Router running on a STM32WBA52 and at least another STM32WBAxx / STM32WB Nucleo board to run a P2P Server application.
 
-### **Follow the next steps to learn how to use the application P2Prouter**
+### **Follow the next steps to learn how to use the application P2P Router**
 
-**Step 1.** Power the board with the p2pRouter application flash and the others boards running the P2Pserver apps.\
+**Step 1.** Power the board with the P2P Router application flash and the others boards running the P2P Server apps.\
 **Step 2.** Activate the bluetooth® on your machine.   
 **Step 3.** Open [this](https://applible.github.io/Web_Bluetooth_App/ "https://applible.github.io/Web_Bluetooth_App") web page in your browser.  
 **Step 4.** Click on the connect button then select P2PR_WBAxx in the device list and click pair.  
 *You are now connected*  
 **Step 5.** Click on P2P Router to show the interface and click the Start button.
 *You can now interact with the connected device.*  
-**Step 6.** Power up to 7 p2pServer devices next to p2pRouter device.\
-**Step 7.** On each click on B1, p2pRouter will scan and then connect to a p2pServer device surrounding.\
+**Step 6.** Power up to 7 P2P Server devices next to P2P Router device.\
+**Step 7.** On each click on B1, P2P Router will scan and then connect to a P2P Server device surrounding.\
 **Step 8.** On the Web Bluetooth interface you can see devices appearing.\
 ![Step 8](illustrations/routerDevAppear.PNG "Step 8")  
-**Step 9.** On p2pServer device, a click on B1 send a notification to p2pRouter. 
+**Step 9.** On P2P Server device, a click on B1 send a notification to P2P Router. 
 This notification message is forwarded to the smartphone and displayed on the interface.\
 ![Step 9](illustrations/notifON.PNG "Step 9")\
-**Step 10.** On Web Bluetooth interface click the Light button to write a message to the corresponding p2pServer devices. This write message is sent first to p2pRouter and then routed to its destination.\
+**Step 10.** On Web Bluetooth interface click the Light button to write a message to the corresponding P2P Server devices. This write message is sent first to P2P Router and then routed to its destination.\
 ![Step 10](illustrations/lightOn.PNG "Step 10")
 
 
-For more information about this application, please refer to [STM32WBA P2P Server](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer").
+For more information about this application, please refer to [STM32WBA P2P Router](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer").
 
 ***
 
