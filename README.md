@@ -22,7 +22,7 @@ Here is the list of STM32WBA applications supported by this Bluetooth® web appl
 -   Peer To Peer Router
 
 Example of the interface when a connection is established with Firmware Update Over The Air application and HeartRate application
-![Firmware Update Over The Air on smartphone & Heart Rate on PC](illustrations/pannelExample.PNG "Firmware Update Over The Air on smartphone & Heart Rate on PC")
+![Firmware Update Over The Air on smartphone & Heart Rate on PC](/STM32WBA-Web-Bluetooth-App-Interfaces/public/illustrations/pannelExample.PNG "Firmware Update Over The Air on smartphone & Heart Rate on PC")
 
 ***
 
@@ -67,12 +67,12 @@ Example with the [NUCLEO-WBA52]() board.
 **Step 1.** Power on the STM32WBA board with the P2P Server application flashed in and activate the bluetooth® on your machine.   
 **Step 2.** Open [this](https://applible.github.io/Web_Bluetooth_App_WBA "https://applible.github.io/Web_Bluetooth_App_WBA") web page in your browser.  
 **Step 3.** Click on the connect button then select P2PS_WBAxx in the device list and click pair.   
-![Step 3](illustrations/picture0.png "Step 3")  
-![Step 3](illustrations/Connection_popup.png "Step 3")  
+![Step 3](/STM32WBA-Web-Bluetooth-App-Interfaces/public/illustrations/picture0.png "Step 3")  
+![Step 3](/STM32WBA-Web-Bluetooth-App-Interfaces/public/illustrations/Connection_popup.png "Step 3")  
 **Step 4.** Click on P2P Server to show the interface and **don't hesitate to read the tooltips**.  
 *Your are now connected.*  
 *You can now interact with the connected device.*  
-![Step 4](illustrations/picture5.png "Step 4")  
+![Step 4](/STM32WBA-Web-Bluetooth-App-Interfaces/public/illustrations/picture5.png "Step 4")  
 
 For more information about this application, please refer to [STM32WBA P2P Server](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer").
 
@@ -99,14 +99,14 @@ BLE_HeartRate_ota or BLE_p2pServer_ota application is loaded at the memory addre
 **Step 3.** Click on the connect button then select your device list and click pair.  
 *You are now connected*  
 **Step 4.** Choose between updating the User Configuration Data and the Application.  
-![Action Choice](illustrations/OTA-update-choice.png "Action Choice")  
+![Action Choice](/STM32WBA-Web-Bluetooth-App-Interfaces/public/illustrations/OTA-update-choice.png "Action Choice")  
 **Step 5.** Select the binary to be downloaded.
 
-![Choose File](illustrations/OTAchooseFile.PNG "Choose File") 
+![Choose File](/STM32WBA-Web-Bluetooth-App-Interfaces/public/illustrations/OTAchooseFile.PNG "Choose File") 
 
 **Step 6. (Not mandatory)** Choose the first sector address from which the file will be write.  
 **Step 7.** Click on the upload button and wait for the disconnection.  
-![Start Sector](illustrations/startSector.PNG "Start Sector")  
+![Start Sector](/STM32WBA-Web-Bluetooth-App-Interfaces/public/illustrations/startSector.PNG "Start Sector")  
 *Congratulations, the new Application/Wireless stack is running and can be connected*  
 
 For more information about this application, please refer to [STM32WBA FUOTA](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_FUOTA "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_FUOTA").
@@ -132,7 +132,7 @@ Example with the [NUCLEO-WBA52]() board.
 *You are now connected*  
 **Step 4.** Click on HeartRate to show the interface and **don't hesitate to read the tooltips**.  
 *You can now interact with the connected device.*  
-![Step 4](illustrations/rightPannel.PNG "Step 4")  
+![Step 4](/STM32WBA-Web-Bluetooth-App-Interfaces/public/illustrations/rightPannel.PNG "Step 4")  
 
 
 For more information about this application, please refer to [STM32WBA Heart Rate](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_HeartRate#Software_and_system_requirements "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_HeartRate#Software_and_system_requirements").
@@ -157,7 +157,7 @@ Example with the [NUCLEO-WBA52]() board.
 *You are now connected*  
 **Step 4.** Click on Data Throughput to show the interface and **don't hesitate to read the tooltips**.  
 *You can now interact with the connected device.*  
-![Step 4](illustrations/datathroughput.png "Step 4")  
+![Step 4](/STM32WBA-Web-Bluetooth-App-Interfaces/public/illustrations/datathroughput.png "Step 4")  
 
 
 For more information about this application, please refer to [STM32WBA Data Throughput](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput").
@@ -187,12 +187,12 @@ You need a P2P Router running on a STM32WBA52 and at least another STM32WBAxx / 
 **Step 6.** Power up to 7 P2P Server devices next to P2P Router device.\
 **Step 7.** On each click on B1, P2P Router will scan and then connect to a P2P Server device surrounding.\
 **Step 8.** On the Web Bluetooth® interface you can see devices appearing.\
-![Step 8](illustrations/routerDevAppear.PNG "Step 8")  
+![Step 8](/STM32WBA-Web-Bluetooth-App-Interfaces/public/illustrations/routerDevAppear.PNG "Step 8")  
 **Step 9.** On P2P Server device, a click on B1 send a notification to P2P Router. 
 This notification message is forwarded to the smartphone and displayed on the interface.\
-![Step 9](illustrations/notifON.PNG "Step 9")\
+![Step 9](/STM32WBA-Web-Bluetooth-App-Interfaces/public/illustrations/notifON.PNG "Step 9")\
 **Step 10.** On Web Bluetooth® interface click the Light button to write a message to the corresponding P2P Server devices. This write message is sent first to P2P Router and then routed to its destination.\
-![Step 10](illustrations/lightOn.PNG "Step 10")
+![Step 10](/STM32WBA-Web-Bluetooth-App-Interfaces/public/illustrations/lightOn.PNG "Step 10")
 
 
 For more information about this application, please refer to [STM32WBA P2P Router](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer").
