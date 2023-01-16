@@ -30,19 +30,17 @@ const Header = (props) => {
             myDevice = navigator.bluetooth.requestDevice({
                 filters: 
                 [{
-                    namePrefix: "DT_WBA"        // BLE_DataThroughput
-                }, {
                     namePrefix: "HT_"            // BLE_HealthThermometer
                 }, {
                     namePrefix: "HR_"            // BLE_HeartRate
                 }, {
-                    namePrefix: "P2PS_"           // P2P : Server 
+                    namePrefix: "p2pS_"           // P2P : Server 
                 }, {
-                    namePrefix: "P2PR_"           // P2P : Router
+                    namePrefix: "p2pR_"           // P2P : Router
                 }, {
-                    namePrefix: "P2PSWBA"        // P2P : Server Ext
+                    namePrefix: "p2pSext_"        // P2P : Server Ext
                 }, {
-                    namePrefix: "DT_WBA"        // BLE_DataThroughput
+                    namePrefix: "DT"              // BLE_DataThroughput
                 }],
 
                 optionalServices: ['0000fe40-cc7a-482a-984a-7f2ed5b3e58f', '0000180d-0000-1000-8000-00805f9b34fb','0000fe80-cc7a-482a-984a-7f2ed5b3e58f','0000fe80-8e22-4541-9d4c-21edae82fe80','0000fe20-cc7a-482a-984a-7f2ed5b3e58f', '0000feb0-cc7a-482a-984a-7f2ed5b3e58f'] // service uuid of [P2P service, Heart Rate service, DataThroughput, Ota]

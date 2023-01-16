@@ -2,7 +2,7 @@
 
 Two github pages hosting the web app are available:
 -   [Web Bluetooth® **HOME PAGE**](https://applible.github.io/ST-Web-Bluetooth/ "https://applible.github.io/ST-Web-Bluetooth/").
--   [Web Bluetooth® **STM32WBA**](https://AppliBLE.github.io/Web_Bluetooth_App_WBA "https://AppliBLE.github.io/Web_Bluetooth_App_WBA").
+-   [Web Bluetooth® **STM32WB**](https://AppliBLE.github.io/Web_Bluetooth_App_WB "https://AppliBLE.github.io/Web_Bluetooth_App_WB").
   
 No installation is required to use it this way.
 
@@ -11,7 +11,7 @@ No installation is required to use it this way.
 # **Introduction**
 
 This is a web interface created with [React 18](https://reactjs.org/ "https://reactjs.org/") and [Bootstrap 5](https://getbootstrap.com/ "https://getbootstrap.com/").  
-This web interface using Web Bluetooth® APIs can be used to establish a Bluetooth® LE connection and exchange data with a STM32WBA board
+This web interface using Web Bluetooth® APIs can be used to establish a Bluetooth® LE connection and exchange data with a STM32WBA board.
 
 Here is the list of STM32WBA applications supported by this Bluetooth® web application:
 

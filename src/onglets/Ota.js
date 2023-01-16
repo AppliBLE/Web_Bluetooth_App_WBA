@@ -126,8 +126,7 @@ const Ota = (props) => {
         console.log(nbSector);
       }
       document.getElementById("uploadButton").innerHTML = `<div>Uploading... Please wait</div> <div class="spinner-border text-danger" role="status" style={float:right}></div>`
-   
-      // Send to device the base memory address (sector 7)
+
       writeAddress();
       sliceAndSend();
     }
