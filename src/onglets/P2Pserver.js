@@ -20,7 +20,6 @@ import imagelightOffPink from '../images/lightOffPink.svg';
 import imagelightOnPink from '../images/lightOnPink.svg';
 import iconInfo from '../images/iconInfo.svg';
 import { createLogElement } from "../components/Header";
-import Reboot from '../components/Reboot';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 
 const P2Pserver = (props) => {
@@ -167,7 +166,6 @@ const P2Pserver = (props) => {
   return (
       <div className="container-fluid">
         <div className="container">
-          {rebootCharacteristic === undefined ? null : <Reboot rebootCharacteristic={rebootCharacteristic}></Reboot>}    
           <div className='row justify-content-center mt-3'>
             <div className='col-xs-6 col-sm-6 col-md-4 col-lg-4 m-2'>
               <div className='d-flex flex-row'>

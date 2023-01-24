@@ -15,7 +15,6 @@
 //  ******************************************************************************
 import React, { useState, useRef, useEffect } from 'react';
 import { createLogElement } from "../components/Header";
-import Reboot from '../components/Reboot.js';
 import { Chart, registerables } from 'chart.js';
 import iconInfo from '../images/iconInfo.svg';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
@@ -27,7 +26,7 @@ const HeartRate = (props) => {
     let notifyCharacteristic; // 00002a37-0000-1000-8000-00805f9b34fb
     let readCharacteristic; // 00002a38-0000-1000-8000-00805f9b34fb
     let writeCharacteristic; // 00002a39-0000-1000-8000-00805f9b34fbs
-    let rebootCharacteristic;
+    //let rebootCharacteristic;
     let displayRebootPanel = "none";
     let heartRateDataSet = [];
     let heartRateTime = [];
@@ -113,10 +112,10 @@ const HeartRate = (props) => {
             case "00002a39-0000-1000-8000-00805f9b34fb" : 
                 writeCharacteristic = element;
             break;
-            case "0000fe11-8e22-4541-9d4c-21edae82ed19":
+           /* case "0000fe11-8e22-4541-9d4c-21edae82ed19":
                 rebootCharacteristic = element;
                 displayRebootPanel = "block";
-            break;
+            break;*/
             default:
                 console.log("# No characteristics find..");
         }
@@ -227,7 +226,6 @@ const HeartRate = (props) => {
     return (
     <div className="container-fluid">
         <div className="container">
-            {rebootCharacteristic === undefined ? null : <Reboot rebootCharacteristic={rebootCharacteristic}></Reboot>}
             <div className='row justify-content-center mt-3'>
                 <div className='d-grid col-xs-6 col-sm-6 col-md-4 col-lg-4 m-2' >
                 <div className='d-flex flex-row'>

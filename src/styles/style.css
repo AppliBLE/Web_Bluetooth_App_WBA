@@ -35,7 +35,6 @@ img {
 }
 
 
-
 .logoST{
 	margin: 5px;
 	width: 16em;
@@ -574,3 +573,85 @@ tr:last-child td {
 
 
 
+
+/*#################  HEALTH THERMOMETER ################*/
+
+.rcorners1 {
+	border-radius: 15px 50px 30px 5px;
+	background: #73AD21;
+	padding: 20px; 
+	width: 200px;
+	height: 150px; 
+  }
+  
+  .rcorners2 {
+	border-radius: 15px 50px 30px;
+	background: #73AD21;
+	padding: 20px; 
+	width: 200px;
+	height: 150px; 
+	direction: column;
+  }
+  
+ 
+  
+  .rcorners4 {
+	border-radius: 15px;
+	background: #73AD21;
+	padding: 20px; 
+	width: 200px;
+	height: 150px; 
+  } 
+
+
+  .rcorners3 {
+	border-radius: 10px 30px;
+	background: #03234B;
+	padding: 20px; 
+	margin: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: auto;
+	width: 500px;
+  } 
+
+  .tempContainer {
+	flex-direction: row;
+	display: flex;
+  	justify-content: space-evenly;
+	color: white;
+	font-weight: 400;
+  }
+
+  .tempInfo {
+	color: white;
+	margin-top: 10px;
+	margin-bottom: 6px;
+	width: 33%;
+  }
+
+  .tempTitle {
+	font-weight: 800;
+	text-decoration: underline;
+	display: flex;
+  }
+
+  .tempSubTitle{
+	font-weight: 700;
+  }
+
+  .tempPannel {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+  }
+
+  .gap{
+	width: 20%;
+  }
+
+  .underlineTitle{
+	width: 80%;
+  }

@@ -20,6 +20,7 @@ import HeartRate from './onglets/HeartRate';
 import P2Pserver from './onglets/P2Pserver';
 import P2Prouter from './onglets/P2Prouter';
 import Ota from './onglets/Ota';
+import HealthThermometer from './onglets/HT';
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import './styles/style.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -50,6 +51,9 @@ allServices.map(service => {
   if(service.service.uuid === "0000fe20-cc7a-482a-984a-7f2ed5b3e58f"){
     listItems.push(<li className="liProfile"><Link to="/OTA">Firmware Update Over The Air</Link></li>);
   }
+  if(service.service.uuid === "00001809-0000-1000-8000-00805f9b34fb"){
+    listItems.push(<li className="liProfile"><Link to="/HT">Health Thermometer</Link></li>);
+  }
 });
 
 
@@ -70,6 +74,7 @@ allServices.map(service => {
             <Route path="/P2P" element={isDisconnected ? null : <P2Pserver allCharacteristics={allCharacteristics}></P2Pserver>} />
             <Route path="/P2P_ROUTER" element={isDisconnected ? null : <P2Prouter allCharacteristics={allCharacteristics}></P2Prouter>} />
             <Route path="/OTA" element={isDisconnected ? null : <Ota allCharacteristics={allCharacteristics}></Ota>} />
+            <Route path="/HT" element={isDisconnected ? null : <HealthThermometer allCharacteristics={allCharacteristics}></HealthThermometer>} />
           </Routes>
           </div>
       </div>

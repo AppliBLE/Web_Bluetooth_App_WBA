@@ -16,7 +16,6 @@
  ******************************************************************************
  -->
 
-
 <!DOCTYPE html>
 
 <base target="_blank">
@@ -37,21 +36,15 @@
 
     <title>Web bluetooth App WBA</title>
 
-   
   </head>
 
   <body>
     <div id="root"></div>
 
-
-
-
       <div class="row justify-content-center justifyText" id="readmeInfo">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align: left;">
           
-
           <!-- ################ START OF READ ME ##################-->
-
 
           <h1 id="stm32wba-web-bluetooth®-app-interfaces"><strong>STM32WBA Web Bluetooth® App Interfaces</strong></h1>
           <p>Two github pages hosting the web app are available:</p>
@@ -70,6 +63,7 @@
           <li>   Firmware Update Over The Air</li>
           <li>Data Throughput</li>
           <li>Peer To Peer Router</li>
+          <li>Health Thermometer</li>
           </ul>
           <p>Example of the interface when a connection is established with Firmware Update Over The Air application and HeartRate application
           <img src="illustrations/pannelExample.PNG" alt="Firmware Update Over The Air on smartphone &amp; Heart Rate on PC" title="Firmware Update Over The Air on smartphone &amp; Heart Rate on PC"></p>
@@ -107,7 +101,7 @@
           BLE_HeartRate_ota or BLE_p2pServer_ota application is loaded at the memory address <em>0x08004000</em>.</p>
           <h3 id="follow-the-next-steps-to-learn-how-to-use-the-application-firmware-update-over-the-air"><strong>Follow the next steps to learn how to use the application Firmware Update Over The Air.</strong></h3>
           <p><strong>Step 1.</strong> Power on the STM32WBA board with the Ota application flashed in and activate the bluetooth® on your machine.<br><strong>Step 2.</strong> Open <a href="https://applible.github.io/Web_Bluetooth_App_WBA" title="https://applible.github.io/Web_Bluetooth_App">this</a> web page in your browser.<br><strong>Step 3.</strong> Click on the connect button then select your device list and click pair.<br><em>You are now connected</em><br><strong>Step 4.</strong> Choose between updating the User Configuration Data and the Application.<br><strong>Step 5.</strong> Select the binary to be downloaded.
-          <strong>Step 6. (Not mandatory)</strong> Choose the first sector address from which the file will be write.<br><strong>Step 7.</strong> Click on the upload button and wait for the disconnection.<br><img src="illustrations/FUOTAInterface.png" alt="FUOTA interface" title="FUOTA Interface"><br><em>Congratulations, the new Application/Wireless stack is running and can be connected</em>  </p>
+          <strong>Step 6. (Not mandatory)</strong> Choose the first sector address from which the file will be write.<br><strong>Step 7.</strong> Click on the upload button and wait for the disconnection.<br><img src="illustrations/FUOTAInterface.PNG" alt="FUOTA interface" title="FUOTA Interface"><br><em>Congratulations, the new Application/Wireless stack is running and can be connected</em>  </p>
           <p>For more information about this application, please refer to <a href="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_FUOTA" title="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_FUOTA">STM32WBA FUOTA</a>.</p>
           <hr>
           <h2 id="heartrate"><strong>HeartRate</strong></h2>
@@ -139,6 +133,17 @@
           <em>You can now interact with the connected device.</em><br><strong>Step 6.</strong> Power up to 7 P2P Server devices next to P2P Router device.<br><strong>Step 7.</strong> On each click on B1, P2P Router will scan and then connect to a P2P Server device surrounding.<br><strong>Step 8.</strong> On the Web Bluetooth® interface you can see devices appearing.<br><img src="illustrations/routerDevAppear.PNG" alt="Step 8" title="Step 8"><br><strong>Step 9.</strong> On P2P Server device, a click on B1 send a notification to P2P Router. 
           This notification message is forwarded to the smartphone and displayed on the interface.<br><img src="illustrations/notifON.PNG" alt="Step 9" title="Step 9"><br><strong>Step 10.</strong> On Web Bluetooth® interface click the Light button to write a message to the corresponding P2P Server devices. This write message is sent first to P2P Router and then routed to its destination.<br><img src="illustrations/lightOn.PNG" alt="Step 10" title="Step 10"></p>
           <p>For more information about this application, please refer to <a href="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer" title="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer">STM32WBA P2P Router</a>.</p>
+          <hr>
+          <h2 id="health-thermometer"><strong>Health Thermometer</strong></h2>
+          <p>The Health Thermometer Profile is used to enable a data collection device to obtain data from a thermometer sensor that exposes the Health Thermometer Service.</p>
+          <p>This specification is compatible with any Bluetooth® core specification host [3] that includes the Generic Attribute Profile (GATT) specification and the Bluetooth® Low Energy Controller specification.</p>
+          <h3 id="requierements-5"><strong>Requierements</strong></h3>
+          <p>Example with the <a href="">NUCLEO-WBA52</a> board.  </p>
+          <p><a href="">This</a> binary file has to be flashed in the microcontroller.  </p>
+          <h3 id="follow-the-next-steps-to-learn-how-to-use-the-application-health-thermometer"><strong>Follow the next steps to learn how to use the application Health Thermometer</strong></h3>
+          <p><strong>Step 1.</strong> Power on the STM32WBA board with the Health Thermometer application flashed in and activate the bluetooth® on your machine.<br><strong>Step 2.</strong> Open <a href="https://applible.github.io/Web_Bluetooth_App_WBA/" title="https://applible.github.io/Web_Bluetooth_App_WBA">this</a> web page in your browser.<br><strong>Step 3.</strong> Click on the connect button then select HT_xx in the device list and click pair.<br><em>You are now connected</em><br><strong>Step 4.</strong> Click on Health Thermometer to show the interface. 
+          <img src="illustrations/HT.PNG" alt="Step 4" title="Step 4">  </p>
+          <p>For more information about this application, please refer to <a href="">STM32WBA Health Thermometer</a>.</p>
           <hr>
           <h1 id="troubleshooting"><strong>Troubleshooting</strong></h1>
           <p>Caution : Issues and the pull-requests are not supported to submit problems or suggestions related to the software delivered in this repository. This example is being delivered as-is, and not necessarily supported by ST.</p>
