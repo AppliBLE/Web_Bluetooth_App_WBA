@@ -91,7 +91,7 @@ The [BLE_ApplicationInstallManager]() application, associated to a Bluetooth® L
 The BLE_ApplicationInstallManager application must run with Bluetooth® LE applications embedding OTA service like: [BLE_HeartRate_ota]() or [BLE_p2pServer_ota]() applications.
 
 BLE_ApplicationInstallManager is loaded at the memory address *0x08000000*.
-BLE_HeartRate_ota or BLE_p2pServer_ota application is loaded at the memory address *0x08004000*.
+BLE_HeartRate_ota or BLE_p2pServer_ota application is loaded at the memory address *0x08006000*.
 
 ### **Follow the next steps to learn how to use the application Firmware Update Over The Air.**  
 **Step 1.** Power on the STM32WBA board with the Ota application flashed in and activate the bluetooth® on your machine.   
