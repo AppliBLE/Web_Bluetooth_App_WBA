@@ -221,7 +221,7 @@ const Ota = (props) => {
         document.getElementById("userDataSelectFilePart").style="display:none";
         document.getElementById("applicationSelectFilePart").style="display:block";
         uploadAction = "002";
-        actionChoice.value = "07C000";
+        actionChoice.value = "080000";
 
         break;
     }
@@ -253,7 +253,7 @@ const Ota = (props) => {
   const popoverApplicationBinary = (
     <Popover id="popover-trigger-hover-focus" title="Popover bottom">
       <strong>Info :</strong> Choose either a file from your device or file fetch from the STMicroelectronics Hotspot. <br />
-      Then choose the first sector address. (default 0x07C000).
+      Then choose the first sector address. (default 0x080000).
     </Popover>
   );
 
