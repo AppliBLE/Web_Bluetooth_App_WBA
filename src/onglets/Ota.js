@@ -90,16 +90,13 @@ const Ota = (props) => {
         hexStringFistPart = parseInt(hexStringFistPart, 16);
         hexStringSecondePart = parseInt(hexStringSecondePart, 16);
         hexStringThirdPart = parseInt(hexStringThirdPart, 16);
-        nbSectorHex = nbSector.toString(16);
 
-        // dec : 002 008 032 000
-        // hex : 02 08 20 00
         let myWord = new Uint8Array(5);
         myWord[0] = uploadAction; // Action 
         myWord[1] = hexStringFistPart; // Address
         myWord[2] = hexStringSecondePart; // Address
         myWord[3] = hexStringThirdPart; // Address
-        myWord[4] = nbSectorHex; // Address
+        myWord[4] = nbSector; // Address
         try {
             await writeAddressCharacteristic.characteristic.writeValue(myWord);
             console.log("Writing >> " + myWord);
