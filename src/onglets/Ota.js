@@ -306,7 +306,7 @@ const Ota = (props) => {
               <input className="form-control fileInput" type="file" onChange={(e) => showFile(e)}></input>
             </div> 
             <div className="input-group mb-3">
-              <span className="input-group-text" id="startSectorChoise">Address 0x</span>
+              <span className="input-group-text" id="startSectorChoise">Address Offset of the new Application 0x</span>
               <input type="text" className="form-control" placeholder="..." aria-describedby="startSectorChoise" maxLength="6" id="startSectorInput" ></input>
             </div>
             <div className="input-group mb-3">

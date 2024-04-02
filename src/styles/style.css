@@ -655,3 +655,12 @@ tr:last-child td {
   .underlineTitle{
 	width: 80%;
   }
+
+  
+  /*#################  Finger Print ################*/
+  #fingericon {
+    fill: black;
+    width: 250px;
+    height: 250px;
+
+  }
