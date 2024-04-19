@@ -22,6 +22,7 @@ import P2Prouter from './onglets/P2Prouter';
 import Ota from './onglets/Ota';
 import HealthThermometer from './onglets/HT';
 import FingerPrint from './onglets/FingerPrint';
+import WifiCommissioning from './onglets/WifiCommissioning';
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import './styles/style.css'
 import 'bootstrap/dist/css/bootstrap.min.css';

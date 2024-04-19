@@ -15,8 +15,6 @@
 //  ******************************************************************************
 
 import React, { useState } from 'react';
-import fanicon from '../images/fan-icon.jpg';
-import imagelightOffPink from '../images/lightOffPink.svg';
 import iconInfo from '../images/iconInfo.svg';
 import { createLogElement } from "../components/Header";
 import { OverlayTrigger, Popover } from 'react-bootstrap';
