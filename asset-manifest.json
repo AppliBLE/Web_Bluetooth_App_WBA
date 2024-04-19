@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Web_Bluetooth_App_WBA/static/css/main.67f47965.css",
-    "main.js": "/Web_Bluetooth_App_WBA/static/js/main.3b5981cf.js",
+    "main.css": "/Web_Bluetooth_App_WBA/static/css/main.7a464c38.css",
+    "main.js": "/Web_Bluetooth_App_WBA/static/js/main.16c12614.js",
     "index.html": "/Web_Bluetooth_App_WBA/index.html",
     "static/media/st-logo.svg": "/Web_Bluetooth_App_WBA/static/media/st-logo.01d65641d9828fd6847ef785b4019063.svg",
     "static/media/lightOnBlue.svg": "/Web_Bluetooth_App_WBA/static/media/lightOnBlue.e4933a8ad55d6eebfa0310c67cde2082.svg",
@@ -10,11 +10,11 @@
     "static/media/iconInfoPink.svg": "/Web_Bluetooth_App_WBA/static/media/iconInfoPink.49d9aa3d6fa6dd9e80201e48b7b701bd.svg",
     "static/media/lightOffBlue.svg": "/Web_Bluetooth_App_WBA/static/media/lightOffBlue.7aca40f9fa79ed781538dbc1f0d55df3.svg",
     "static/media/lightOffPink.svg": "/Web_Bluetooth_App_WBA/static/media/lightOffPink.b14fc70dbf17669d9e7dab5664c4c580.svg",
-    "main.67f47965.css.map": "/Web_Bluetooth_App_WBA/static/css/main.67f47965.css.map",
-    "main.3b5981cf.js.map": "/Web_Bluetooth_App_WBA/static/js/main.3b5981cf.js.map"
+    "main.7a464c38.css.map": "/Web_Bluetooth_App_WBA/static/css/main.7a464c38.css.map",
+    "main.16c12614.js.map": "/Web_Bluetooth_App_WBA/static/js/main.16c12614.js.map"
   },
   "entrypoints": [
-    "static/css/main.67f47965.css",
-    "static/js/main.3b5981cf.js"
+    "static/css/main.7a464c38.css",
+    "static/js/main.16c12614.js"
   ]
 }
