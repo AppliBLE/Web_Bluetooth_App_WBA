@@ -691,3 +691,23 @@ tr:last-child td {
 	flex-direction: column;
 	gap: 10px;
   }
+
+  /*#################  Fan Control ################*/
+
+  .CoolingFan {
+	width: 20%;
+	height: 20%;
+	animation-name: fan-rotate;
+	animation-duration: 0s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+  }
+
+  @keyframes fan-rotate {
+	from {
+	  transform: rotate(360deg);
+	}
+	to {
+	  transform: rotate(0deg);
+	}
+  }
