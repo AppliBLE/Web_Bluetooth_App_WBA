@@ -61,6 +61,9 @@ allServices.map(service => {
   if(service.service.uuid === "0000fec0-cc7a-482a-984a-7f2ed5b3e58f"){
     listItems.push(<li className="liProfile"><Link to="/FP">Finger Print</Link></li>);
   }
+  if(service.service.uuid === "0000ff9a-cc7a-482a-984a-7f2ed5b3e58f"){
+    listItems.push(<li className="liProfile"><Link to="/WCom">Wifi Commissioning</Link></li>);
+  }
 });
 
 
@@ -83,6 +86,7 @@ allServices.map(service => {
             <Route path="/OTA" element={isDisconnected ? null : <Ota allCharacteristics={allCharacteristics}></Ota>} />
             <Route path="/HT" element={isDisconnected ? null : <HealthThermometer allCharacteristics={allCharacteristics}></HealthThermometer>} />
             <Route path="/FP" element={isDisconnected ? null : <FingerPrint allCharacteristics={allCharacteristics}></FingerPrint>} />
+            <Route path="/WCom" element={isDisconnected ? null : <WifiCommissioning allCharacteristics={allCharacteristics}></WifiCommissioning>} />
           </Routes>
           </div>
       </div>
