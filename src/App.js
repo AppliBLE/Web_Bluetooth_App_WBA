@@ -24,6 +24,7 @@ import HealthThermometer from './onglets/HT';
 import FingerPrint from './onglets/FingerPrint';
 import WifiCommissioning from './onglets/WifiCommissioning';
 import FanProject from './onglets/FanProject';
+import HUB_DYN from './onglets/HUB_DYN';
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import './styles/style.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -69,6 +70,9 @@ allServices.map(service => {
   if(service.service.uuid === "00000000-cc7a-482a-984a-7f2ed5b3e58f"){
     listItems.push(<li className="liProfile"><Link to="/FC">Fan Project</Link></li>);
   }
+  if(service.service.uuid === "0000fe90-cc7a-482a-984a-7f2ed5b3e58f"){
+    listItems.push(<li className="liProfile"><Link to="/HUB_DYN">BLE HUB Zigbee</Link></li>);
+  }
 });
 
 
@@ -93,6 +97,7 @@ allServices.map(service => {
             <Route path="/FP" element={isDisconnected ? null : <FingerPrint allCharacteristics={allCharacteristics}></FingerPrint>} />
             <Route path="/WCom" element={isDisconnected ? null : <WifiCommissioning allCharacteristics={allCharacteristics}></WifiCommissioning>} />
             <Route path="/FC" element={isDisconnected ? null : <FanProject allCharacteristics={allCharacteristics}></FanProject>} />
+            <Route path="/HUB_DYN" element={isDisconnected ? null : <HUB_DYN allCharacteristics={allCharacteristics}></HUB_DYN>} />
           </Routes>
           </div>
       </div>
