@@ -49,7 +49,7 @@ const HUB_DYN = (props) => {
     if (test < 1) {
       event.target.value = 1;
     } else if (test > 10) {
-      event.target.value = 1;
+      event.target.value = 10;
     }
     setNumCards(event.target.value);
   }
