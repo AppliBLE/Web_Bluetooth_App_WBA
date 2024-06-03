@@ -47,9 +47,9 @@ const HUB_DYN = (props) => {
   const handleNumCardsChange = (event) => {
     var test = event.target.value;
     if (test < 1) {
-      value = 1;
+      event.target.value = 1;
     } else if (test > 10) {
-      value = 10;
+      event.target.value = 1;
     }
     setNumCards(event.target.value);
   }
@@ -217,7 +217,7 @@ const HUB_DYN = (props) => {
 
             <div className='d-flex flex-row'>
               <button className="defaultButton w-100" type="button" onClick={onNotifyButtonClick} id="notifyButton">Notify OFF</button><div id="containerimg"></div>
-              <button className="defaultButton w-100" type="button" onClick={onJoinButtonClick} id="JoinButton">Join OFF</button><div id="containerimg"></div>
+              <button className="defaultButton w-100" type="button" onClick={onJoinButtonClick} id="JoinButton">Join</button><div id="containerimg"></div>
               <span>
                 <OverlayTrigger
                   trigger={['hover', 'focus']}
