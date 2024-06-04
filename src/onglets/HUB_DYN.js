@@ -56,22 +56,28 @@ const HUB_DYN = (props) => {
 
   function displayImage(j, imageName) {
     // Récupération de l'élément HTML où afficher l'image
-    
     const container = document.getElementById(`${j}myImage`);
     if (!container) {
-        console.error("Element with ID 'myImage' not found in HTML document.");
+        console.error(`Element with ID '${j}myImage' not found in HTML document.`);
         return;
     }
-    // Création de l'élément HTML pour l'image
-    const img = document.createElement('img');
-    img.src = imageName;
-    img.style.position = 'absolute';
-    img.style.width = '50px';
-    img.style.height = '100px';
-    img.style.left = '1000px';
-    // Ajout de l'image au conteneur
-    container.appendChild(img);
+
+    // Vérification de l'existence d'un élément img dans le conteneur
+    let img = container.querySelector('img');
+    if (img) {
+        // Si un élément img existe déjà, mettez à jour son attribut src
+        img.src = imageName;
+    } else {
+        // Sinon, créez un nouvel élément img et ajoutez-le au conteneur
+        img = document.createElement('img');
+        img.src = imageName;
+        img.style.width = '75px';
+        img.style.height = '150px';
+        // img.style.left = '1000px'; // Cette propriété n'est pas nécessaire si l'image doit être dans le conteneur
+        container.appendChild(img);
+    }
 }
+
   //Notify ON/OFF Button
   async function onNotifyButtonClick() {
     let notifStatus = document.getElementById('notifyButton').innerHTML;
@@ -141,56 +147,60 @@ const HUB_DYN = (props) => {
   // Tooltips
   function generateCards() {
     var cardsContainer = document.getElementById("cards-container");
-    cardsContainer.innerHTML = ""; // effacer les cartes précédentes
+    cardsContainer.innerHTML = ""; // Clear previous cards
     for (var i = 0; i < numCards; i++) {
 
       var card = `
-            <div id="${i}sensorName">SENSOR UNKNOW</div>
-            <div className="col-xs-6 col-sm-6 col-md-4 col-lg-4 m-2"></div>
-            <div id="${i}myImage"></div>
-            
-            <div class="card-body">
-              <p class="card-text" id="${i}name"> </p>
-              <p class="card-text" id="${i}sensorId">Sensor ID (Zigbee ntwrk adresse device) : UNKNOW</p>
-              <p class="card-text" id="${i}temperature">Temperature value in Celcius : UNKNOW</p>   
+      <div class="card m-2">
+      <div class="card-header" id="${i}sensorName">
+        SENSOR UNKNOWN
+      </div>
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <p class="card-text" id="${i}name">Name: UNKNOWN</p>
+            <p class="card-text" id="${i}sensorId">Sensor ID (Zigbee network address device): UNKNOWN</p>
+            <p class="card-text" id="${i}temperature">Temperature value in Celsius: UNKNOWN</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div id="${i}myImage">
+          </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" id="${i}renameBtn" onclick="
+          document.getElementById('${i}renameBtn').classList.add('d-none');
+          document.getElementById('${i}renameForm').classList.remove('d-none');
+          document.getElementById('${i}newName').focus();
+        ">Rename</button>
+        <div id="${i}renameForm" class="d-none">
+          <form onsubmit="
+            var newName = document.getElementById('${i}newName').value;
+            if (newName !== '') {
+              console.log(newName);
+              document.getElementById('${i}name').textContent = newName;
+              document.getElementById('${i}renameBtn').classList.remove('d-none');
+              document.getElementById('${i}renameForm').classList.add('d-none');
+            }
+            return false;
+          ">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="${i}newName" placeholder="Enter a new name">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Rename</button>
+                <button class="btn btn-outline-secondary" type="button" onclick="
+                  document.getElementById('${i}renameBtn').classList.remove('d-none');
+                  document.getElementById('${i}renameForm').classList.add('d-none');
+                ">Cancel</button>
               </div>
-              <button class="btn btn-primary" id="${i}renameBtn" onclick=
-              "
-              document.getElementById('${i}renameBtn').classList.add('d-none');
-              document.getElementById('${i}renameForm').classList.remove('d-none');
-              document.getElementById('${i}newName').focus();
-              "
-            >Rename</button>       
-            <div class="card-footer">
-              <small class="text-muted"></small>
             </div>
-            
-            <div id='${i}renameForm' class="d-none">
-            <label>
-              <form onsubmit=
-              "
-              var newName = document.getElementById('${i}newName').value;
-              if (newName !== '') 
-                  {
-                  console.log(newName);
-                  document.getElementById('${i}name').innerHTML = newName;
-                  document.getElementById('${i}renameBtn').classList.remove('d-none');
-                  document.getElementById('${i}renameForm').classList.add('d-none');
-                  } 
-                return false;
-                ">
-                <input type="text" id="${i}newName" placeholder="Enter a new name">
-                <button type="submit">Rename</button>
-                <button type="button" onclick=
-                  "
-                  document.getElementById('${i}renameBtn').classList.remove('d-none');
-                  document.getElementById('${i}renameForm').classList.add('d-none');
-                  "
-                  >Cancel</button>
-              </form>
-              </label>
-            </div>
-            `;
+          </form>
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        Last updated: just now
+      </div>
+    </div>
+      `;
 
       cardsContainer.innerHTML += card;
     }
@@ -198,6 +208,26 @@ const HUB_DYN = (props) => {
     ReportedCharacteristic.characteristic.startNotifications();
     ReportedCharacteristic.characteristic.oncharacteristicvaluechanged = notifHandler;
     document.getElementById('notifyButton').innerHTML = "Notify ON";
+  }
+
+  function toggleRename(index) {
+    var renameBtn = document.getElementById(index + 'renameBtn');
+    var renameForm = document.getElementById(index + 'renameForm');
+    renameBtn.classList.toggle('d-none');
+    renameForm.classList.toggle('d-none');
+    if (!renameForm.classList.contains('d-none')) {
+      document.getElementById(index + 'newName').focus();
+    }
+  }
+  
+  function renameSensor(index) {
+    var newName = document.getElementById(index + 'newName').value;
+    if (newName !== '') {
+      console.log(newName);
+      document.getElementById(index + 'name').textContent = newName;
+      toggleRename(index);
+    }
+    return false; // Prevent form submission
   }
 
   const popoverNotifyButton = (
@@ -209,62 +239,61 @@ const HUB_DYN = (props) => {
   );
 
   return (
-    <div className="container-fluid">
-      <img className="Zigbee" src={Zigbee} style={{ width: '200px', height: '50px' }}></img>
-      <div className="container">
-        <div className='row justify-content-center mt-3'>
-          <div className='d-grid col-xs-6 col-sm-6 col-md-4 col-lg-4 m-2' >
+    <div className="container-fluid bg-light py-4">
 
-            <div className='d-flex flex-row'>
-              <button className="defaultButton w-100" type="button" onClick={onNotifyButtonClick} id="notifyButton">Notify OFF</button><div id="containerimg"></div>
-              <button className="defaultButton w-100" type="button" onClick={onJoinButtonClick} id="JoinButton">Join</button><div id="containerimg"></div>
-              <span>
-                <OverlayTrigger
-                  trigger={['hover', 'focus']}
-                  placement="bottom"
-                  overlay={popoverNotifyButton}>
-                  <img className="iconInfo" src={iconInfo}></img>
-                </OverlayTrigger>
-              </span>
-            </div>
-            
-            <div className="row justify-content-center mt-3">
-              <div className="col-xs-6 col-sm-6 col-md-4 col-lg-4 m-2"></div>
-                <div className="input-group">
-                  <span className="d-flex flex-row"></span>
-                  <input
-                    type="number"
-                    min="1"
-                    max="10"
-                    value={numCards}
-                    onChange={handleNumCardsChange}
-                  />
-                  
-                    <div className="d-flex flex-row">
-                      <button className="defaultButton" class="container-fluid" type="button" onClick={generateCards}>Number of sensor</button>
-                    </div>
-
-                </div>
-            </div>
-            
-
-            <div className='row justify-content-center mt-3'>
-              <div className='col-xs-6 col-sm-6 col-md-4 col-lg-4 m-2'></div>
-              <span className="container-fluid" >Set number of sensor :</span>
-                <p class="container-fluid" id='numCards' >UNKNOW</p>
-            </div>
-          </div>
+    <div className="text-center mb-4">
+      <img className="Zigbee" src={Zigbee} style={{ width: '200px' }} alt="Zigbee Logo"></img>
+    </div>
   
-        </div>
+    <div className="container">
 
-        <div className="card text-dark bg-light mb-3">
-          <div class="container-fluid" style={{ position: "relative" }}>
-            <div id='cards-container'></div>
+      <div className='row justify-content-center mb-4'>
+        <div className='col-md-8 col-lg-6'>
+          <div className='d-flex justify-content-center gap-3 bg-primary p-3 rounded shadow'>
+            <button className="btn btn-light mx-2" type="button" onClick={onNotifyButtonClick} id="notifyButton">Notify OFF</button>
+            <button className="btn btn-light mx-2" type="button" onClick={onJoinButtonClick} id="JoinButton">Join</button>
+            <OverlayTrigger
+              trigger={['hover', 'focus']}
+              placement="bottom"
+              overlay={popoverNotifyButton}>
+              <img className="iconInfo" src={iconInfo} alt="Info" style={{ width: '30px' }}></img>
+            </OverlayTrigger>
           </div>
         </div>
+      </div>
 
+      <div className="row justify-content-center mb-4">
+        <div className="col-md-8 col-lg-6">
+          <div className="input-group">
+            <input
+              type="number"
+              className="form-control"
+              min="1"
+              max="10"
+              value={numCards}
+              onChange={handleNumCardsChange}
+            />
+            <button className="btn btn-primary" type="button" onClick={generateCards}>Number of Sensors</button>
+          </div>
+        </div>
+      </div>
+
+      <div className='row justify-content-center mb-4'>
+        <div className='col-md-8 col-lg-6 text-center'>
+          <div className="p-2 bg-white rounded shadow-sm">
+            <span className="text-secondary">Set number of sensors:</span>
+            <p id='numCards' className="h5 mb-0 font-weight-bold text-primary">UNKNOWN</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="card text-dark bg-light mb-3">
+        <div className="card-body" style={{ position: "relative" }}>
+          <div id='cards-container'></div>
+        </div>
       </div>
     </div>
+  </div>
   );
 
 
