@@ -14,11 +14,20 @@
 //  *
 //  ******************************************************************************
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import iconInfo from '../images/iconInfo.svg';
+import strong_signal from '../images/wifi_strong.svg';
+import good_signal from '../images/wifi_good.svg';
+import weak_signal from '../images/wifi_weak.svg';
+import very_weak_signal from '../images/wifi_very_weak.svg';
+import no_wifi from '../images/no_wifi.svg';
+import wifi_error from '../images/wifi_red.svg';
 import { createLogElement } from "../components/Header";
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 
+let interval_scanning;
+let interval_connection;
+let selectedSsid;
 
 const WifiCommissioning = (props) => {
     let WiFi_Control;
@@ -26,8 +35,7 @@ const WifiCommissioning = (props) => {
     let WiFi_AP_list;
     let Monitoring;
     var ssids;
-    var ssids;
-    var selectedSsid;
+    
 
     props.allCharacteristics.map(element => {
         switch (element.characteristic.uuid) {
@@ -51,11 +59,56 @@ const WifiCommissioning = (props) => {
 
     document.getElementById("readmeInfo").style.display = "none";
 
+    var toggle_scan = 0;
+
+    useEffect(() => {
+      maFonctionInitiale();
+    }, []); // Le tableau de dépendances vide [] indique que l'effet ne s'exécutera qu'après le premier rendu
+  
+    const maFonctionInitiale = () => {
+      //Enable Characteristic Notifications
+      WiFi_AP_list.characteristic.startNotifications();
+      WiFi_AP_list.characteristic.oncharacteristicvaluechanged = notif_Ap_List_Handler;
+      
+      Monitoring.characteristic.startNotifications();
+      Monitoring.characteristic.oncharacteristicvaluechanged = notif_Monitoring_List_Handler;
+    };
+
+    // Toggle scaning state
+    function toggleScanImage() {
+      var wifiList = document.getElementById("wifiList");
+      var image = document.createElement('img');
+      image.src = no_wifi;
+      image.width = 20;
+      image.height = 100; 
+
+      if (toggle_scan === 1) {
+        wifiList.innerHTML = ""; // Effacer le contenu précédent
+        toggle_scan = 0;
+      } else {
+        wifiList.appendChild(image);
+        toggle_scan = 1;
+      }
+    }
+
     //Write Wifi_Control to start scan WiFi
     async function ScanRequestButtonClick() {
       let myWord = new Uint8Array(1);
       myWord[0] = 0x1;
 
+      ////Erase old content
+      document.getElementById("wifiList").innerHTML = "";
+      document.getElementById("Wifi_selected").value = "Select your Wi-Fi";
+      document.getElementById("pwd_text").value = '';
+      document.getElementById("security_mode").innerHTML = '';
+
+      //Start to toggle the Wifi Image
+      if (interval_scanning) {
+        clearInterval(interval_scanning);
+      }
+      interval_scanning = setInterval(toggleScanImage, 500);  
+
+      //Send Write
       try {
           await WiFi_Control.characteristic.writeValue(myWord);
           createLogElement(myWord, 1, "Start scanning");
@@ -64,18 +117,16 @@ const WifiCommissioning = (props) => {
           console.log('2 : Argh! ' + error);
       }
 
-      WiFi_AP_list.characteristic.startNotifications();
-      WiFi_AP_list.characteristic.oncharacteristicvaluechanged = notif_Ap_List_Handler;
+      
 
       console.log("Notification enabled");
     }
 
 
-    // Send SSID and pwd to connect
+    // Send SSID, pwd, security and then connection request
     async function ConnectRequestButtonClick() {
       let encoder = new TextEncoder();
       let wifiSelectedBytes = encoder.encode(document.getElementById("Wifi_selected").value);
-      
       let myWord = new Uint8Array(1+ wifiSelectedBytes.length);
 
       
@@ -83,16 +134,16 @@ const WifiCommissioning = (props) => {
       myWord.set([0x01], 0);
       myWord.set(wifiSelectedBytes, 1);
       
-
       try {
         await WiFi_Configure.characteristic.writeValue(myWord);
-        //createLogElement(myWord, 1, "Start scanning");
         console.log("SSID send : " + myWord);
       }
         catch (error) {
         console.log('2 : Argh! ' + error);
       }
-      
+
+      //Save selected SSID
+      selectedSsid = document.getElementById("Wifi_selected").value;
 
       // Send pwd 
       wifiSelectedBytes = encoder.encode(document.getElementById("pwd_text").value);
@@ -104,8 +155,24 @@ const WifiCommissioning = (props) => {
 
       try {
         await WiFi_Configure.characteristic.writeValue(pwd);
-        //createLogElement(myWord, 1, "Start scanning");
         console.log("pwd send : " + pwd);
+      }
+        catch (error) {
+        console.log('2 : Argh! ' + error);
+      }
+
+      //Send security
+      let securitySelectedBytes = document.getElementById("security_mode").value; //encoder.encode(
+      
+      let mySecurity = new Uint8Array(2);
+
+      mySecurity.set([0x03], 0);
+      mySecurity.set(securitySelectedBytes, 1);
+      
+
+      try {
+        await WiFi_Configure.characteristic.writeValue(mySecurity);
+        console.log("Security send : " + mySecurity);
       }
         catch (error) {
         console.log('2 : Argh! ' + error);
@@ -113,67 +180,155 @@ const WifiCommissioning = (props) => {
 
       //Connect Request
       
+      myWord = new Uint8Array(1);
+      myWord[0] = 0x3;
+
+      try {
+          await WiFi_Control.characteristic.writeValue(myWord);
+          createLogElement(myWord, 1, "Start scanning");
+      }
+      catch (error) {
+          console.log('2 : Argh! ' + error);
+      }
+
+      // Clean all element
+      document.getElementById("wifiList").innerHTML = "";
+      document.getElementById("pwd_text").value = '';
+      document.getElementById("security_mode").innerHTML = '';
+    }
+
+    // Ping Button -> Send Ping Request
+    async function handlePing() {
+      let myWord = new Uint8Array(1);
+      myWord[0] = 0x5;
+
+      try {
+          await WiFi_Control.characteristic.writeValue(myWord);
+          console.log('Ping Write send');
+          createLogElement(myWord, 1, "Start Ping");
+      }
+      catch (error) {
+          console.log('2 : Argh! ' + error);
+      }
+    }
+
+
+    const [showDisconnect, setShowDisconnect] = useState(false);
+
+    //Disconnect Button
+    async function handleDisconnect() {
+      let myWord = new Uint8Array(1);
+      myWord[0] = 0x4;
+
+      try {
+          await WiFi_Control.characteristic.writeValue(myWord);
+          createLogElement(myWord, 1, "Start scanning");
+      }
+      catch (error) {
+          console.log('2 : Argh! ' + error);
+      }
+    
+      // Back to no connection state
+      setShowDisconnect(false);
+      document.getElementById('wifi_state_img').src = no_wifi;
+      updateWifiStatusText('Not connected');
+
+      setShowPingTable(false);
+
     }
 
 
     function afficherWifi() {
       var wifiList = document.getElementById("wifiList");
-      wifiList.innerHTML = ""; // Effacer le contenu précédent
+      wifiList.innerHTML = ""; //Erase old content
     
       for (var i = 0; i < ssids.length; i++) {
-        console.log(ssids);
         var ssid = String.fromCharCode.apply(null, ssids[i].ssid);
+        var signalStrength = ssids[i].signal;
         var wifiItem = document.createElement("div");
         wifiItem.className = "wifiItem";
-        wifiItem.textContent = ssid + " (Canal: " + ssids[i].channel + ", Signal: " + ssids[i].signal + ")";
+        var wifiIcon = document.createElement("img");
+        wifiIcon.className = "wifi-icon";
+
+        // Icon selection depending of signal strength
+        if (signalStrength > -45) {
+          wifiIcon.src = strong_signal;
+        } else if (signalStrength > -60) {
+          wifiIcon.src = good_signal;
+        } else if (signalStrength > -75) {
+          wifiIcon.src = weak_signal;
+        } else {
+          wifiIcon.src = very_weak_signal;
+        }
+
+        wifiItem.appendChild(wifiIcon);
+        wifiItem.appendChild(document.createTextNode(ssid + " (Canal: " + ssids[i].channel + ")"));
+
+        //Wifi selection logic
         wifiItem.onclick = function(ssid,security) {
-          
           return function() {
-            // Ajouter la logique de sélection ici
-            selectedSsid = ssid;
+            //selectedSsid = ssid;
             document.getElementById("Wifi_selected").value = ssid;
             console.log("SSID sélectionné : " + ssid);
             console.log(security);
             updateSecurityModes(security);
           };
         }(ssid, ssids[i].security);
+
         wifiList.appendChild(wifiItem);
       }
     }
 
     const SECURITY_MODES = {
       //0: 'WLAN_SECURITY_WEP',
-      1: 'WLAN_SECURITY_WPA_PSK',
-      2: 'WLAN_SECURITY_WPA_EAP',
-      3: 'WLAN_SECURITY_WPA2_PSK',
-      4: 'WLAN_SECURITY_WPA2_EAP',
-      5: 'WLAN_SECURITY_WPA3',
-      6: 'WLAN_SECURITY_OWE',
+      //1: 'WLAN_SECURITY_WPA_PSK',
+      //2: 'WLAN_SECURITY_WPA_EAP',
+      3: 'WPA_2', //'WLAN_SECURITY_WPA2_PSK',
+      4: 'WPA_2', //'WLAN_SECURITY_WPA2_EAP',
+      5: 'WPA_3', //'WLAN_SECURITY_WPA3',
+      6: 'OWE', //WLAN_SECURITY_OWE',
       //7: 'WLAN_SECURITY_DPP',
       //8: 'WLAN_SECURITY_PSK_SHA256',
-      9: 'WLAN_SECURITY_WPA3_EAP',
+      //9: 'WLAN_SECURITY_WPA3_EAP',
       //10: 'WLAN_SECURITY_SAE_PK',
       //11: 'WLAN_SECURITY_SAE_H2E'
     };
 
     function updateSecurityModes(securityByte) {
       var securitySelect = document.getElementById('security_mode');
-      securitySelect.innerHTML = ''; // Effacer les options précédentes
+      securitySelect.innerHTML = ''; //Erase old content
+
+      var noSecurity = 1;
     
-      // Générer les options basées sur les bits de sécurité
       for (var bit = 0; bit < 12; bit++) {
-        if (securityByte & (1 << bit)) { // Si le bit est à 1
+        if (securityByte & (1 << bit)) { 
+          noSecurity = 0;
           var modeName = SECURITY_MODES[bit];
           if (modeName) {
             var option = document.createElement('option');
-            option.value = modeName;
+            option.value = bit;
             option.textContent = modeName;
             securitySelect.appendChild(option);
           }
         }
       }
+
+      if(noSecurity){
+        var option = document.createElement('option');
+        option.value = 0;
+        option.textContent = 'Open';
+        securitySelect.appendChild(option);
+      }
     }
 
+
+    
+
+
+    const [showPingTable, setShowPingTable] = useState(false);
+    const [pingDelays, setPingDelays] = useState([0, 0, 0, 0]); // Les valeurs initiales sont toutes à 0
+
+    /* API List handler */
     function notif_Ap_List_Handler(event){
       console.log("Notification received");
       var buf = new Uint8Array(event.target.value.buffer);
@@ -224,10 +379,68 @@ const WifiCommissioning = (props) => {
         return b.signal - a.signal; // Compare les niveaux de signal
       });
 
+      clearInterval(interval_scanning);
+      interval_scanning = null;
+
       afficherWifi()
     }
 
 
+
+    function toggleWifiImage() {
+      const wifiImage = document.getElementById('wifi_state_img');
+      const currentSrc = wifiImage.getAttribute('src');
+
+      if (currentSrc === no_wifi) {
+        wifiImage.src = strong_signal;
+      } else {
+        wifiImage.src = no_wifi;
+      }
+    }
+
+
+    /* Monitoring Handler */
+    function notif_Monitoring_List_Handler(event){
+      console.log("Notification received");
+      var buf = new Uint8Array(event.target.value.buffer);
+      
+      createLogElement(buf, 1, "Wifi Monitoring NOTIFICATION RECEIVED");
+
+      if(buf[0] == 0x03){
+        interval_connection = setInterval(toggleWifiImage, 500); 
+        updateWifiStatusText('Try to connect to : ' + selectedSsid);
+
+      }else if(buf[0] == 0x04){
+
+        clearInterval(interval_connection);
+        document.getElementById('wifi_state_img').src = strong_signal;
+        selectedSsid = String.fromCharCode.apply(null, buf.slice(2));
+        updateWifiStatusText('Connected to : ' + selectedSsid);
+
+        setShowDisconnect(true);
+        console.log("What's happen");
+      }else if(buf[0] == 0x05){
+        const newDelays = [buf[1], buf[2], buf[3], buf[4]];
+        setPingDelays(newDelays);
+        setShowPingTable(true);
+      }else if(buf[0] == 0x06){
+        if(buf[1] == 0x01){
+          console.log("Error connection ");
+          clearInterval(interval_connection);
+          document.getElementById('wifi_state_img').src = wifi_error;
+          updateWifiStatusText("Couldn't connect to: " + selectedSsid);
+        }
+      }
+      
+      console.log(buf);
+    }
+
+    const [wifiStatusText, setWifiStatusText] = useState('Not Connected');
+
+    // Update State Wifi Text
+    const updateWifiStatusText = (newStatus) => {
+      setWifiStatusText(newStatus);
+    };
 
 
     const popoverScanButton = (
@@ -245,46 +458,33 @@ const WifiCommissioning = (props) => {
     return (
       <div className="container-fluid">
         <div className="container">
-    
           <div className="row justify-content-center mt-3">
-            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 m-2 mb-6">
-              <div className="d-flex flex-row">
-                <button className="defaultButton w-100" type="button" onClick={ScanRequestButtonClick} id="scanButton">Wi-Fi Scan Request</button>
-                <span>
-                  <OverlayTrigger
-                    trigger={["hover", "focus"]}
-                    placement="bottom"
-                    overlay={popoverScanButton}
-                  >
-                    <img className="iconInfo" src={iconInfo} alt="Info icon" />
-                  </OverlayTrigger>
-                </span>
-              </div>
-              <div className="mt-3">
-                <label htmlFor="Wifi_selected">WiFi Selected : </label>
-                <input type="text" id="Wifi_selected" value="Select your wifi" readOnly style={{backgroundColor: "#f2f2f2"}}/>
-              </div>
-              <div className="mt-3">
-                <label htmlFor="pwd_text">Password : </label>
-                <input type="text" id="pwd_text" />
-              </div>
-              <div className="mt-3">
-                <label htmlFor="security_mode">Security Mode : </label>
-                <select id="security_mode" className="form-control">
-                </select>
-              </div>
-              <div className="d-flex flex-row mt-3">
-                <button className="defaultButton w-100" type="button" onClick={ConnectRequestButtonClick} id="connectButton">Wi-Fi Connection Request</button>
-                <span>
-                  <OverlayTrigger
-                    trigger={["hover", "focus"]}
-                    placement="bottom"
-                    overlay={popoverConnectionButton}
-                  >
-                    <img className="iconInfo" src={iconInfo} alt="Info icon" />
-                  </OverlayTrigger>
-                </span>
-              </div>
+            <div className="col-12 col-md-6 col-lg-4 m-2 mb-6">
+              
+                <div className="d-flex justify-content-between">
+                  <button className="defaultButton w-100" type="button" onClick={ScanRequestButtonClick} id="scanButton">
+                    Wi-Fi Scan Request
+                  </button>
+
+                </div>
+                <div className="d-flex justify-content-between mt-3">
+                  <label htmlFor="Wifi_selected">SSID Selected:</label>
+                  <input type="text" id="Wifi_selected" value="Select your Wi-Fi" readOnly style={{ backgroundColor: "#f2f2f2" }} />
+                </div>
+                <div className="d-flex justify-content-between mt-3">
+                  <label htmlFor="pwd_text">Password:</label>
+                  <input type="text" id="pwd_text" />
+                </div>
+                <div className="d-flex justify-content-between mt-3">
+                  <label htmlFor="security_mode">Security: </label>
+                  <select type= "text" id="security_mode" ></select>
+                </div>
+                <div className="d-flex justify-content-between mt-3">
+                  <button className="defaultButton w-100" type="button" onClick={ConnectRequestButtonClick} id="connectButton">
+                    Wi-Fi Connection Request
+                  </button>
+                </div>
+              
             </div>
             <div className="d-grid col-xs-12 col-sm-12 col-md-6 col-lg-4 m-2">
               <div className="wifiListContainer">
@@ -293,6 +493,58 @@ const WifiCommissioning = (props) => {
             </div>
           </div>
     
+          <hr />
+    
+          <div className="row justify-content-center mt-3 wifi-container">
+            <div className="col-12">
+              <h2 className="wifi-state-title">Wifi State</h2>
+            </div>
+            <div className="col-md-6">
+              <img src={no_wifi} id='wifi_state_img' alt="Wifi State" className="wifi-state-image" />
+              {showDisconnect && (
+                <div className="col-12">
+                  <button id="disconnect-button" className="btn btn-warning" onClick={handleDisconnect}>
+                    Disconnect
+                  </button>
+                </div>
+              )}
+            </div>
+            <div className="col-md-6">
+              <div className="wifi-status-container">
+                <p className="wifi-status-text">{wifiStatusText}</p>
+              </div>
+              {showDisconnect && (
+                <div className="col-12">
+                  <button id="ping-button" className="btn btn-warning" onClick={handlePing}>
+                    Ping
+                  </button>
+                </div>
+              )}
+            </div>
+    
+            {showPingTable && (
+              <div className="row justify-content-center mt-3">
+                <div className="col-auto">
+                  <table className="table text-white">
+                    <thead>
+                      <tr>
+                        <th>Ping n°</th>
+                        <th>Delay Ping (ms)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {pingDelays.map((delay, index) => (
+                        <tr key={index}>
+                          <td>{index+1}</td>
+                          <td>{delay}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );

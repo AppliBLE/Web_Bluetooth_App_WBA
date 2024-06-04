@@ -711,3 +711,68 @@ tr:last-child td {
 	  transform: rotate(0deg);
 	}
   }
+  /*#################  Wifi Commissioning ################*/
+ 
+  .grid-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	grid-gap: 10px;
+  }
+  .wifiItem {
+	background-color: #f2f2f2;
+	border: 1px solid #ddd;
+	padding: 10px;
+	cursor: pointer;
+	float: left;
+  }
+ 
+  .wifiListContainer {
+	height: 240px;
+	overflow-y: auto;
+  }
+  .wifiList {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+  }
+ 
+  .wifi-icon {
+	/* Vous pouvez ajouter des styles de base pour l'icône ici */
+	width: 24px; /* Largeur de l'icône */
+  	height: 24px; /* Hauteur de l'icône */
+  }
+ 
+  .wifi-container {
+	background-color: #0c2a4b; /* Couleur de fond bleue */
+	padding: 20px; /* Espace intérieur pour faire ressortir le contenu */
+	border-radius: 10px; /* Coins arrondis pour la case */
+  }
+ 
+  .wifi-state-title {
+	color: white; /* Définit la couleur du texte en blanc */
+  }
+  .wifi-state-image {
+	width: 100px; /* Largeur de l'image */
+	height: 100px; /* Hauteur de l'image */
+	margin-right: 10px; /* Ajout d'une marge à droite pour rapprocher du texte */
+  }
+ 
+  .wifi-status-container {
+	display: flex;
+	justify-content: center; /* Centrer horizontalement */
+	align-items: center; /* Centrer verticalement */
+	height: 110px; /* Hauteur du conteneur */
+  }
+  .wifi-status-text {
+	margin: 0; /* Suppression des marges par défaut */
+	color: white; /* Couleur du texte en blanc pour contraster avec le fond bleu */
+  }
+ 
+ 
+  .white-text {
+	color: white;
+  }
+  .center-table {
+	margin-left: auto;
+	margin-right: auto;
+  }
