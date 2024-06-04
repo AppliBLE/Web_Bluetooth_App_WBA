@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Web_Bluetooth_App_WBA/static/css/main.208083eb.css",
-    "main.js": "/Web_Bluetooth_App_WBA/static/js/main.80cd5387.js",
+    "main.css": "/Web_Bluetooth_App_WBA/static/css/main.0dc0d244.css",
+    "main.js": "/Web_Bluetooth_App_WBA/static/js/main.8e906245.js",
     "static/media/fan-icon.jpg": "/Web_Bluetooth_App_WBA/static/media/fan-icon.58ec667e40a3aff2e698.jpg",
     "static/media/froid.PNG": "/Web_Bluetooth_App_WBA/static/media/froid.25e8782189aa48919d93.PNG",
     "static/media/chaud.png": "/Web_Bluetooth_App_WBA/static/media/chaud.4622bfbdc804db79916e.png",
@@ -13,17 +13,23 @@
     "static/media/Zigbee.png": "/Web_Bluetooth_App_WBA/static/media/Zigbee.8e9505eef343cf529eb6.png",
     "static/media/st-logo.svg": "/Web_Bluetooth_App_WBA/static/media/st-logo.01d65641d9828fd6847ef785b4019063.svg",
     "static/media/iconLearn.svg": "/Web_Bluetooth_App_WBA/static/media/iconLearn.b24028476924599d2a8373888ac96ba3.svg",
+    "static/media/no_wifi.svg": "/Web_Bluetooth_App_WBA/static/media/no_wifi.d88d622a4a20e42becdd74e30f88f3ad.svg",
+    "static/media/wifi_good.svg": "/Web_Bluetooth_App_WBA/static/media/wifi_good.7e94a6c7eeeb98778ba4420162274f68.svg",
+    "static/media/wifi_red.svg": "/Web_Bluetooth_App_WBA/static/media/wifi_red.a639a4de1b942519da4210a912d7c6c1.svg",
+    "static/media/wifi_strong.svg": "/Web_Bluetooth_App_WBA/static/media/wifi_strong.c366e6cf175452e1da977ca61bca2466.svg",
+    "static/media/wifi_very_weak.svg": "/Web_Bluetooth_App_WBA/static/media/wifi_very_weak.a2cf7435a6478290a89480b2c5497250.svg",
+    "static/media/wifi_weak.svg": "/Web_Bluetooth_App_WBA/static/media/wifi_weak.294ae1830c799511e0e8c1058f70f154.svg",
     "static/media/lightOnBlue.svg": "/Web_Bluetooth_App_WBA/static/media/lightOnBlue.6d92c830e1f9893d1ee3e22d819e5f13.svg",
     "static/media/lightOnPink.svg": "/Web_Bluetooth_App_WBA/static/media/lightOnPink.f423eb235daf97a4d53b6c6c7b2e7685.svg",
     "static/media/iconInfo.svg": "/Web_Bluetooth_App_WBA/static/media/iconInfo.3d5c23bf468cdab351bc3d0cd8037104.svg",
     "static/media/iconInfoPink.svg": "/Web_Bluetooth_App_WBA/static/media/iconInfoPink.8d1cfdd48d5d61f8071893bf84b03584.svg",
     "static/media/lightOffBlue.svg": "/Web_Bluetooth_App_WBA/static/media/lightOffBlue.48ac0e3e63b831919f2f67234bc08b4d.svg",
     "static/media/lightOffPink.svg": "/Web_Bluetooth_App_WBA/static/media/lightOffPink.21aafe728c6958adff78a0eef3c5bafc.svg",
-    "main.208083eb.css.map": "/Web_Bluetooth_App_WBA/static/css/main.208083eb.css.map",
-    "main.80cd5387.js.map": "/Web_Bluetooth_App_WBA/static/js/main.80cd5387.js.map"
+    "main.0dc0d244.css.map": "/Web_Bluetooth_App_WBA/static/css/main.0dc0d244.css.map",
+    "main.8e906245.js.map": "/Web_Bluetooth_App_WBA/static/js/main.8e906245.js.map"
   },
   "entrypoints": [
-    "static/css/main.208083eb.css",
-    "static/js/main.80cd5387.js"
+    "static/css/main.0dc0d244.css",
+    "static/js/main.8e906245.js"
   ]
 }
