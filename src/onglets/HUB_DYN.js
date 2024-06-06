@@ -159,7 +159,7 @@ const HUB_DYN = (props) => {
         <div class="d-flex justify-content-between align-items-center mb-3">
           <div>
             <p class="card-text" id="${i}name">Name: UNKNOWN</p>
-            <p class="card-text" id="${i}sensorId">Sensor ID (Zigbee network address device): UNKNOWN</p>
+            <p class="card-text" id="${i}sensorId">Sensor ID (Zigbee network address): UNKNOWN</p>
             <p class="card-text" id="${i}temperature">Temperature value in Celsius: UNKNOWN</p>
           </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
