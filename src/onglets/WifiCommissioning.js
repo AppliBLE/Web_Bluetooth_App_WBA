@@ -385,8 +385,6 @@ const WifiCommissioning = (props) => {
       afficherWifi()
     }
 
-
-
     function toggleWifiImage() {
       const wifiImage = document.getElementById('wifi_state_img');
       const currentSrc = wifiImage.getAttribute('src');
@@ -398,7 +396,6 @@ const WifiCommissioning = (props) => {
       }
     }
 
-
     /* Monitoring Handler */
     function notif_Monitoring_List_Handler(event){
       console.log("Notification received");
@@ -408,8 +405,8 @@ const WifiCommissioning = (props) => {
 
       if(buf[0] == 0x03){
         interval_connection = setInterval(toggleWifiImage, 500); 
-        updateWifiStatusText('Try to connect to : ' + selectedSsid);
-
+        updateWifiStatusText('Trying to connect to : ' + selectedSsid);
+        
       }else if(buf[0] == 0x04){
 
         clearInterval(interval_connection);

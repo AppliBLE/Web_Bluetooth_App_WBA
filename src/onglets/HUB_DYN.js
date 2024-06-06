@@ -18,10 +18,10 @@ import iconInfo from '../images/iconInfo.svg';
 import { createLogElement } from "../components/Header";
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import Zigbee from '../images/Zigbee.png';
-import chaud from '../images/chaud.png';
-import froid from '../images/froid.PNG';
-import mifroid from '../images/mifroid.PNG';
-import michaud from '../images/michaud.PNG';
+import chaud from '../images/thermochaud.svg';
+import froid from '../images/thermofroid.svg';
+import mifroid from '../images/thermomifroid.svg';
+import michaud from '../images/thermomichaud.svg';
 
 
 const HUB_DYN = (props) => {
@@ -157,21 +157,28 @@ const HUB_DYN = (props) => {
       </div>
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
+
           <div>
             <p class="card-text" id="${i}name">Name: UNKNOWN</p>
             <p class="card-text" id="${i}sensorId">Sensor ID (Zigbee network address): UNKNOWN</p>
             <p class="card-text" id="${i}temperature">Temperature value in Celsius: UNKNOWN</p>
           </div>
+
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <div id="${i}myImage">
+            <div className='col-md-8 col-lg-6 text-center'>
+              <div id="${i}myImage">
+            </div>
           </div>
+
           </div>
         </div>
+
         <button class="btn btn-primary" id="${i}renameBtn" onclick="
           document.getElementById('${i}renameBtn').classList.add('d-none');
           document.getElementById('${i}renameForm').classList.remove('d-none');
           document.getElementById('${i}newName').focus();
         ">Rename</button>
+
         <div id="${i}renameForm" class="d-none">
           <form onsubmit="
             var newName = document.getElementById('${i}newName').value;
@@ -195,10 +202,13 @@ const HUB_DYN = (props) => {
             </div>
           </form>
         </div>
+
       </div>
+
       <div class="card-footer text-muted">
         Last updated: just now
       </div>
+      
     </div>
       `;
 
