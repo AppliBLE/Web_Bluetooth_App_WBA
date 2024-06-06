@@ -1,12 +1,8 @@
 {
   "files": {
     "main.css": "/Web_Bluetooth_App_WBA/static/css/main.0dc0d244.css",
-    "main.js": "/Web_Bluetooth_App_WBA/static/js/main.9aa8d0bb.js",
+    "main.js": "/Web_Bluetooth_App_WBA/static/js/main.25902339.js",
     "static/media/fan-icon.jpg": "/Web_Bluetooth_App_WBA/static/media/fan-icon.58ec667e40a3aff2e698.jpg",
-    "static/media/froid.PNG": "/Web_Bluetooth_App_WBA/static/media/froid.25e8782189aa48919d93.PNG",
-    "static/media/chaud.png": "/Web_Bluetooth_App_WBA/static/media/chaud.4622bfbdc804db79916e.png",
-    "static/media/mifroid.PNG": "/Web_Bluetooth_App_WBA/static/media/mifroid.66468902053a88bb8c85.PNG",
-    "static/media/michaud.PNG": "/Web_Bluetooth_App_WBA/static/media/michaud.2d0f9d482c5ef060d4af.PNG",
     "index.html": "/Web_Bluetooth_App_WBA/index.html",
     "static/media/error.jpg": "/Web_Bluetooth_App_WBA/static/media/error.959704e43eee6b8b0f82.jpg",
     "static/media/iconVentilateur.svg": "/Web_Bluetooth_App_WBA/static/media/iconVentilateur.aa927f86d7fd6c7a5da53b2c5e5ff05c.svg",
@@ -19,6 +15,10 @@
     "static/media/wifi_strong.svg": "/Web_Bluetooth_App_WBA/static/media/wifi_strong.c366e6cf175452e1da977ca61bca2466.svg",
     "static/media/wifi_very_weak.svg": "/Web_Bluetooth_App_WBA/static/media/wifi_very_weak.a2cf7435a6478290a89480b2c5497250.svg",
     "static/media/wifi_weak.svg": "/Web_Bluetooth_App_WBA/static/media/wifi_weak.294ae1830c799511e0e8c1058f70f154.svg",
+    "static/media/thermochaud.svg": "/Web_Bluetooth_App_WBA/static/media/thermochaud.b5661b87ef3c139fdb1a36cc010bc95e.svg",
+    "static/media/thermofroid.svg": "/Web_Bluetooth_App_WBA/static/media/thermofroid.759376a65c40295bfc5b88f2c0bd3e0b.svg",
+    "static/media/thermomichaud.svg": "/Web_Bluetooth_App_WBA/static/media/thermomichaud.466f85b955a96238ab3736d251a9b11c.svg",
+    "static/media/thermomifroid.svg": "/Web_Bluetooth_App_WBA/static/media/thermomifroid.b0de42e3b3fc5366c0b1c4534d428bed.svg",
     "static/media/lightOnBlue.svg": "/Web_Bluetooth_App_WBA/static/media/lightOnBlue.6d92c830e1f9893d1ee3e22d819e5f13.svg",
     "static/media/lightOnPink.svg": "/Web_Bluetooth_App_WBA/static/media/lightOnPink.f423eb235daf97a4d53b6c6c7b2e7685.svg",
     "static/media/iconInfo.svg": "/Web_Bluetooth_App_WBA/static/media/iconInfo.3d5c23bf468cdab351bc3d0cd8037104.svg",
@@ -26,10 +26,10 @@
     "static/media/lightOffBlue.svg": "/Web_Bluetooth_App_WBA/static/media/lightOffBlue.48ac0e3e63b831919f2f67234bc08b4d.svg",
     "static/media/lightOffPink.svg": "/Web_Bluetooth_App_WBA/static/media/lightOffPink.21aafe728c6958adff78a0eef3c5bafc.svg",
     "main.0dc0d244.css.map": "/Web_Bluetooth_App_WBA/static/css/main.0dc0d244.css.map",
-    "main.9aa8d0bb.js.map": "/Web_Bluetooth_App_WBA/static/js/main.9aa8d0bb.js.map"
+    "main.25902339.js.map": "/Web_Bluetooth_App_WBA/static/js/main.25902339.js.map"
   },
   "entrypoints": [
     "static/css/main.0dc0d244.css",
-    "static/js/main.9aa8d0bb.js"
+    "static/js/main.25902339.js"
   ]
 }
