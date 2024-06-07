@@ -1,5 +1,5 @@
 // ******************************************************************************
-// * @file    HeartRate.js
+// * @file    FanProject.js
 // * @author  MCD Application Team
 // *
 //  ******************************************************************************
@@ -16,16 +16,11 @@
 import React, { useState } from 'react';
 import fanicon from '../images/fan-icon.jpg';
 import imagelightOffPink from '../images/lightOffPink.svg';
-import imagelightOnPink from '../images/lightOnPink.svg';
 import iconInfo from '../images/iconInfo.svg';
-import iconLearn from '../images/iconLearn.svg';
-import iconVentilateur from '../images/iconVentilateur.svg';
-import errorIcon from '../images/error.jpg';
 import { createLogElement } from "../components/Header";
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 
 const FanProject = (props) => {
-    let AnomalieCharacteristic;
     let SpeedCharacteristic;
     let TrainCharacteristic;
     let StatusCharacteristic;
@@ -33,7 +28,7 @@ const FanProject = (props) => {
     props.allCharacteristics.map(element => {
         switch (element.characteristic.uuid) {
             case "00000001-8e22-4541-9d4c-21edae82ed19":
-            AnomalieCharacteristic = element;
+            StatusCharacteristic = element;
             //notifyCharacteristic.characteristic.stopNotifications();
             break;
             case "00000002-8e22-4541-9d4c-21edae82ed19":
@@ -42,9 +37,7 @@ const FanProject = (props) => {
             case "00000003-8e22-4541-9d4c-21edae82ed19":
             TrainCharacteristic = element;
             break;
-            case "00000004-8e22-4541-9d4c-21edae82ed19":
-            StatusCharacteristic = element;
-            break;
+
             default:
             console.log("# No characteristics found..");
         }
@@ -75,31 +68,6 @@ const FanProject = (props) => {
         } catch (error) {
             console.log('Argh! ' + error);
         }
-        //document.getElementById('imageLightBlue').src = imagelightOffPink;
-        
-
-        // Update fan rotation style
-        const fanRotationStyle = {
-            width: '20%',
-            height: '20%'
-        };
-
-        if (speed > 0) {
-            fanRotationStyle.animationName = 'fan-rotate';
-            fanRotationStyle.animationDuration = `${(11 - speed)/2}s`;
-            fanRotationStyle.animationTimingFunction = 'linear';
-            fanRotationStyle.animationIterationCount = 'infinite';
-            document.getElementById('fanBlades').classList.add('CoolingFan');
-        } else {
-            fanRotationStyle.animationName = 'fan-rotate';
-            fanRotationStyle.animationDuration = `${0}s`;
-            fanRotationStyle.animationTimingFunction = 'linear';
-            fanRotationStyle.animationIterationCount = 'infinite';
-            document.getElementById('fanBlades').classList.add('CoolingFan');
-        }
-        
-          // Set fan rotation style
-          Object.assign(document.getElementById('fanBlades').style, fanRotationStyle);
     }
 
     //Notify ON/OFF Button
@@ -109,20 +77,17 @@ const FanProject = (props) => {
         if (notifStatus === "Notify OFF") {
           console.log('Notification ON');
           //Start Anomaly and status Notif
-          AnomalieCharacteristic.characteristic.startNotifications();
-          AnomalieCharacteristic.characteristic.oncharacteristicvaluechanged = notifHandler;
           StatusCharacteristic.characteristic.startNotifications();
           StatusCharacteristic.characteristic.oncharacteristicvaluechanged = notifStatusHandler;
           document.getElementById('notifyButton').innerHTML = "Notify ON"
-          createLogElement(AnomalieCharacteristic, 3, "FanControl ENABLE NOTIFICATION ");
+          createLogElement(StatusCharacteristic, 3, "FanControl ENABLE NOTIFICATION ");
         } else {
           //Stop Notif
-          AnomalieCharacteristic.characteristic.stopNotifications();
+          StatusCharacteristic.characteristic.stopNotifications();
           console.log('Notification OFF');
           document.getElementById('notifyButton').innerHTML = "Notify OFF"
-          createLogElement(AnomalieCharacteristic, 3, "FanControl DISABLE NOTIFICATION ");
+          createLogElement(StatusCharacteristic, 3, "FanControl DISABLE NOTIFICATION ");
         }
-        //document.getElementById('imageLightBlue').src = imagelightOffPink;
     }
 
     //Train Button
@@ -141,20 +106,26 @@ const FanProject = (props) => {
         document.getElementById('imageLightBlue').src = imagelightOffPink;
     }
 
-    // Anomaly handler
-    function notifHandler(event) {
-        console.log("Notification received");
-        var buf = new Uint8Array(event.target.value.buffer);
-        console.log(buf);
-        createLogElement(buf, 1, "FanControl NOTIFICATION RECEIVED");
-        if (buf[0] == 1) {
-            console.log('Anomaly detected');
-            setShowError(true);
-        //}
-        } else {
-            setShowError(false);
-        }
-    }
+    /**
+          typedef enum
+          {
+            SPEED_0,
+            SPEED_1,
+            SPEED_2,
+            SPEED_3,
+            SPEED_4,
+            SPEED_5,
+            SPEED_6,
+            SPEED_7,
+            SPEED_8,
+            SPEED_9,
+            SPEED_10,
+            IA_IDLE,
+            IA_LEARNING,
+            IA_INFERENCE,
+            IA_ANOMALY_DETECTED
+          } app_status_t;         
+    */
 
     //Status handler
     function notifStatusHandler(event){
@@ -162,11 +133,41 @@ const FanProject = (props) => {
         var buf = new Uint8Array(event.target.value.buffer);
         console.log(buf);
         createLogElement(buf, 1, "FanControl Status NOTIFICATION RECEIVED");
-        if (buf[0] == 1) {
+        if (buf[0] == 12) {
             setshowLearn(true);
         } else {
             setshowLearn(false);
         }
+        if (buf[0] == 14) {
+          setShowError(true);
+        } else {
+          setShowError(false);
+        }
+        if(buf[0] >= 0 && buf[0] <= 10){
+          console.log('Chang speed detected');
+          const fanRotationStyle = {
+              width: '20%',
+              height: '20%'
+          };
+
+          if (buf[0] > 0) {
+              fanRotationStyle.animationName = 'fan-rotate';
+              fanRotationStyle.animationDuration = `${(11 - buf[0])/2}s`;
+              fanRotationStyle.animationTimingFunction = 'linear';
+              fanRotationStyle.animationIterationCount = 'infinite';
+              document.getElementById('fanBlades').classList.add('CoolingFan');
+          } else {
+              fanRotationStyle.animationName = 'fan-rotate';
+              fanRotationStyle.animationDuration = `${0}s`;
+              fanRotationStyle.animationTimingFunction = 'linear';
+              fanRotationStyle.animationIterationCount = 'infinite';
+              document.getElementById('fanBlades').classList.add('CoolingFan');
+          }
+        
+          // Set fan rotation style
+          Object.assign(document.getElementById('fanBlades').style, fanRotationStyle);
+        }
+        
     }
 
     // Tooltips
