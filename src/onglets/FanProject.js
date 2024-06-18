@@ -61,13 +61,25 @@ const FanProject = (props) => {
 
     //Speed write button
     const onSpeedButtonClick = async () => {
-        const myWord = new Uint8Array([speed]);
-        try {
-            await SpeedCharacteristic.characteristic.writeValue(myWord);
-            createLogElement(myWord, 1, "FanControl Speed");
-        } catch (error) {
-            console.log('Argh! ' + error);
-        }
+      let myWordValue
+      const numericSpeed = speed; 
+      console.log('Speed : ' + speed);
+
+      //Speed possible : 0, 80, 85, 90, 95, 100
+      if(numericSpeed == 0){
+        myWordValue = 0;
+      }else{
+        myWordValue = ((numericSpeed-1) * 5) + 90;
+      }
+      console.log('myWord : ' + myWordValue);
+      const myWord = new Uint8Array([myWordValue]);
+      
+      try {
+          await SpeedCharacteristic.characteristic.writeValue(myWord);
+          createLogElement(myWord, 1, "FanControl Speed");
+      } catch (error) {
+          console.log('Argh! ' + error);
+      }   
     }
 
     //Notify ON/OFF Button
@@ -133,12 +145,12 @@ const FanProject = (props) => {
         var buf = new Uint8Array(event.target.value.buffer);
         console.log(buf);
         createLogElement(buf, 1, "FanControl Status NOTIFICATION RECEIVED");
-        if (buf[0] == 12) {
-            setshowLearn(true);
+        if (buf[0] === 12) {
+          setshowLearn(true);
         } else {
-            setshowLearn(false);
+          setshowLearn(false);
         }
-        if (buf[0] == 14) {
+        if (buf[0] === 14) {
           setShowError(true);
         } else {
           setShowError(false);
@@ -215,7 +227,7 @@ const FanProject = (props) => {
                   <input
                     type="range"
                     min="0"
-                    max="10"
+                    max="3"
                     value={speed}
                     onChange={handleSpeedChange}
                     className="form-range"

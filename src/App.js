@@ -67,7 +67,7 @@ allServices.map(service => {
   if(service.service.uuid === "0000ff9a-cc7a-482a-984a-7f2ed5b3e58f"){
     listItems.push(<li className="liProfile"><Link to="/WCom">Wifi Commissioning</Link></li>);
   }
-  if(service.service.uuid === "00000000-cc7a-482a-984a-7f2ed5b3e58f"){
+  if(service.service.uuid === "0000f11a-cc7a-482a-984a-7f2ed5b3e58f"){
     listItems.push(<li className="liProfile"><Link to="/FC">Fan Project</Link></li>);
   }
   if(service.service.uuid === "0000fe90-cc7a-482a-984a-7f2ed5b3e58f"){
