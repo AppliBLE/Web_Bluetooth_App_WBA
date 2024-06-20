@@ -22,6 +22,7 @@ import P2Prouter from './onglets/P2Prouter';
 import Ota from './onglets/Ota';
 import HealthThermometer from './onglets/HT';
 import FingerPrint from './onglets/FingerPrint';
+import FingerPrint_MLKEY from './onglets/FingerPrint_MLKEY';
 import WifiCommissioning from './onglets/WifiCommissioning';
 import FanProject from './onglets/FanProject';
 import HUB_DYN from './onglets/HUB_DYN';
@@ -62,7 +63,7 @@ allServices.map(service => {
     listItems.push(<li className="liProfile"><Link to="/FP">Finger Print</Link></li>);
   }
   if(service.service.uuid === "0000fec0-cc7a-482a-984a-7f2ed5b3e58f"){
-    listItems.push(<li className="liProfile"><Link to="/FP">Finger Print</Link></li>);
+    listItems.push(<li className="liProfile"><Link to="/FP_MLKEY">Finger Print MLKEY</Link></li>);
   }
   if(service.service.uuid === "0000ff9a-cc7a-482a-984a-7f2ed5b3e58f"){
     listItems.push(<li className="liProfile"><Link to="/WCom">Wifi Commissioning</Link></li>);
@@ -95,6 +96,7 @@ allServices.map(service => {
             <Route path="/OTA" element={isDisconnected ? null : <Ota allCharacteristics={allCharacteristics}></Ota>} />
             <Route path="/HT" element={isDisconnected ? null : <HealthThermometer allCharacteristics={allCharacteristics}></HealthThermometer>} />
             <Route path="/FP" element={isDisconnected ? null : <FingerPrint allCharacteristics={allCharacteristics}></FingerPrint>} />
+            <Route path="/FP_MLKEY" element={isDisconnected ? null : <FingerPrint_MLKEY allCharacteristics={allCharacteristics}></FingerPrint_MLKEY>} />
             <Route path="/WCom" element={isDisconnected ? null : <WifiCommissioning allCharacteristics={allCharacteristics}></WifiCommissioning>} />
             <Route path="/FC" element={isDisconnected ? null : <FanProject allCharacteristics={allCharacteristics}></FanProject>} />
             <Route path="/HUB_DYN" element={isDisconnected ? null : <HUB_DYN allCharacteristics={allCharacteristics}></HUB_DYN>} />
