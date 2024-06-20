@@ -18,10 +18,10 @@ import iconInfo from '../images/iconInfo.svg';
 import { createLogElement } from "../components/Header";
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import Zigbee from '../images/Zigbee.png';
-import chaud from '../images/thermochaud.svg';
-import froid from '../images/thermofroid.svg';
-import mifroid from '../images/thermomifroid.svg';
-import michaud from '../images/thermomichaud.svg';
+import hot from '../images/thermohot.svg';
+import cold from '../images/thermocold.svg';
+import midcold from '../images/thermomidcold.svg';
+import midhot from '../images/thermomimidhot.svg';
 
 
 const HUB_DYN = (props) => {
@@ -128,17 +128,17 @@ const HUB_DYN = (props) => {
         document.getElementById(`${j}temperature`).textContent = "Temperature : " + valeur + "°C";
        
         if (valeur < 20) {
-          displayImage(j, froid);
+          displayImage(j, cold);
         } else 
         
         if (valeur >= 20 && valeur < 22) {
-          displayImage(j, mifroid);
+          displayImage(j, midcold);
         } else 
         
         if (valeur >= 22 && valeur < 25) {
-          displayImage(j, michaud);
+          displayImage(j, midhot);
         } else {
-          displayImage(j, chaud);
+          displayImage(j, hot);
         }               
       }
     }
