@@ -117,7 +117,7 @@ allServices.map(service => {
             <Route path="/WS" element={isDisconnected ? null : <WeightScale allCharacteristics={allCharacteristics}></WeightScale>} />
             <Route path="/RSC" element={isDisconnected ? null : <RunningSpeedandCadence allCharacteristics={allCharacteristics}></RunningSpeedandCadence>} />
             <Route path="/CGM" element={isDisconnected ? null : <ContinuousGlucoseMonitoring allCharacteristics={allCharacteristics}></ContinuousGlucoseMonitoring>} />
-	    <Route path="/WCom" element={isDisconnected ? null : <WifiCommissioning allCharacteristics={allCharacteristics}></WifiCommissioning>} />
+	          <Route path="/WCom" element={isDisconnected ? null : <WifiCommissioning allCharacteristics={allCharacteristics}></WifiCommissioning>} />
             <Route path="/FC" element={isDisconnected ? null : <FanProject allCharacteristics={allCharacteristics}></FanProject>} />
             <Route path="/HUB_DYN" element={isDisconnected ? null : <HUB_DYN allCharacteristics={allCharacteristics}></HUB_DYN>} />
           </Routes>

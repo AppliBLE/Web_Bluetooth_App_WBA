@@ -85,7 +85,23 @@ const Header = (props) => {
                     namePrefix: "HUB_DYN"      // HUB Zigbee
                 }],
 
-                optionalServices:  ['0000fe40-cc7a-482a-984a-7f2ed5b3e58f', 
+
+                // optionalServices: [ '00001800-0000-1000-8000-00805f9b34fb',
+                //                     '0000fe40-cc7a-482a-984a-7f2ed5b3e58f',
+                //                     '0000180d-0000-1000-8000-00805f9b34fb',
+                //                     '0000fe80-cc7a-482a-984a-7f2ed5b3e58f',
+                //                     '0000fe80-8e22-4541-9d4c-21edae82fe80',
+                //                     '0000fe20-cc7a-482a-984a-7f2ed5b3e58f',
+                //                     '0000feb0-cc7a-482a-984a-7f2ed5b3e58f',
+                //                     '00001809-0000-1000-8000-00805f9b34fb',
+                //                     '00001810-0000-1000-8000-00805f9b34fb',
+                //                     '0000181d-0000-1000-8000-00805f9b34fb',
+                //                     '00001814-0000-1000-8000-00805f9b34fb',
+                //                     '0000181f-0000-1000-8000-00805f9b34fb'] // service uuid of [P2P service, Heart Rate service, DataThroughput, Ota, P2P Router, Health Thermomiter, Blood Pressure, Weight Scale, Running Speed and Cadence, Continuous Glucose Monitoring]
+
+
+                optionalServices:  ['00001800-0000-1000-8000-00805f9b34fb',
+                                    '0000fe40-cc7a-482a-984a-7f2ed5b3e58f', 
                                     '0000180d-0000-1000-8000-00805f9b34fb',
                                     '0000fe80-cc7a-482a-984a-7f2ed5b3e58f',
                                     '0000fe80-8e22-4541-9d4c-21edae82fe80',
@@ -446,6 +462,26 @@ const Header = (props) => {
               app = 'Proximity'
               apprep = 'BLE_Proximity'
               break;
+
+            case '0x8b':
+                app = 'Weight Scale'
+                apprep = 'BLE_WeightScale'
+                break;
+                
+            case '0x8c':
+                app = 'Blood Pressure'
+                apprep = 'BLE_BloodPressure'
+                break;
+            
+            case '0x9a':
+                app = 'Continuous Glucose Monitoring'
+                apprep = 'BLE_ContinuousGlucoseMonitoring'
+                break;
+                  
+            case '0x9b':
+                app = 'Running Speed and Cadence'
+                apprep = 'BLE_RunningSpeedAndCadence'
+                break;
             }
     
           appv = "v" + parseInt(statusWord.substring(18, 20), 16) + "." + parseInt(statusWord.substring(21, 23), 16) + "."  + parseInt(statusWord.substring(24, 26), 16) + "." + parseInt(statusWord.substring(27, 29), 16 ) + "." + parseInt(statusWord.substring(30, 32), 16 );
@@ -578,7 +614,7 @@ const Header = (props) => {
     
       function askToDownloadServer() {
         const downloadLink = document.createElement('a');
-        downloadLink.href = 'https://github.com/kenzarul/Web_Bluetooth_App_WBA/raw/main/upload-cubeprogrammer-server.exe';
+        downloadLink.href = 'https://github.com/AppliBLE/Web_Bluetooth_App_WBA/tree/master/upload-cubeprogrammer-server.exe';
         downloadLink.setAttribute('download', ''); 
         document.body.appendChild(downloadLink);
         downloadLink.click();
@@ -592,8 +628,8 @@ const Header = (props) => {
         try {
           const selectedVersion = document.getElementById('selectedVersion').value;
           const appName = appFolderMap[selectedApp];
-          const binaryFileName = `${appName}v${selectedVersion}.bin`;
-          const githubRawUrl = `https://api.github.com/repos/kenzarul/STM32WBA_Binaries/contents/${appName}/${binaryFileName}`;
+          const binaryFileName = `${appName}_v${selectedVersion}.bin`;
+          const githubRawUrl = `https://api.github.com/repos/AppliBLE/STM32WBA_Binaries/contents/${appName}/${binaryFileName}`;
           const apiResponse = await fetch(githubRawUrl);
           if (!apiResponse.ok) {
             throw new Error(`Failed to fetch the binary file metadata: ${apiResponse.statusText}`);
@@ -637,8 +673,8 @@ const Header = (props) => {
           const selectedVersion = document.getElementById('selectedVersion').value;
           const folderName = selectedWay === 'ota' ? `${selectedApp}_ota_add` : selectedApp;
           const appName = appFolderMap[folderName];
-          const binaryFileName = `${appName}v${selectedVersion}.hex`;
-          const githubRawUrl = `https://api.github.com/repos/kenzarul/STM32WBA_Binaries/contents/${appName}/${binaryFileName}`;
+          const binaryFileName = `${appName}_v${selectedVersion}.hex`;
+          const githubRawUrl = `https://api.github.com/repos/AppliBLE/STM32WBA_Binaries/contents/${appName}/${binaryFileName}`;
           const apiResponse = await fetch(githubRawUrl);
           if (!apiResponse.ok) {
             throw new Error(`Failed to fetch the binary file metadata: ${apiResponse.statusText}`);
@@ -679,8 +715,8 @@ const Header = (props) => {
           const selectedVersion = document.getElementById('selectedVersion').value;
           const folderName = `${selectedApp}_ota`;
           const appName = appFolderMap[folderName];
-          const binaryFileName = `${appName}v${selectedVersion}.bin`;
-          const githubRawUrl = `https://api.github.com/repos/kenzarul/STM32WBA_Binaries/contents/${appName}/${binaryFileName}`;
+          const binaryFileName = `${appName}_v${selectedVersion}.bin`;
+          const githubRawUrl = `https://api.github.com/repos/AppliBLE/STM32WBA_Binaries/contents/${appName}/${binaryFileName}`;
           localStorage.setItem('githubUrl', githubRawUrl);
           console.log('GitHub URL set for OTA:', githubRawUrl);
           const fileName = githubRawUrl.split('/').pop();
@@ -767,7 +803,17 @@ const Header = (props) => {
               return match ? match[1] : null;
             })
             .filter(version => version !== null);
-      
+
+            versions.sort((a, b) => {
+              const versionA = a.split('.').map(Number);
+              const versionB = b.split('.').map(Number);
+              for (let i = 0; i < versionA.length; i++) {
+                if (versionA[i] > versionB[i]) return -1;
+                if (versionA[i] < versionB[i]) return 1;
+              }
+              return 0;
+            });  
+
           const versionSelect = document.getElementById('selectedVersion');
           versionSelect.innerHTML = ''; 
       
@@ -802,7 +848,7 @@ const Header = (props) => {
         document.getElementById('connectButton').disabled = false;
         props.setIsDisconnected(true);
         props.setAllServices([]);
-        document.location.href="/Web_Bluetooth_App_WBA";
+        document.location.href="/Web-Bluetooth-WBA-Save";
     }
 
     function onDisconnected() {
@@ -810,7 +856,7 @@ const Header = (props) => {
         document.getElementById('connectButton').disabled = false;
         props.setIsDisconnected(true);
         props.setAllServices([]);
-        document.location.href="/Web_Bluetooth_App_WBA";
+        document.location.href="/Web-Bluetooth-WBA-Save/";
       }
     
 

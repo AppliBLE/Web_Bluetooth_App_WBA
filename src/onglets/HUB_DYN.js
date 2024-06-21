@@ -21,7 +21,7 @@ import Zigbee from '../images/Zigbee.png';
 import hot from '../images/thermohot.svg';
 import cold from '../images/thermocold.svg';
 import midcold from '../images/thermomidcold.svg';
-import midhot from '../images/thermomimidhot.svg';
+import midhot from '../images/thermomidhot.svg';
 
 
 const HUB_DYN = (props) => {

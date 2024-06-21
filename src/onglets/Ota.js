@@ -74,6 +74,8 @@ const Ota = (props) => {
         const fileName = githubUrl.split('/').pop();
         setBinaryFileName(fileName);
         setSelectedAction('application');
+        let actionChoice = document.getElementById("startSectorInput");
+        actionChoice.value = "080000";            
         uploadAction = "002";
         if (selectedAction === 'application') {
           document.getElementById("applicationSelectFilePart").style.display = "block";
