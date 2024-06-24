@@ -21,7 +21,10 @@ import logoST from '../images/st-logo.svg';
 import nucleo from '../images/NUCLEO_board.png';
 import dk1 from '../images/DK1.png';
 import bluetooth from '../images/bluetoothLogo.png';
+import BLlogo from '../images/BLlogo.png';
 import glucoselogo from '../images/glucose-meter.svg';
+import RSClogo from '../images/RSClogo.png';
+import WSlogo from '../images/WSlogo.png';
 import htlogo from '../images/HTlogo.png';
 import hrlogo from '../images/HRlogo.png';
 import dtlogo from '../images/DTlogo.png';
@@ -581,7 +584,7 @@ const Header = (props) => {
       }
     
       const isOtaSelected = selectedWay === 'ota';
-      const isAppDisabledForOta = (app) => isOtaSelected && (app === 'app1' || app === 'app3');
+      const isAppDisabledForOta = (app) => isOtaSelected && (app === 'app1' || app === 'app3' || app === 'app4' || app === 'app5' || app === 'app6' || app === 'app7');
     
       const handleSetSelectedWay = (way) => {
         setSelectedWay(way);
@@ -593,7 +596,7 @@ const Header = (props) => {
           versionSelect.innerHTML = '<option disabled selected>Choose app first</option>';
         }
         
-        if (way === 'ota' && (selectedApp === 'app1' || selectedApp === 'app3')) {
+        if (way === 'ota' && (selectedApp === 'app1' || selectedApp === 'app3' || selectedApp === 'app4' || selectedApp === 'app5' || selectedApp === 'app6' || selectedApp === 'app7')) {
           setSelectedApp('');
         }
     
@@ -755,6 +758,10 @@ const Header = (props) => {
         'app1': 'BLE_HealthThermometer',
         'app2': 'BLE_HeartRate',
         'app3': 'BLE_DataThroughput_Server',
+        'app4': 'BLE_BloodPressure',
+        'app5': 'BLE_RunningSpeedAndCadence',
+        'app6': 'BLE_WeightScale',
+        'app7': 'BLE_ContinuousGlucoseMonitoring',
         'app0_ota': 'BLE_p2pServer_ota',
         'app2_ota': 'BLE_HeartRate_ota',
         'app0_ota_add': 'BLE_ApplicationInstallManager_Combine_with_p2pServerOTA',
@@ -1016,6 +1023,30 @@ const Header = (props) => {
               <img src={dtlogo} className={`appsLogo ${isAppDisabledForOta('app3') ? 'logo-disabled' : ''}`}></img>
               <a href="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput" target="_blank" className="app-list-link">
               <span className={`app-list-text ${isAppDisabledForOta('app3') ? 'disabled' : ''}`}>Data Throughput</span></a></label>
+
+              <label className={`app-list-item ${selectedApp === 'app4' ? 'active' : ''} ${isAppDisabledForOta('app4') ? 'disabled' : ''}`}>
+              <input type="radio" name="application" value="app4" checked={selectedApp === 'app4'} disabled={isAppDisabledForOta('app4')} onChange={() => { setSelectedApp('app4'); updateVersionOptions('app4');setSelectedApp('app4'); updateVersionOptions('app4'); }}/>
+              <img src={BLlogo} className={`appsLogo ${isAppDisabledForOta('app4') ? 'logo-disabled' : ''}`}></img>
+              <a href="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput" target="_blank" className="app-list-link">
+              <span className={`app-list-text ${isAppDisabledForOta('app4') ? 'disabled' : ''}`}>Blood Pressure</span></a></label>
+
+              <label className={`app-list-item ${selectedApp === 'app5' ? 'active' : ''} ${isAppDisabledForOta('app5') ? 'disabled' : ''}`}>
+              <input type="radio" name="application" value="app5" checked={selectedApp === 'app5'} disabled={isAppDisabledForOta('app5')} onChange={() => { setSelectedApp('app5'); updateVersionOptions('app5');setSelectedApp('app5'); updateVersionOptions('app5'); }}/>
+              <img src={RSClogo} className={`appsLogo ${isAppDisabledForOta('app5') ? 'logo-disabled' : ''}`}></img>
+              <a href="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput" target="_blank" className="app-list-link">
+              <span className={`app-list-text ${isAppDisabledForOta('app5') ? 'disabled' : ''}`}>Running Speed Cadence</span></a></label>
+
+              <label className={`app-list-item ${selectedApp === 'app6' ? 'active' : ''} ${isAppDisabledForOta('app6') ? 'disabled' : ''}`}>
+              <input type="radio" name="application" value="app6" checked={selectedApp === 'app6'} disabled={isAppDisabledForOta('app6')} onChange={() => { setSelectedApp('app6'); updateVersionOptions('app6');setSelectedApp('app6'); updateVersionOptions('app6'); }}/>
+              <img src={WSlogo} className={`appsLogo ${isAppDisabledForOta('app6') ? 'logo-disabled' : ''}`}></img>
+              <a href="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput" target="_blank" className="app-list-link">
+              <span className={`app-list-text ${isAppDisabledForOta('app6') ? 'disabled' : ''}`}>Weight Scale</span></a></label>
+
+              <label className={`app-list-item ${selectedApp === 'app7' ? 'active' : ''} ${isAppDisabledForOta('app7') ? 'disabled' : ''}`}>
+              <input type="radio" name="application" value="app7" checked={selectedApp === 'app7'} disabled={isAppDisabledForOta('app7')} onChange={() => { setSelectedApp('app7'); updateVersionOptions('app7');setSelectedApp('app7'); updateVersionOptions('app7'); }}/>
+              <img src={glucoselogo} className={`appsLogo ${isAppDisabledForOta('app7') ? 'logo-disabled' : ''}`}></img>
+              <a href="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput" target="_blank" className="app-list-link">
+              <span className={`app-list-text ${isAppDisabledForOta('app3') ? 'disabled' : ''}`}>Continuous Glucose</span></a></label>
 
               </div>
 
