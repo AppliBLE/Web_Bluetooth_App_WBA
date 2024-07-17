@@ -29,12 +29,10 @@ Example of the interface when a connection is established with Firmware Update O
 
 # **Setup**
 
-The following [wiki page]() will help you to put in place the hardware setup.
-
 ## Hardware requirements
 
 To use the web interface, the following **STM32WBA** board is necessary .
-- [NUCLEO-WBA52]()
+- [NUCLEO-WBA5x](https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html "https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html")
 
 A PC or a smartphone is required to open the web interface in a browser.
 
@@ -42,8 +40,7 @@ A PC or a smartphone is required to open the web interface in a browser.
 
 For more information about STM32CubeWBA Software Architecture click [here](https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32CubeWBA_SW_Architecture "https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32CubeWBA_SW_Architecture")
 
-All available binaries files are available [here]().  
-Refer to [UM2237](https://wiki.st.com/stm32mcu/wiki/STM32CubeProg_introduction "https://wiki.st.com/stm32mcu/wiki/STM32CubeProg_introduction") to learn how to install and use STM32CubeProgrammer.  
+Refer to [UM2237](https://www.st.com/resource/en/user_manual/dm00403500-stm32cubeprogrammer-software-description-stmicroelectronics.pdf "https://www.st.com/resource/en/user_manual/dm00403500-stm32cubeprogrammer-software-description-stmicroelectronics.pdf") to learn how to install and use STM32CubeProgrammer.  
 
 For more information about Bluetooth® LE please refer to the [STMicroelectronics  Wiki](https://wiki.st.com/stm32mcu/wiki/Connectivity:BLE_overview "https://wiki.st.com/stm32mcu/wiki/Connectivity:BLE_overview").
 
@@ -58,10 +55,10 @@ The P2P Server application demonstrates a bidirectional Bluetooth® LE communica
 
 ### **Requierements**
 
-Example with the [NUCLEO-WBA52]() board.  
+Example with the [NUCLEO-WBA5x](https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html "https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html") board.  
 
 
-[This](https://github.com/STMicroelectronics/STM32CubeWB/tree/master/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_p2pServer/Binary "https://github.com/STMicroelectronics/STM32CubeWB/tree/master/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_p2pServer/Binary") binary file has to be flashed in the microcontroller.  
+[BLE_p2pServer](https://github.com/STMicroelectronics/STM32CubeWBA/tree/main/Projects/NUCLEO-WBA55CG/Applications/BLE/BLE_p2pServer/Binary "https://github.com/STMicroelectronics/STM32CubeWBA/tree/main/Projects/NUCLEO-WBA55CG/Applications/BLE/BLE_p2pServer/Binary") binary file has to be flashed in the microcontroller.  
 
 ### **Follow the next steps to learn how to use the application P2P Server**
 
@@ -84,9 +81,9 @@ The Firmware Update Over The Air (OTA) application allows a remote device to upd
 
 ### **Requierements**
 
-Example with the [NUCLEO-WBA52]() board.  
+Example with the [NUCLEO-WBA5x](https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html "https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html") board.  
 
-The [BLE_ApplicationInstallManager]() application, associated to a Bluetooth® LE application embedding OTA service, manages the firmware update over the air of a Bluetooth® LE application.
+The [BLE_ApplicationInstallManager](https://github.com/AppliBLE/STM32WBA_Binaries/tree/master/BLE_ApplicationInstallManager "https://github.com/AppliBLE/STM32WBA_Binaries/tree/master/BLE_ApplicationInstallManager") application, associated to a Bluetooth® LE application embedding OTA service, manages the firmware update over the air of a Bluetooth® LE application.
 
 The BLE_ApplicationInstallManager application must run with Bluetooth® LE applications embedding OTA service like: [BLE_HeartRate_ota]() or [BLE_p2pServer_ota]() applications.
 
@@ -116,9 +113,9 @@ The HeartRate application measures heart rate data and other information like th
 
 ### **Requierements**
 
-Example with the [NUCLEO-WBA52]() board.  
+Example with the [NUCLEO-WBA5x](https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html "https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html") board.  
 
-[This]() binary file has to be flashed in the microcontroller.  
+[BLE_HeartRate](https://github.com/STMicroelectronics/STM32CubeWBA/tree/main/Projects/NUCLEO-WBA55CG/Applications/BLE/BLE_HeartRate/Binary "https://github.com/STMicroelectronics/STM32CubeWBA/tree/main/Projects/NUCLEO-WBA55CG/Applications/BLE/BLE_HeartRate/Binary") binary file has to be flashed in the microcontroller.  
 
 ### **Follow the next steps to learn how to use the application HeartRate**
 
@@ -141,9 +138,9 @@ The Data Throughput application measures the upload (data transfer from web inte
 
 ### **Requierements**
 
-Example with the [NUCLEO-WBA52]() board.  
+Example with the [NUCLEO-WBA5x](https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html "https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html") board.  
 
-[This]() binary file has to be flashed in the microcontroller.  
+[BLE_DataThroughput](https://github.com/AppliBLE/STM32WBA_Binaries/tree/master/BLE_DataThroughput_Server "https://github.com/AppliBLE/STM32WBA_Binaries/tree/master/BLE_DataThroughput_Server") binary file has to be flashed in the microcontroller.  
 
 ### **Follow the next steps to learn how to use the application Data Throughput**
 
@@ -167,9 +164,9 @@ P2P Router application scans to connect to P2P Server devices and accept connect
 
 ### **Requierements**
 
-Example with one [NUCLEO-WBA52]() board as a P2P Router, two [NUCLEO-WBA52]()  and one [P-NUCLEO-WB55](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") boards as P2P Server.  
+Example with one [NUCLEO-WBA5x](https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html "https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html") board as a P2P Router, two [NUCLEO-WBA5x]()  and one [P-NUCLEO-WB55](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html "https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html") boards as P2P Server.  
 
-You need a P2P Router running on a STM32WBA52 and at least another STM32WBAxx / STM32WB Nucleo board to run a P2P Server application.
+You need a P2P Router running on a STM32WBA5x and at least another STM32WBAxx / STM32WB Nucleo board to run a P2P Server application.
 
 ### **Follow the next steps to learn how to use the application P2P Router**
 
@@ -202,9 +199,9 @@ This specification is compatible with any Bluetooth® core specification host [3
 
 ### **Requierements**
 
-Example with the [NUCLEO-WBA52]() board.  
+Example with the [NUCLEO-WBA5x](https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html "https://www.st.com/en/evaluation-tools/nucleo-wba55cg.html") board.  
 
-[This]() binary file has to be flashed in the microcontroller.  
+[BLE_HealthThermometer](https://github.com/AppliBLE/STM32WBA_Binaries/tree/master/BLE_HealthThermometer/ "https://github.com/AppliBLE/STM32WBA_Binaries/tree/master/BLE_HealthThermometer") binary file has to be flashed in the microcontroller.  
 
 ### **Follow the next steps to learn how to use the application Health Thermometer**
 
@@ -217,7 +214,7 @@ Example with the [NUCLEO-WBA52]() board.
 
 
 
-For more information about this application, please refer to [STM32WBA Health Thermometer]().
+For more information about this application, please refer to [STM32WBA Health Thermometer](https://github.com/AppliBLE/STM32WBA_Binaries/tree/master/BLE_HealthThermometer/ "https://github.com/AppliBLE/STM32WBA_Binaries/tree/master/BLE_HealthThermometer").
 
 ***
 

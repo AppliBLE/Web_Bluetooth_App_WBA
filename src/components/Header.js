@@ -507,7 +507,7 @@ const Header = (props) => {
         var revs = document.getElementById("revs");
         revs.innerText = rev;
         var hwp = document.getElementById("hwp");
-        hwp.innerText = "FW package : " + hw;
+        hwp.innerText = "HW package : " + hw;
         var hsvs1 = document.getElementById("hsvs1");
         hsvs1.innerText = "Host Stack Version : " + hsvp1;
         var hsvs2 = document.getElementById("hsvs2");
@@ -584,7 +584,7 @@ const Header = (props) => {
       }
     
       const isOtaSelected = selectedWay === 'ota';
-      const isAppDisabledForOta = (app) => isOtaSelected && (app === 'app1' || app === 'app3' || app === 'app4' || app === 'app5' || app === 'app6' || app === 'app7');
+      const isAppDisabledForOta = (app) => isOtaSelected && (app === 'app1' || app === 'app3' || app === 'app4' || app === 'app5' || app === 'app6' || app === 'app7'  || app === 'app8' || app === 'app9');
     
       const handleSetSelectedWay = (way) => {
         setSelectedWay(way);
@@ -631,7 +631,12 @@ const Header = (props) => {
         try {
           const selectedVersion = document.getElementById('selectedVersion').value;
           const appName = appFolderMap[selectedApp];
-          const binaryFileName = `${appName}_v${selectedVersion}.bin`;
+          let binaryFileName = 'app1'; 
+          if (selectedApp === 'app8' || selectedApp === 'app9') {
+            binaryFileName = `${appName}_v${selectedVersion}.hex`;
+          } else {
+            binaryFileName = `${appName}_v${selectedVersion}.bin`;
+          }
           const githubRawUrl = `https://api.github.com/repos/AppliBLE/STM32WBA_Binaries/contents/${appName}/${binaryFileName}`;
           const apiResponse = await fetch(githubRawUrl);
           if (!apiResponse.ok) {
@@ -671,6 +676,7 @@ const Header = (props) => {
         }
       }
 
+      /* Specific Binary to switch to FUOTA application via CLI - eg. HeartRate_OTA.bin combine with AppInstallManager.bin */ 
       async function addNewOTA() {
         try {
           const selectedVersion = document.getElementById('selectedVersion').value;
@@ -741,7 +747,7 @@ const Header = (props) => {
             if (isOtaApplication) {
               downloadByOTA();
             } else {
-              addNewOTA();
+              console.error('Error Selected Way Conflict');
             } 
         }
         else {
@@ -764,8 +770,8 @@ const Header = (props) => {
         'app7': 'BLE_ContinuousGlucoseMonitoring',
         'app0_ota': 'BLE_p2pServer_ota',
         'app2_ota': 'BLE_HeartRate_ota',
-        'app0_ota_add': 'BLE_ApplicationInstallManager_Combine_with_p2pServerOTA',
-        'app2_ota_add': 'BLE_ApplicationInstallManager_Combine_with_HeartRateOTA',
+        'app8': 'BLE_ApplicationInstallManager_Combine_with_p2pServerOTA',
+        'app9': 'BLE_ApplicationInstallManager_Combine_with_HeartRateOTA',
         
       };
       
@@ -785,7 +791,7 @@ const Header = (props) => {
           console.error('Invalid application selection');
           return;
         }
-        
+
         let versionRegex;
         const url = `${githubBaseUrl}${directory}`;
         try {
@@ -796,13 +802,18 @@ const Header = (props) => {
           const files = await response.json();
           if (selectedWay === 'ota') {
             if (!isOtaApplication) {
-              versionRegex = /v(\d+\.\d+\.\d+)\.hex/; 
+              
             }
             else{
               versionRegex = /v(\d+\.\d+\.\d+)\.bin/; 
             }
           } else {
+            if (selectedApp === 'app8' || selectedApp === 'app9') {
+              versionRegex = /v(\d+\.\d+\.\d+)\.hex/; 
+            } else {
               versionRegex = /v(\d+\.\d+\.\d+)\.bin/; 
+            }
+              
           }
           const versions = files
             .map(file => {
@@ -855,7 +866,7 @@ const Header = (props) => {
         document.getElementById('connectButton').disabled = false;
         props.setIsDisconnected(true);
         props.setAllServices([]);
-        document.location.href="/Web-Bluetooth-WBA-Save";
+        document.location.href="/Web-Bluetooth-WBA";
     }
 
     function onDisconnected() {
@@ -863,7 +874,7 @@ const Header = (props) => {
         document.getElementById('connectButton').disabled = false;
         props.setIsDisconnected(true);
         props.setAllServices([]);
-        document.location.href="/Web-Bluetooth-WBA-Save/";
+        document.location.href="/Web-Bluetooth-WBA/";
       }
     
 
@@ -987,9 +998,10 @@ const Header = (props) => {
                 <input type="radio" name="way" value="cubeCLI" checked={selectedWay === 'cubeCLI'}  onChange={() => handleSetSelectedWay('cubeCLI')} />
                 <span className="way-list-text">STM32CubeProgrammer CLI</span></label>
 
-                <label className={`way-list-item ${selectedWay=== 'ota' ? 'active' : ''}`}>
-                <input type="radio" name="way" value="ota" checked={selectedWay === 'ota'}  onChange={() => handleSetSelectedWay('ota')}  />
-                <span className="way-list-text">OTA</span></label>
+                <label className={`way-list-item ${selectedWay=== 'ota' ? 'active' : ''}${!isOtaApplication ? 'disabled' : ''}`}
+                title={!isOtaApplication ? "Your application is not FUOTA compatible, please flash an OTA compatible application first" : ""}>
+                <input type="radio" name="way" value="ota" checked={selectedWay === 'ota'}  onChange={() => handleSetSelectedWay('ota')} disabled={!isOtaApplication} />
+                <span className={`way-list-text ${!isOtaApplication ? 'disabled' : ''}`} >OTA</span></label>
 
               </div>
 
@@ -1027,26 +1039,34 @@ const Header = (props) => {
               <label className={`app-list-item ${selectedApp === 'app4' ? 'active' : ''} ${isAppDisabledForOta('app4') ? 'disabled' : ''}`}>
               <input type="radio" name="application" value="app4" checked={selectedApp === 'app4'} disabled={isAppDisabledForOta('app4')} onChange={() => { setSelectedApp('app4'); updateVersionOptions('app4');setSelectedApp('app4'); updateVersionOptions('app4'); }}/>
               <img src={BLlogo} className={`appsLogo ${isAppDisabledForOta('app4') ? 'logo-disabled' : ''}`}></img>
-              <a href="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput" target="_blank" className="app-list-link">
-              <span className={`app-list-text ${isAppDisabledForOta('app4') ? 'disabled' : ''}`}>Blood Pressure</span></a></label>
+              <a> <span className={`app-list-text ${isAppDisabledForOta('app4') ? 'disabled' : ''}`}>Blood Pressure</span></a></label>
 
               <label className={`app-list-item ${selectedApp === 'app5' ? 'active' : ''} ${isAppDisabledForOta('app5') ? 'disabled' : ''}`}>
               <input type="radio" name="application" value="app5" checked={selectedApp === 'app5'} disabled={isAppDisabledForOta('app5')} onChange={() => { setSelectedApp('app5'); updateVersionOptions('app5');setSelectedApp('app5'); updateVersionOptions('app5'); }}/>
               <img src={RSClogo} className={`appsLogo ${isAppDisabledForOta('app5') ? 'logo-disabled' : ''}`}></img>
-              <a href="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput" target="_blank" className="app-list-link">
-              <span className={`app-list-text ${isAppDisabledForOta('app5') ? 'disabled' : ''}`}>Running Speed Cadence</span></a></label>
+              <a> <span className={`app-list-text ${isAppDisabledForOta('app5') ? 'disabled' : ''}`}>Running Speed Cadence</span></a></label>
 
               <label className={`app-list-item ${selectedApp === 'app6' ? 'active' : ''} ${isAppDisabledForOta('app6') ? 'disabled' : ''}`}>
               <input type="radio" name="application" value="app6" checked={selectedApp === 'app6'} disabled={isAppDisabledForOta('app6')} onChange={() => { setSelectedApp('app6'); updateVersionOptions('app6');setSelectedApp('app6'); updateVersionOptions('app6'); }}/>
               <img src={WSlogo} className={`appsLogo ${isAppDisabledForOta('app6') ? 'logo-disabled' : ''}`}></img>
-              <a href="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput" target="_blank" className="app-list-link">
-              <span className={`app-list-text ${isAppDisabledForOta('app6') ? 'disabled' : ''}`}>Weight Scale</span></a></label>
+              <a> <span className={`app-list-text ${isAppDisabledForOta('app6') ? 'disabled' : ''}`}>Weight Scale</span></a></label>
 
               <label className={`app-list-item ${selectedApp === 'app7' ? 'active' : ''} ${isAppDisabledForOta('app7') ? 'disabled' : ''}`}>
               <input type="radio" name="application" value="app7" checked={selectedApp === 'app7'} disabled={isAppDisabledForOta('app7')} onChange={() => { setSelectedApp('app7'); updateVersionOptions('app7');setSelectedApp('app7'); updateVersionOptions('app7'); }}/>
               <img src={glucoselogo} className={`appsLogo ${isAppDisabledForOta('app7') ? 'logo-disabled' : ''}`}></img>
-              <a href="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Data_Throughput" target="_blank" className="app-list-link">
-              <span className={`app-list-text ${isAppDisabledForOta('app3') ? 'disabled' : ''}`}>Continuous Glucose</span></a></label>
+              <a> <span className={`app-list-text ${isAppDisabledForOta('app7') ? 'disabled' : ''}`}>Continuous Glucose</span></a></label>
+
+              <label className={`app-list-item ${selectedApp === 'app8' ? 'active' : ''}${isAppDisabledForOta('app8') ? 'hidden' : ''}`}>
+              <input type="radio" name="application" value="app8" checked={selectedApp === 'app8'} disabled={isAppDisabledForOta('app8')}  onChange={() => { setSelectedApp('app8'); updateVersionOptions('app8'); setSelectedApp('app8'); updateVersionOptions('app8');}} />
+              <img src={p2pslogo} className={`appsLogo ${isAppDisabledForOta('app8') ? 'logo-disabled' : ''}`}></img>
+              <a href="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer" target="_blank" className="app-list-link">
+              <span className={`app-list-text ${isAppDisabledForOta('app8') ? 'disabled' : ''}`}>Switch to P2P Server OTA compatible</span></a></label>
+              
+              <label className={`app-list-item ${selectedApp === 'app9' ? 'active' : ''}${isAppDisabledForOta('app9') ? 'hidden' : ''}`}>
+              <input type="radio" name="application" value="app9" checked={selectedApp === 'app9'} disabled={isAppDisabledForOta('app9')}  onChange={() => { setSelectedApp('app9'); updateVersionOptions('app9'); setSelectedApp('app9'); updateVersionOptions('app9');}} />
+              <img src={hrlogo} className={`appsLogo ${isAppDisabledForOta('app9') ? 'logo-disabled' : ''}`}></img>
+              <a href="https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer" target="_blank" className="app-list-link">
+              <span className={`app-list-text ${isAppDisabledForOta('app9') ? 'disabled' : ''}`}>Switch to HeartRate OTA compatible</span></a></label>
 
               </div>
 

@@ -15,7 +15,7 @@
  *
  ******************************************************************************
  */
-div{
+ div{
 	text-align: center;
 }
 #header{
@@ -64,20 +64,30 @@ ul {
 }
 
 .ulProfile {
-    background-color: #03234b;
+    background-color:  #03234b;
     color: #fff;
     font-family: sans-serif;
-    font-weight: 700;
+    font-weight: 800;
     list-style-type: none;
     margin: 0;
 	margin-bottom: 0.5em;
     overflow: hidden;
     padding: 0;
     transition-duration: 1s;
+	display: flex;
+    justify-content: center;
 }
 
-.liProfile {
-    float: left;
+@keyframes blink {
+    30% {
+        opacity: 1;
+    }
+	50% {
+        opacity: 0.5;
+    }
+	80% {
+        opacity: 1;
+    }
 }
 
 .liProfile a {
@@ -86,15 +96,15 @@ ul {
     padding: 14px 16px;
     text-align: center;
     text-decoration: none;
+    animation: blink 1.6s infinite;
 }
 
 .liProfile a:hover {
 	transform: scale(1.05);
-	color: #3CB4E6;/* ST light blue */
-}
+	color:  #3CB4E6;
+} 
 
 li {
-    /*display: list-item;*/
     text-align: -webkit-match-parent;
 }
 
@@ -2022,6 +2032,11 @@ img {
 	opacity: 0.5; 
   }
 
+  
+  .hidden {
+	display: none;
+  }
+
 
   @media (max-width: 1250px)  {
   
@@ -2216,4 +2231,5 @@ img {
 	font-size: 20px;
 
 }  
+
 }
