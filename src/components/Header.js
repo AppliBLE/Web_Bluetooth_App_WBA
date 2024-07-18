@@ -866,7 +866,7 @@ const Header = (props) => {
         document.getElementById('connectButton').disabled = false;
         props.setIsDisconnected(true);
         props.setAllServices([]);
-        document.location.href="/Web-Bluetooth-WBA";
+        document.location.href="/Web_Bluetooth_App_WBA";
     }
 
     function onDisconnected() {
@@ -874,7 +874,7 @@ const Header = (props) => {
         document.getElementById('connectButton').disabled = false;
         props.setIsDisconnected(true);
         props.setAllServices([]);
-        document.location.href="/Web-Bluetooth-WBA/";
+        document.location.href="/Web_Bluetooth_App_WBA/";
       }
     
 
