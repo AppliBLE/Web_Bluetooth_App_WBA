@@ -85,23 +85,10 @@ const Header = (props) => {
                 }, {
                     namePrefix: "FC"              // BLE_FanProject
                 }, {
+                    namePrefix: "MCU"             // Secure FOTA 
+                }, {
                     namePrefix: "HUB_DYN"      // HUB Zigbee
                 }],
-
-
-                // optionalServices: [ '00001800-0000-1000-8000-00805f9b34fb',
-                //                     '0000fe40-cc7a-482a-984a-7f2ed5b3e58f',
-                //                     '0000180d-0000-1000-8000-00805f9b34fb',
-                //                     '0000fe80-cc7a-482a-984a-7f2ed5b3e58f',
-                //                     '0000fe80-8e22-4541-9d4c-21edae82fe80',
-                //                     '0000fe20-cc7a-482a-984a-7f2ed5b3e58f',
-                //                     '0000feb0-cc7a-482a-984a-7f2ed5b3e58f',
-                //                     '00001809-0000-1000-8000-00805f9b34fb',
-                //                     '00001810-0000-1000-8000-00805f9b34fb',
-                //                     '0000181d-0000-1000-8000-00805f9b34fb',
-                //                     '00001814-0000-1000-8000-00805f9b34fb',
-                //                     '0000181f-0000-1000-8000-00805f9b34fb'] // service uuid of [P2P service, Heart Rate service, DataThroughput, Ota, P2P Router, Health Thermomiter, Blood Pressure, Weight Scale, Running Speed and Cadence, Continuous Glucose Monitoring]
-
 
                 optionalServices:  ['00001800-0000-1000-8000-00805f9b34fb',
                                     '0000fe40-cc7a-482a-984a-7f2ed5b3e58f', 
@@ -119,7 +106,8 @@ const Header = (props) => {
                                     '00001810-0000-1000-8000-00805f9b34fb',
                                     '0000181d-0000-1000-8000-00805f9b34fb',
                                     '00001814-0000-1000-8000-00805f9b34fb',
-                                    '0000181f-0000-1000-8000-00805f9b34fb']  // service uuid of [P2P service, Heart Rate service, DataThroughput, Ota, P2P Router, Health Thermomiter, Finger Print, Blood Pressure, Weight Scale, Running Speed and Cadence, Continuous Glucose Monitoring]
+                                    '0000181f-0000-1000-8000-00805f9b34fb',
+                                    '8d53dc1d-1db7-4cd3-868b-8a527460aa84']  // service uuid of [P2P service, Heart Rate service, DataThroughput, Ota, P2P Router, Health Thermomiter, Finger Print, Blood Pressure, Weight Scale, Running Speed and Cadence, Continuous Glucose Monitoring]
             }) 
                 .then(device => { 
                     myDevice = device;
