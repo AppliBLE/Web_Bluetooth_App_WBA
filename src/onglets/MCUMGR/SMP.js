@@ -96,17 +96,6 @@ class MCUManager {
     }
     async connect() {
         try {
-            //this._device = await this._requestDevice(filters);
-            // this._logger.info(`Connecting to device ${this.name}...`);
-            // this._device.addEventListener('gattserverdisconnected', async event => {
-            //     this._logger.info(event);
-            //     if (!this._userRequestedDisconnect) {
-            //         this._logger.info('Trying to reconnect');
-            //         this._connect(1000);
-            //     } else {
-            //         this._disconnected();
-            //     }
-            // });
             this._connect(0);
         } catch (error) {
             this._logger.error(error);
@@ -117,22 +106,12 @@ class MCUManager {
     _connect() {
         setTimeout(async () => {
             try {
-                // if (this._connectingCallback) this._connectingCallback();
-                // const server = await this._device.gatt.connect();
-                // this._logger.info(`Server connected.`);
-                // this._service = await server.getPrimaryService(this.SERVICE_UUID);
-                // this._logger.info(`Service connected.`);
-                // this._characteristic = await this._service.getCharacteristic(this.CHARACTERISTIC_UUID);
-                //this._characteristic.addEventListener('characteristicvaluechanged', this._notification.bind(this));
-                //await this._characteristic.startNotifications();
-                console.log("2 ieme fois je suis perdu ? ");
-
                 await this._connected();
                 if (this._uploadIsInProgress) {
                     this._uploadNext();
                 }
             } catch (error) {
-                console.log(" Catch..... ");
+                console.log(" Catch Error..... ");
                 this._logger.error(error);
                 await this._disconnected();
             }
@@ -147,7 +126,6 @@ class MCUManager {
         return this;
     }
     onConnect(callback) {
-        console.log("on set le callback _connectCallback via onConnect")
         this._connectCallback = callback;
         return this;
     }
@@ -172,13 +150,10 @@ class MCUManager {
         console.log("#_CONNECTED#");
         console.log("############");
         if (this._connectCallback) {
-            console.log(" -> _connectCallback");
             this._connectCallback();
         }
-        else {
-            console.log(" -> _connectCallback is not defined");
-        }
     }
+
     async _disconnected() {
         this._logger.info('Disconnected.');
         if (this._disconnectCallback) this._disconnectCallback();
@@ -192,7 +167,6 @@ class MCUManager {
         return this._device && this._device.name;
     }
     async _sendMessage(op, group, id, data) {
-        console.log("Send Message ")
         const _flags = 0;
         let encodedData = [];
         if (typeof data !== 'undefined') {
@@ -213,21 +187,19 @@ class MCUManager {
         console.log('Group Low:', group_lo);
         console.log('Sequence:', this._seq);
         console.log('ID:', id);
+        console.log("=++++++++++++++++++++=")
 
         //console.log('>' + message.map(x => x.toString(16).padStart(2, '0')).join(' '));
         await this._characteristic.writeValueWithoutResponse(Uint8Array.from(message));
         this._seq = (this._seq + 1) % 256;
-        console.log('Sequence after incrementation:', this._seq);
-        console.log("=++++++++++++++++++++=")
     }
     _notification(event) {
         const message = new Uint8Array(event.target.value.buffer);
-        console.log(message);
-        console.log('<' + [...message].map(x => x.toString(16).padStart(2, '0')).join(' '));
+        //console.log(message);
+        //console.log('<' + [...message].map(x => x.toString(16).padStart(2, '0')).join(' '));
         this._buffer = new Uint8Array([...this._buffer, ...message]);
         const messageLength = this._buffer[2] * 256 + this._buffer[3];
         if (this._buffer.length < messageLength + 8) return;
-        console.log('_notification > _processMessage');
         this._processMessage(this._buffer.slice(0, messageLength + 8));
         this._buffer = this._buffer.slice(messageLength + 8);
     }
@@ -236,16 +208,10 @@ class MCUManager {
         const data = CBOR.decode(message.slice(8).buffer);
         const length = length_hi * 256 + length_lo;
         const group = group_hi * 256 + group_lo;
-        console.log("====================")
+        console.log("===Process Message===")
         console.log('Operation:', op);
         console.log('Flags:', _flags);
-        console.log('Length High:', length_hi);
-        console.log('Length Low:', length_lo);
-        console.log('Group High:', group_hi);
-        console.log('Group Low:', group_lo);
         console.log('Sequence:', _seq);
-        console.log('ID:', id);
-        console.log("--------------------")
         console.log("group : ", group);
         console.log("length : ", length);
         console.log("data : ", data);
@@ -256,9 +222,7 @@ class MCUManager {
 
         if (group === MGMT_GROUP_ID_IMAGE && id === IMG_MGMT_ID_UPLOAD && (data.rc === 0 || data.rc === undefined) && data.off) {
             this._uploadOffset = data.off;
-            console.log(" _processMessage> _uploadNext");
             this._uploadNext();
-            console.log(" end of _processMessage");
             return;
         }
         if (this._messageCallback) this._messageCallback({ op, group, id, data, length });
@@ -266,11 +230,8 @@ class MCUManager {
     cmdReset() {
         return this._sendMessage(MGMT_OP_WRITE, MGMT_GROUP_ID_OS, OS_MGMT_ID_RESET);
     }
-    smpEcho(message) {
-        return this._sendMessage(MGMT_OP_WRITE, MGMT_GROUP_ID_OS, OS_MGMT_ID_ECHO, { d: message });
-    }
+
     cmdImageState() {
-        console.log("cmdImageState");
         return this._sendMessage(MGMT_OP_READ, MGMT_GROUP_ID_IMAGE, IMG_MGMT_ID_STATE);
     }
     cmdImageErase() {
@@ -283,7 +244,6 @@ class MCUManager {
         return this._sendMessage(MGMT_OP_WRITE, MGMT_GROUP_ID_IMAGE, IMG_MGMT_ID_STATE, { hash, confirm: true });
     }
     _hash(image) {
-        console.log("_hash(image)");
         return crypto.subtle.digest('SHA-256', image);
     }
     async _uploadNext() {
@@ -307,7 +267,6 @@ class MCUManager {
 
         this._uploadOffset += length;
 
-        console.log("> _uploadNext() -> _sendMessage")
         this._sendMessage(MGMT_OP_WRITE, MGMT_GROUP_ID_IMAGE, IMG_MGMT_ID_UPLOAD, message);
     }
     async cmdUpload(image, slot = 0) {
@@ -322,7 +281,6 @@ class MCUManager {
         this._uploadSlot = slot;
 
         this._uploadNext();
-        console.log("> 44");
 
     }
     async imageInfo(image) {
@@ -397,22 +355,13 @@ const SMP = (props) => {
     const mcumgr = new MCUManager();
 
     useEffect(() => {
-
-
-
         const initialize = async () => {
             await mcumgr.connect();
-            //mcumgr.cmdImageState();
         };
-
         initialize();
-
-        
-
     }, []);
 
     // Initialization of Bluetooth characteristics
-
     props.allCharacteristics.forEach(element => {
         switch (element.characteristic.uuid) {
             case "da2e7828-fbce-4e01-ae9e-261174997c48":
@@ -431,11 +380,8 @@ const SMP = (props) => {
                 console.log("# No characteristics found..");
 
         }
-
         // Hide the info element on startup
         document.getElementById("readmeInfo").style.display = "none";
-
-
     });
 
 
@@ -449,7 +395,6 @@ const SMP = (props) => {
         const deviceName = document.getElementById('device-name');
         const deviceNameInput = document.getElementById('device-name-input');
         const connectButton = document.getElementById('button-connect');
-        const echoButton = document.getElementById('button-echo');
         const disconnectButton = document.getElementById('button-disconnect');
         const resetButton = document.getElementById('button-reset');
         const imageStateButton = document.getElementById('button-image-state');
@@ -468,7 +413,6 @@ const SMP = (props) => {
 
 
         mcumgr.onConnect(() => {
-            console.log("Callback de connexion appelé !");
             mcumgr.cmdImageState();
         });
 
@@ -493,15 +437,19 @@ const SMP = (props) => {
                             images = data.images;
                             let imagesHTML = '';
                             images.forEach(image => {
+                                const statusClass = image.active ? 'status-active' : 'status-standby';
+                                const tableClass = image.active ? 'table-active' : 'table-standby';
+                                const thClass = image.active ? 'th-active' : 'th-standby';
                                 imagesHTML += `<div class="image ${image.active ? 'active' : 'standby'}">`;
-                                imagesHTML += `<h2>Slot #${image.slot} ${image.active ? 'active' : 'standby'}</h2>`;
-                                imagesHTML += '<table>';
+                                imagesHTML += `<h2><span class="${statusClass}"> Slot #${image.slot} ${image.active ? 'ACTIVE' : 'STANDBY'}</span></h2>`;
+                        
+                                imagesHTML += `<table class="center-table ${tableClass}">`;
                                 const hashStr = Array.from(image.hash).map(byte => byte.toString(16).padStart(2, '0')).join('');
-                                imagesHTML += `<tr><th>Version</th><td>v${image.version}</td></tr>`;
-                                imagesHTML += `<tr><th>Bootable</th><td>${image.bootable}</td></tr>`;
-                                imagesHTML += `<tr><th>Confirmed</th><td>${image.confirmed}</td></tr>`;
-                                imagesHTML += `<tr><th>Pending</th><td>${image.pending}</td></tr>`;
-                                imagesHTML += `<tr><th>Hash</th><td>${hashStr}</td></tr>`;
+                                imagesHTML += `<tr><th class="${thClass}">Version</th><td>v${image.version}</td></tr>`;
+                                imagesHTML += `<tr><th class="${thClass}">Bootable</th><td>${image.bootable}</td></tr>`;
+                                imagesHTML += `<tr><th class="${thClass}">Confirmed</th><td>${image.confirmed}</td></tr>`;
+                                imagesHTML += `<tr><th class="${thClass}">Pending</th><td>${image.pending}</td></tr>`;
+                                imagesHTML += `<tr><th class="${thClass}">Hash</th><td>${hashStr}</td></tr>`;
                                 imagesHTML += '</table>';
                                 imagesHTML += '</div>';
                             });
@@ -564,15 +512,6 @@ const SMP = (props) => {
         });
 
 
-        echoButton.addEventListener('click', async () => {
-            // const message = prompt('Enter a text message to send', 'Hello World!');
-            // await mcumgr.smpEcho(message);
-            // let filters = null;
-            // if (deviceNameInput.value) {
-            //     filters = [{ namePrefix: deviceNameInput.value }];
-            // };
-            await mcumgr.connect();
-        });
 
         resetButton.addEventListener('click', async () => {
             await mcumgr.cmdReset();
@@ -604,18 +543,15 @@ const SMP = (props) => {
     return (
         <div className="container-fluid">
             <div className="container">
-                <div>
-                    <button id="button-echo" type="submit" className="defaultButton"><i className="bi-soundwave"></i> Echo</button>
-                    <button id="button-reset" type="submit" className="defaultButton"><i className="bi-arrow-clockwise"></i> Reset</button>
-                </div>
                 <hr />
                 <h3>Images</h3>
                 <div id="image-list"></div>
                 <div>
-                    <button id="button-image-state" type="submit" className="defaultButton"><i className="bi-arrow-down-circle"></i> Refresh</button>
-                    <button id="button-erase" type="submit" className="defaultButton"><i className="bi-eraser-fill"></i> Erase</button>
-                    <button id="button-test" type="submit" className="defaultButton" disabled><i className="bi-question-square"></i> Test</button>
-                    <button id="button-confirm" type="submit" className="defaultButton" disabled><i className="bi-check2-square"></i> Confirm</button>
+                    <button id="button-image-state" type="submit" className="defaultButton SMP-Button-Margin"><i className="bi-arrow-down-circle"></i> Refresh</button>
+                    <button id="button-erase" type="submit" className="defaultButton SMP-Button-Margin"><i className="bi-eraser-fill"></i> Erase</button>
+                    <button id="button-test" type="submit" className="defaultButton SMP-Button-Margin" disabled><i className="bi-question-square"></i> Test</button>
+                    <button id="button-confirm" type="submit" className="defaultButton SMP-Button-Margin" disabled><i className="bi-check2-square"></i> Confirm</button>
+                    <button id="button-reset" type="submit" className="defaultButton SMP-Button-Margin"><i className="bi-arrow-clockwise"></i> Reset</button>
                 </div>
                 <hr />
                 <h3>Image Upload</h3>
@@ -624,10 +560,10 @@ const SMP = (props) => {
                 </div>
                 <div className="image">
                     <div class="form-group">
-                        <div id="file-status">Select image file (.img)</div>
+                        <div id="file-status">Select image file</div>
                         <div id="file-info"></div>
                     </div>
-                    <button className="defaultButton" id="file-upload" disabled><i className="bi-upload"></i> Upload</button>
+                    <button className="defaultButton SMP-Button-Margin" id="file-upload" disabled><i className="bi-upload"></i> Upload</button>
                 </div>
             </div>
         </div>
