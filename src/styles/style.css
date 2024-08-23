@@ -2236,6 +2236,20 @@ img {
 
 
 /*** SMP Secure FOTA ***/
+.progress {
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #3CB4E6; 
+    text-align: center;
+    color: rgb(246, 113, 113);
+    border-radius: 5px;
+    transition: width 0.4s ease;
+}
 
 .SMP-Button-Margin{
 	margin: 5px;
@@ -2294,4 +2308,19 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 .th-standby {
     background-color: #3CB4E6;
+}
+
+.table-newImage {
+    border: 1px solid #3CB4E6; 
+}
+.th-newImage {
+    background-color: #3CB4E6;
+}
+
+.table-newImage {
+	border: 1px solid #FFD200
+}
+
+.table-newImage th {
+	background-color: #FFD200
 }

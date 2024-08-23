@@ -354,6 +354,7 @@ const SMP = (props) => {
     // Initialisation de MCUManager
     const mcumgr = new MCUManager();
 
+
     useEffect(() => {
         const initialize = async () => {
             await mcumgr.connect();
@@ -382,6 +383,7 @@ const SMP = (props) => {
         }
         // Hide the info element on startup
         document.getElementById("readmeInfo").style.display = "none";
+
     });
 
 
@@ -392,10 +394,6 @@ const SMP = (props) => {
         let fileData = null;
         let images = [];
 
-        const deviceName = document.getElementById('device-name');
-        const deviceNameInput = document.getElementById('device-name-input');
-        const connectButton = document.getElementById('button-connect');
-        const disconnectButton = document.getElementById('button-disconnect');
         const resetButton = document.getElementById('button-reset');
         const imageStateButton = document.getElementById('button-image-state');
         const eraseButton = document.getElementById('button-erase');
@@ -406,14 +404,12 @@ const SMP = (props) => {
         const fileStatus = document.getElementById('file-status');
         const fileImage = document.getElementById('file-image');
         const fileUpload = document.getElementById('file-upload');
-        const bluetoothIsAvailable = document.getElementById('bluetooth-is-available');
-        const bluetoothIsAvailableMessage = document.getElementById('bluetooth-is-available-message');
-        const connectBlock = document.getElementById('connect-block');
-
-
+        const progressBar = document.getElementById('progress-bar');
+        const progressBarContainer = document.getElementById('progress-container');
 
         mcumgr.onConnect(() => {
             mcumgr.cmdImageState();
+            progressBarContainer.style.display = 'none';
         });
 
         mcumgr.onMessage(({ op, group, id, data, length }) => {
@@ -442,7 +438,7 @@ const SMP = (props) => {
                                 const thClass = image.active ? 'th-active' : 'th-standby';
                                 imagesHTML += `<div class="image ${image.active ? 'active' : 'standby'}">`;
                                 imagesHTML += `<h2><span class="${statusClass}"> Slot #${image.slot} ${image.active ? 'ACTIVE' : 'STANDBY'}</span></h2>`;
-                        
+
                                 imagesHTML += `<table class="center-table ${tableClass}">`;
                                 const hashStr = Array.from(image.hash).map(byte => byte.toString(16).padStart(2, '0')).join('');
                                 imagesHTML += `<tr><th class="${thClass}">Version</th><td>v${image.version}</td></tr>`;
@@ -467,15 +463,23 @@ const SMP = (props) => {
         });
 
         mcumgr.onImageUploadProgress(({ percentage }) => {
-            fileStatus.innerText = `Uploading... ${percentage}%`;
+            //fileStatus.innerText = `Uploading... ${percentage}%`;
+            fileStatus.style.display = 'none';
+            progressBar.style.width = `${percentage}%`;
+            progressBar.innerText = `${percentage}%`;
         });
-
 
         mcumgr.onImageUploadFinished(() => {
             fileStatus.innerText = 'Upload complete';
             fileInfo.innerHTML = '';
             fileImage.value = '';
+            progressBar.style.width = '100%';
+            progressBar.innerText = '100%';
             mcumgr.cmdImageState();
+
+            setTimeout(() => {
+                progressBarContainer.style.display = 'none';
+            }, 2000);
         });
 
         fileImage.addEventListener('change', () => {
@@ -486,7 +490,7 @@ const SMP = (props) => {
                 fileData = reader.result;
                 try {
                     const info = await mcumgr.imageInfo(fileData);
-                    let table = `<table>`
+                    let table = `<table class="table-newImage center-table">`;
                     table += `<tr><th>Version</th><td>v${info.version}</td></tr>`;
                     table += `<tr><th>Hash</th><td>${info.hash}</td></tr>`;
                     table += `<tr><th>File Size</th><td>${fileData.byteLength} bytes</td></tr>`;
@@ -505,13 +509,14 @@ const SMP = (props) => {
 
         fileUpload.addEventListener('click', event => {
             fileUpload.disabled = true;
+            progressBarContainer.style.display = 'block';
             event.stopPropagation();
             if (file && fileData) {
                 mcumgr.cmdUpload(fileData);
+                progressBar.style.width = '0%';
+                progressBar.innerText = '0%';
             }
         });
-
-
 
         resetButton.addEventListener('click', async () => {
             await mcumgr.cmdReset();
@@ -543,8 +548,6 @@ const SMP = (props) => {
     return (
         <div className="container-fluid">
             <div className="container">
-                <hr />
-                <h3>Images</h3>
                 <div id="image-list"></div>
                 <div>
                     <button id="button-image-state" type="submit" className="defaultButton SMP-Button-Margin"><i className="bi-arrow-down-circle"></i> Refresh</button>
@@ -563,8 +566,14 @@ const SMP = (props) => {
                         <div id="file-status">Select image file</div>
                         <div id="file-info"></div>
                     </div>
+                    <div class="progress" id="progress-container">
+                        <div id="progress-bar" class="progress-bar"> </div>
+                    </div>
                     <button className="defaultButton SMP-Button-Margin" id="file-upload" disabled><i className="bi-upload"></i> Upload</button>
+
+
                 </div>
+
             </div>
         </div>
     );
