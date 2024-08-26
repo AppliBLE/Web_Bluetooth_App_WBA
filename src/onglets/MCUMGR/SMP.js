@@ -307,9 +307,9 @@ class MCUManager {
         const headerSize = view[8] + view[9] * 2 ** 8;
 
         // check protected TLV area size is 0
-        if (view[10] !== 0x00 || view[11] !== 0x00) {
-            throw new Error('Invalid image (wrong protected TLV area size)');
-        }
+        //if (view[10] !== 0x00 || view[11] !== 0x00) {
+        //    throw new Error('Invalid image (wrong protected TLV area size)');
+        //}
 
         const imageSize = view[12] + view[13] * 2 ** 8 + view[14] * 2 ** 16 + view[15] * 2 ** 24;
         info.imageSize = imageSize;
@@ -320,9 +320,9 @@ class MCUManager {
         }
 
         // check flags is 0x00000000
-        if (view[16] !== 0x00 || view[17] !== 0x00 || view[18] !== 0x00 || view[19] !== 0x00) {
-            throw new Error('Invalid image (wrong flags)');
-        }
+        //if (view[16] !== 0x00 || view[17] !== 0x00 || view[18] !== 0x00 || view[19] !== 0x00) {
+        //    throw new Error('Invalid image (wrong flags)');
+        //}
 
         const version = `${view[20]}.${view[21]}.${view[22] + view[23] * 2 ** 8}`;
         info.version = version;
