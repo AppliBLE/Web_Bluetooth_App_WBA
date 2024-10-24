@@ -256,9 +256,11 @@ class MCUManager {
         const nmpOverhead = 8;
         const message = { data: new Uint8Array(), off: this._uploadOffset };
         if (this._uploadOffset === 0) {
+            message.image = this._uploadSlot;
             message.len = this._uploadImage.byteLength;
             message.sha = new Uint8Array(await this._hash(this._uploadImage));
         }
+
         this._imageUploadProgressCallback({ percentage: Math.floor(this._uploadOffset / this._uploadImage.byteLength * 100) });
 
         const length = this._mtu - CBOR.encode(message).byteLength - nmpOverhead;
@@ -269,7 +271,7 @@ class MCUManager {
 
         this._sendMessage(MGMT_OP_WRITE, MGMT_GROUP_ID_IMAGE, IMG_MGMT_ID_UPLOAD, message);
     }
-    async cmdUpload(image, slot = 0) {
+    async cmdUpload(image, slot) {
         if (this._uploadIsInProgress) {
             this._logger.error('Upload is already in progress.');
             return;
@@ -306,11 +308,6 @@ class MCUManager {
 
         const headerSize = view[8] + view[9] * 2 ** 8;
 
-        // check protected TLV area size is 0
-        //if (view[10] !== 0x00 || view[11] !== 0x00) {
-        //    throw new Error('Invalid image (wrong protected TLV area size)');
-        //}
-
         const imageSize = view[12] + view[13] * 2 ** 8 + view[14] * 2 ** 16 + view[15] * 2 ** 24;
         info.imageSize = imageSize;
 
@@ -318,11 +315,6 @@ class MCUManager {
         if (view.length < imageSize + headerSize) {
             throw new Error('Invalid image (wrong image size)');
         }
-
-        // check flags is 0x00000000
-        //if (view[16] !== 0x00 || view[17] !== 0x00 || view[18] !== 0x00 || view[19] !== 0x00) {
-        //    throw new Error('Invalid image (wrong flags)');
-        //}
 
         const version = `${view[20]}.${view[21]}.${view[22] + view[23] * 2 ** 8}`;
         info.version = version;
@@ -406,6 +398,8 @@ const SMP = (props) => {
         const fileUpload = document.getElementById('file-upload');
         const progressBar = document.getElementById('progress-bar');
         const progressBarContainer = document.getElementById('progress-container');
+        const imageSelected = document.getElementById('image-selected');
+        const hashSelected = document.getElementById('hash-selected');
 
         mcumgr.onConnect(() => {
             mcumgr.cmdImageState();
@@ -430,29 +424,91 @@ const SMP = (props) => {
                 case MGMT_GROUP_ID_IMAGE:
                     switch (id) {
                         case IMG_MGMT_ID_STATE:
+                            let hashList = [];
                             images = data.images;
-                            let imagesHTML = '';
-                            images.forEach(image => {
-                                const statusClass = image.active ? 'status-active' : 'status-standby';
-                                const tableClass = image.active ? 'table-active' : 'table-standby';
-                                const thClass = image.active ? 'th-active' : 'th-standby';
-                                imagesHTML += `<div class="image ${image.active ? 'active' : 'standby'}">`;
-                                imagesHTML += `<h2><span class="${statusClass}"> Slot #${image.slot} ${image.active ? 'ACTIVE' : 'STANDBY'}</span></h2>`;
 
-                                imagesHTML += `<table class="center-table ${tableClass}">`;
-                                const hashStr = Array.from(image.hash).map(byte => byte.toString(16).padStart(2, '0')).join('');
-                                imagesHTML += `<tr><th class="${thClass}">Version</th><td>v${image.version}</td></tr>`;
-                                imagesHTML += `<tr><th class="${thClass}">Bootable</th><td>${image.bootable}</td></tr>`;
-                                imagesHTML += `<tr><th class="${thClass}">Confirmed</th><td>${image.confirmed}</td></tr>`;
-                                imagesHTML += `<tr><th class="${thClass}">Pending</th><td>${image.pending}</td></tr>`;
-                                imagesHTML += `<tr><th class="${thClass}">Hash</th><td>${hashStr}</td></tr>`;
-                                imagesHTML += '</table>';
-                                imagesHTML += '</div>';
+                            // Group images by image number
+                            let groupedImages = {};
+                            data.images.forEach(image_slot => {
+                                if (!groupedImages[image_slot.image]) {
+                                    groupedImages[image_slot.image] = [];
+                                }
+                                groupedImages[image_slot.image].push(image_slot);
                             });
-                            imageList.innerHTML = imagesHTML;
 
-                            testButton.disabled = !(data.images.length > 1 && data.images[1].pending === false);
-                            confirmButton.disabled = !(data.images.length > 0 && data.images[0].confirmed === false);
+                            let innerHTML = '';
+
+                            Object.keys(groupedImages).forEach(image => {
+
+                                let imageHTML = '';
+                                // Start the table for this image group
+                                imageHTML += `<table class="center-table table-group" onclick=onClickTable() style="border: 2px solid black; border-collapse: collapse;">`;
+
+
+                                imageHTML += `<div class="image-group" id="group-${image}">`;
+                                imageHTML += `<h1>Image #${image}</h1>`;
+
+                                imageHTML += `<tr>`;  // Start a single row with a large cell for all slots
+
+                                groupedImages[image].forEach(image => {
+                                    const statusClass = image.active ? 'status-active' : 'status-standby';
+                                    const tableClass = image.active ? 'table-active' : 'table-standby';
+                                    const thClass = image.active ? 'th-active' : 'th-standby';
+
+                                    let slotHTML = `<td>`;
+                                    slotHTML += `<div class="image ${image.active ? 'active' : 'standby'}">`;
+                                    slotHTML += `<h2><span class="${statusClass}"> Slot #${image.slot} ${image.active ? 'ACTIVE' : 'STANDBY'}</span></h2>`;
+
+                                    slotHTML += `<table class="center-table ${tableClass}">`;
+                                    const hashStr = Array.from(image.hash).map(byte => byte.toString(16).padStart(2, '0')).join('');
+                                    slotHTML += `<tr><th class="${thClass}">Version</th><td>v${image.version}</td></tr>`;
+                                    slotHTML += `<tr><th class="${thClass}">Bootable</th><td>${image.bootable}</td></tr>`;
+                                    slotHTML += `<tr><th class="${thClass}">Confirmed</th><td>${image.confirmed}</td></tr>`;
+                                    slotHTML += `<tr><th class="${thClass}">Pending</th><td>${image.pending}</td></tr>`;
+                                    slotHTML += `<tr><th class="${thClass}">Hash</th><td>${hashStr}</td></tr>`;
+                                    slotHTML += '</table>';
+                                    slotHTML += '</div>';
+                                    slotHTML += `</td>`;
+
+                                    imageHTML += slotHTML;
+
+                                    const emptyHashStr = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+
+                                    if(hashStr != emptyHashStr){
+                                        hashList.push([image.hash, hashStr]);
+                                    }
+
+                                });
+
+                                imageHTML += `</tr>`;  // Close the large cell and row
+                                imageHTML += `</div>`;
+                                imageHTML += `</table>`;     // Close the table for this image group
+
+                                innerHTML += imageHTML;
+                            });
+
+                            imageSelected.innerHTML = ''; // We delete the previous options before adding it
+                            const imageCount = groupedImages[group].length;
+                            for (let i = 0; i <= imageCount; i++) {
+                                const option = document.createElement('option');
+                                option.value = i;
+                                option.text = i;
+                                imageSelected.appendChild(option);
+                            }
+
+                            hashSelected.innerHTML = '';
+                            for (const hash of hashList) {
+                                const option = document.createElement('option');
+                                option.value = hash[0];
+                                option.text = hash[1];
+                                hashSelected.appendChild(option);
+                            }
+
+
+                            imageList.innerHTML = innerHTML;
+
+                            //testButton.disabled = !(data.images.length > 1 && data.images[1].pending === false);
+                            //confirmButton.disabled = !(data.images.length > 0 && data.images[0].confirmed === false);
                             break;
                     }
                     break;
@@ -511,8 +567,11 @@ const SMP = (props) => {
             fileUpload.disabled = true;
             progressBarContainer.style.display = 'block';
             event.stopPropagation();
+
+            let slotValue = parseInt(imageSelected.value);
+            console.log("Slot value : " + slotValue);
             if (file && fileData) {
-                mcumgr.cmdUpload(fileData);
+                mcumgr.cmdUpload(fileData, slotValue);
                 progressBar.style.width = '0%';
                 progressBar.innerText = '0%';
             }
@@ -531,32 +590,57 @@ const SMP = (props) => {
         });
 
         testButton.addEventListener('click', async () => {
-            if (images.length > 1 && images[1].pending === false) {
-                await mcumgr.cmdImageTest(images[1].hash);
-            }
+            let hashValue = hashSelected.value;
+            const hashByteArray = new Uint8Array(hashValue.split(',').map(Number));
+            console.log("HashValue : " + hashByteArray)
+            //if (images.length > 1 && images[1].pending === false) {
+                await mcumgr.cmdImageTest(hashByteArray);
+            //}
         });
 
         confirmButton.addEventListener('click', async () => {
-            if (images.length > 0 && images[0].confirmed === false) {
-                await mcumgr.cmdImageConfirm(images[0].hash);
-            }
+            let hashValue = hashSelected.value;
+            const hashByteArray = new Uint8Array(hashValue.split(',').map(Number));
+            console.log("HashValue : " + hashByteArray)
+            //if (images.length > 0 && images[0].confirmed === false) {
+                await mcumgr.cmdImageConfirm(hashByteArray);
+            //}
         });
 
 
     },);
 
     return (
+
+
+
         <div className="container-fluid">
             <div className="container">
                 <div id="image-list"></div>
+
+                <div>
+                <label for="image-selected">Select an Image number :</label>
+                <select id="image-selected">
+                //Images option will be dynamically added
+                </select>
+                </div>
+
+                <div>
+                <label for="hash-selected">Select a hash :</label>
+                <select id="hash-selected">
+                //Hash options will be dynamically added
+                </select>
+                </div>
+
                 <div>
                     <button id="button-image-state" type="submit" className="defaultButton SMP-Button-Margin"><i className="bi-arrow-down-circle"></i> Refresh</button>
                     <button id="button-erase" type="submit" className="defaultButton SMP-Button-Margin"><i className="bi-eraser-fill"></i> Erase</button>
-                    <button id="button-test" type="submit" className="defaultButton SMP-Button-Margin" disabled><i className="bi-question-square"></i> Test</button>
-                    <button id="button-confirm" type="submit" className="defaultButton SMP-Button-Margin" disabled><i className="bi-check2-square"></i> Confirm</button>
+                    <button id="button-test" type="submit" className="defaultButton SMP-Button-Margin" enabled><i className="bi-question-square"></i> Test</button>
+                    <button id="button-confirm" type="submit" className="defaultButton SMP-Button-Margin" enabled><i className="bi-check2-square"></i> Confirm</button>
                     <button id="button-reset" type="submit" className="defaultButton SMP-Button-Margin"><i className="bi-arrow-clockwise"></i> Reset</button>
                 </div>
                 <hr />
+
                 <h3>Image Upload</h3>
                 <div className="form-group">
                     <input type="file" class="form-control" id="file-image" />
