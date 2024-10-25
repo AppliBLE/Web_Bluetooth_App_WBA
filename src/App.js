@@ -30,6 +30,7 @@ import ContinuousGlucoseMonitoring from './onglets/CGM';
 import WifiCommissioning from './onglets/WifiCommissioning';
 import FanProject from './onglets/FanProject';
 import SMP from './onglets/MCUMGR/SMP';
+import Electrocardiogram from './onglets/Electrocardiogram';
 import HUB_DYN from './onglets/HUB_DYN';
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import './styles/style.css'
@@ -91,9 +92,13 @@ allServices.map(service => {
   if(service.service.uuid === "8d53dc1d-1db7-4cd3-868b-8a527460aa84"){
     listItems.push(<li className="liProfile"><Link to="/SMP">Simple Management Protocol</Link></li>);
   }
+  if(service.service.uuid === "00001840-0000-1000-8000-00805f9b34fb"){
+    listItems.push(<li className="liProfile"><Link to="/Electrocardiogram">Electrocardiogram</Link></li>);
+  }
   if(service.service.uuid === "0000fe90-cc7a-482a-984a-7f2ed5b3e58f"){
     listItems.push(<li className="liProfile"><Link to="/HUB_DYN">BLE HUB Zigbee</Link></li>);
   }
+  
 });
 
 
@@ -124,7 +129,8 @@ allServices.map(service => {
 	          <Route path="/WCom" element={isDisconnected ? null : <WifiCommissioning allCharacteristics={allCharacteristics}></WifiCommissioning>} />
             <Route path="/FC" element={isDisconnected ? null : <FanProject allCharacteristics={allCharacteristics}></FanProject>} />
             <Route path="/SMP" element={isDisconnected ? null : <SMP allCharacteristics={allCharacteristics}></SMP>} />
-            <Route path="/HUB_DYN" element={isDisconnected ? null : <HUB_DYN allCharacteristics={allCharacteristics}></HUB_DYN>} />
+            <Route path="/Electrocardiogram" element={isDisconnected ? null : <Electrocardiogram allCharacteristics={allCharacteristics}></Electrocardiogram>} />
+	          <Route path="/HUB_DYN" element={isDisconnected ? null : <HUB_DYN allCharacteristics={allCharacteristics}></HUB_DYN>} />
           </Routes>
           </div>
       </div>

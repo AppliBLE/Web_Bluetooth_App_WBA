@@ -148,7 +148,7 @@ const WifiCommissioning = (props) => {
       // Send pwd 
       wifiSelectedBytes = encoder.encode(document.getElementById("pwd_text").value);
 
-      let pwd = new Uint8Array(2 + wifiSelectedBytes.length);
+      let pwd = new Uint8Array(1 + wifiSelectedBytes.length);
       
       pwd.set([0x02], 0);
       pwd.set(wifiSelectedBytes, 1);
@@ -199,17 +199,18 @@ const WifiCommissioning = (props) => {
 
     // Ping Button -> Send Ping Request
     async function handlePing() {
-      let myWord = new Uint8Array(1);
-      myWord[0] = 0x5;
 
-      try {
-          await WiFi_Control.characteristic.writeValue(myWord);
-          console.log('Ping Write send');
-          createLogElement(myWord, 1, "Start Ping");
-      }
-      catch (error) {
-          console.log('2 : Argh! ' + error);
-      }
+      // let myWord = new Uint8Array(1);
+      // myWord[0] = 0x5;
+
+      // try {
+      //     await WiFi_Control.characteristic.writeValue(myWord);
+      //     console.log('Ping Write send');
+      //     createLogElement(myWord, 1, "Start Ping");
+      // }
+      // catch (error) {
+      //     console.log('2 : Argh! ' + error);
+      // }
     }
 
 
@@ -411,7 +412,7 @@ const WifiCommissioning = (props) => {
 
         clearInterval(interval_connection);
         document.getElementById('wifi_state_img').src = strong_signal;
-        selectedSsid = String.fromCharCode.apply(null, buf.slice(2));
+        selectedSsid = String.fromCharCode.apply(null, buf.slice(1)); // TBC
         updateWifiStatusText('Connected to : ' + selectedSsid);
 
         setShowDisconnect(true);
@@ -451,6 +452,18 @@ const WifiCommissioning = (props) => {
         <strong>Info :</strong> Connect to the WiFi selected<br />
       </Popover>
     );
+
+
+    /// Save for ping button in html div
+    // {showDisconnect && (
+    //   <div className="col-12">
+    //     <button id="ping-button" className="btn btn-warning" onClick={handlePing}>
+    //       Ping
+    //     </button>
+    //   </div>
+    // )}
+
+
 
     return (
       <div className="container-fluid">
@@ -510,13 +523,7 @@ const WifiCommissioning = (props) => {
               <div className="wifi-status-container">
                 <p className="wifi-status-text">{wifiStatusText}</p>
               </div>
-              {showDisconnect && (
-                <div className="col-12">
-                  <button id="ping-button" className="btn btn-warning" onClick={handlePing}>
-                    Ping
-                  </button>
-                </div>
-              )}
+              
             </div>
     
             {showPingTable && (

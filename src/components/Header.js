@@ -67,7 +67,9 @@ const Header = (props) => {
     '0000181d-0000-1000-8000-00805f9b34fb',
     '00001814-0000-1000-8000-00805f9b34fb',
     '0000181f-0000-1000-8000-00805f9b34fb',
-    '8d53dc1d-1db7-4cd3-868b-8a527460aa84'
+    '8d53dc1d-1db7-4cd3-868b-8a527460aa84',
+    '00001840-0000-1000-8000-00805f9b34fb', 
+    '0000ff1a-cc7a-482a-984a-7f2ed5b3e58f'
   ];// service uuid of [P2P service, Heart Rate service, DataThroughput, Ota, P2P Router, Health Thermomiter, Finger Print, Blood Pressure, Weight Scale, Running Speed and Cadence, Continuous Glucose Monitoring]
 
 
@@ -105,11 +107,19 @@ const Header = (props) => {
           }, {
             namePrefix: "WBAx_WiFi"       // BLE_WifCommissionning
           }, {
+            namePrefix: "ST"            // BLE_WifCommissionning
+          }, {
             namePrefix: "FC"              // BLE_FanProject
           }, {
             namePrefix: "MCU"             // Secure FOTA 
           }, {
-            namePrefix: "HUB_DYN"      // HUB Zigbee
+            namePrefix: "HUB_DYN"         // HUB Zigbee
+          }, {
+            namePrefix: "FC"              // BLE_FanProject
+          }, {
+            namePrefix: "WBA"              // other WBA projects
+          }, {
+            namePrefix: "GHS"              // BLE_Electrocardiogram
           }],
 
         optionalServices: OptionalServices  
@@ -255,7 +265,7 @@ const Header = (props) => {
 
   async function readInfoDevice(value) {
     let statusWord = Array.from(new Uint8Array(value.buffer)).map(byte => byte.toString(16).padStart(2, '0')).join('-');
-    let device, rev, board, hw, appv, app, hsv, hsvp1, hsvp2, apprep;
+    let deviceId, rev, board, hw, appv, app, hsv, hsvp1, hsvp2, apprep;
 
     console.log("Device Info", statusWord);
 
@@ -283,11 +293,11 @@ const Header = (props) => {
 
     switch (DeviceID) {
       case '0x04 92':
-        device = '5'
+        deviceId = '5'
         break;
 
       case '0x 04 B0':
-        device = '6'
+        deviceId = '6'
         break;
     }
 
@@ -311,6 +321,14 @@ const Header = (props) => {
         board = 'DK1 WBA'
         updateDeviceType(board)
         break;
+
+      case '0x8d':
+        board = 'B-WBA5M-WPAN'
+        updateDeviceType(board)
+        break;
+        
+        
+      
     }
 
     switch (HWp) {
@@ -343,11 +361,14 @@ const Header = (props) => {
         break;
 
       case '0x0b':
-        hw = 'UFQFPN48-SMPS-USB'
-        break;
-
-      case '0x0b':
-        hw = 'UFQFPN48-SMPS-USB'
+        if(deviceId == '5')
+        {          
+          hw = 'UFBGA59-SMPS'
+        }
+        else if(deviceId = '6')
+        {
+          hw = 'UFQFPN48-SMPS-USB'
+        }
         break;
 
       case '0x0c':
@@ -484,13 +505,18 @@ const Header = (props) => {
         app = 'Running Speed and Cadence'
         apprep = 'BLE_RunningSpeedAndCadence'
         break;
+
+      case '0x9c':
+        app = 'BLE Sensor - HeartRate - P2PServer'
+        apprep = 'BLE_Sensor_HR_P2PServer'
+        break;
     }
 
     appv = "v" + parseInt(statusWord.substring(18, 20), 16) + "." + parseInt(statusWord.substring(21, 23), 16) + "." + parseInt(statusWord.substring(24, 26), 16) + "." + parseInt(statusWord.substring(27, 29), 16) + "." + parseInt(statusWord.substring(30, 32), 16);
 
 
     console.log("----- Device Info -----");
-    console.log("Device : ", device);
+    console.log("Device : ", deviceId);
     console.log("Rev : ", rev);
     console.log("Board : ", board);
     console.log("HW package : ", hw);
@@ -502,7 +528,7 @@ const Header = (props) => {
     console.log("-------------------------------");
 
     var dev = document.getElementById("dev");
-    dev.innerText = board + device;
+    dev.innerText = board + deviceId;
     var revs = document.getElementById("revs");
     revs.innerText = rev;
     var hwp = document.getElementById("hwp");
