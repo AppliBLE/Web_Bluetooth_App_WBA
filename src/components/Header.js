@@ -19,6 +19,7 @@ import React, { useState, useEffect } from "react";
 import { Buffer } from 'buffer';
 import logoST from '../images/st-logo.svg';
 import nucleo from '../images/NUCLEO_board.png';
+import nucleoWBA6 from '../images/NUCLEO_board_WBA6.png';
 import dk1 from '../images/DK1.png';
 import bluetooth from '../images/bluetoothLogo.png';
 import BLlogo from '../images/BLlogo.png';
@@ -32,6 +33,7 @@ import p2pslogo from '../images/P2PSlogo.png';
 
 var myDevice;
 let showAllDevices = false;
+let imgSrc = null;
 
 const Header = (props) => {
 
@@ -111,7 +113,7 @@ const Header = (props) => {
           }, {
             namePrefix: "FC"              // BLE_FanProject
           }, {
-            namePrefix: "MCU"             // Secure FOTA 
+            namePrefix: "FOTA"             // Secure FOTA 
           }, {
             namePrefix: "HUB_DYN"         // HUB Zigbee
           }, {
@@ -289,14 +291,15 @@ const Header = (props) => {
     console.log("Host Stack Version : ", HSv);
 
     console.log("-------------------------------");
-
+    
+    deviceId = "0xFF";
 
     switch (DeviceID) {
       case '0x04 92':
         deviceId = '5'
         break;
 
-      case '0x 04 B0':
+      case '0x04 b0':
         deviceId = '6'
         break;
     }
@@ -306,6 +309,10 @@ const Header = (props) => {
         rev = 'Rev A'
         break;
 
+      case '0x10 01':
+        rev = 'Rev Z'
+        break;
+
       case '0x20 00':
         rev = 'Rev B'
         break;
@@ -313,12 +320,14 @@ const Header = (props) => {
 
     switch (BoardID) {
       case '0x8b':
-        board = 'Nucleo WBA'
+        board = 'Nucleo WBA5'
+        imgSrc = nucleo
         updateDeviceType(board)
         break;
 
       case '0x8c':
         board = 'DK1 WBA'
+        imgSrc = dk1 
         updateDeviceType(board)
         break;
 
@@ -326,10 +335,18 @@ const Header = (props) => {
         board = 'B-WBA5M-WPAN'
         updateDeviceType(board)
         break;
+
+      case '0x8e':
+      board = 'Nucleo WBA6'
+      imgSrc = nucleoWBA6
+      updateDeviceType(board)
+      break;
         
         
       
     }
+
+
 
     switch (HWp) {
       case '0x00':
@@ -383,17 +400,20 @@ const Header = (props) => {
         hw = 'UFBGA121-SMPS-USB'
         break;
 
-
-
     }
 
     switch (HSvp2) {
-      case '0x10':
+
+      case '0x0f':
         hsvp1 = 'Tag 0.15'
         break;
 
-      case '0x0f':
+      case '0x10':
         hsvp1 = 'Tag 0.16'
+        break;
+      
+      case '0x11':
+        hsvp1 = 'Tag 0.17'
         break;
 
     }
@@ -528,7 +548,7 @@ const Header = (props) => {
     console.log("-------------------------------");
 
     var dev = document.getElementById("dev");
-    dev.innerText = board + deviceId;
+    dev.innerText = board;
     var revs = document.getElementById("revs");
     revs.innerText = rev;
     var hwp = document.getElementById("hwp");
@@ -961,7 +981,7 @@ const Header = (props) => {
                 <div class="Chartitle__card2">
                   <div class="Char__container2 container grid">
                     <div>
-                      <img src={deviceType === 'DK1 WBA' ? dk1 : nucleo} alt="" className="boardImage"></img>
+                      <img src={imgSrc} alt="" className="boardImage"></img>
                     </div>
 
                     <div>
@@ -1071,7 +1091,7 @@ const Header = (props) => {
                   <img src={RSClogo} className={`appsLogo ${isAppDisabledForOta('app5') ? 'logo-disabled' : ''}`}></img>
                   <a> <span className={`app-list-text ${isAppDisabledForOta('app5') ? 'disabled' : ''}`}>Running Speed Cadence</span></a></label>
 
-                <label className={`app-list-item ${selectedApp === 'app6' ? 'active' : ''} ${isAppDisabledForOta('app6') ? 'disabled' : ''}`}>
+                <label className={`app-list-item ${selectedApp === 'app6' ? 'active' : ''} ${isAppDisabledForOta('app6') ? 'disabled' : ''}`}> 
                   <input type="radio" name="application" value="app6" checked={selectedApp === 'app6'} disabled={isAppDisabledForOta('app6')} onChange={() => { setSelectedApp('app6'); updateVersionOptions('app6'); setSelectedApp('app6'); updateVersionOptions('app6'); }} />
                   <img src={WSlogo} className={`appsLogo ${isAppDisabledForOta('app6') ? 'logo-disabled' : ''}`}></img>
                   <a> <span className={`app-list-text ${isAppDisabledForOta('app6') ? 'disabled' : ''}`}>Weight Scale</span></a></label>
