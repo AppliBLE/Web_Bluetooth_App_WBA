@@ -31,6 +31,8 @@ import hrlogo from '../images/HRlogo.png';
 import dtlogo from '../images/DTlogo.png';
 import p2pslogo from '../images/P2PSlogo.png';
 
+export let deviceId;
+
 var myDevice;
 let showAllDevices = false;
 let imgSrc = null;
@@ -267,7 +269,7 @@ const Header = (props) => {
 
   async function readInfoDevice(value) {
     let statusWord = Array.from(new Uint8Array(value.buffer)).map(byte => byte.toString(16).padStart(2, '0')).join('-');
-    let deviceId, rev, board, hw, appv, app, hsv, hsvp1, hsvp2, apprep;
+    let board, rev, hw, appv, app, hsv, hsvp1, hsvp2, apprep;
 
     console.log("Device Info", statusWord);
 
@@ -404,7 +406,7 @@ const Header = (props) => {
 
 
     hsvp1 = 'Tag 0.'+ hexToDecimal(HSvp2);
-    
+
     switch (HSvp1) {
       case '0x00':
         hsvp2 = 'Full Stack'

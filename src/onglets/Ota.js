@@ -19,6 +19,8 @@ import { createLogElement, startOtaUpdate} from "../components/Header";
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import iconInfo from '../images/iconInfo.svg';
 
+import { deviceId } from '../components/Header.js';
+
 const REBOOT = 1;
 const READY_TO_RECEIVE = 2;
 const ERROR_NO_FREE = 3;
@@ -75,7 +77,14 @@ const Ota = (props) => {
         setBinaryFileName(fileName);
         setSelectedAction('application');
         let actionChoice = document.getElementById("startSectorInput");
-        actionChoice.value = "080000";            
+        if(deviceId == '6')
+        {
+          actionChoice.value = "100000";
+        }
+        else
+        {
+          actionChoice.value = "080000";
+        }        
         uploadAction = "002";
         if (selectedAction === 'application') {
           document.getElementById("applicationSelectFilePart").style.display = "block";
@@ -277,7 +286,14 @@ const Ota = (props) => {
         document.getElementById("userDataSelectFilePart").style="display:none";
         document.getElementById("applicationSelectFilePart").style="display:block";
         uploadAction = "002";
-        actionChoice.value = "080000";
+        if(deviceId == '6')
+        {
+          actionChoice.value = "100000";
+        }
+        else
+        {
+          actionChoice.value = "080000";
+        }
 
         break;
     }
