@@ -200,17 +200,17 @@ const WifiCommissioning = (props) => {
     // Ping Button -> Send Ping Request
     async function handlePing() {
 
-      // let myWord = new Uint8Array(1);
-      // myWord[0] = 0x5;
+      let myWord = new Uint8Array(1);
+      myWord[0] = 0x5;
 
-      // try {
-      //     await WiFi_Control.characteristic.writeValue(myWord);
-      //     console.log('Ping Write send');
-      //     createLogElement(myWord, 1, "Start Ping");
-      // }
-      // catch (error) {
-      //     console.log('2 : Argh! ' + error);
-      // }
+      try {
+          await WiFi_Control.characteristic.writeValue(myWord);
+          console.log('Ping Write send');
+          createLogElement(myWord, 1, "Start Ping");
+      }
+      catch (error) {
+          console.log('2 : Argh! ' + error);
+      }
     }
 
 
@@ -327,7 +327,9 @@ const WifiCommissioning = (props) => {
 
 
     const [showPingTable, setShowPingTable] = useState(false);
-    const [pingDelays, setPingDelays] = useState([0, 0, 0, 0]); // Les valeurs initiales sont toutes à 0
+    const [pingDelay, setPingDelay] = useState(0); 
+    const [pingCount, setPingCount] = useState(0); 
+    const [pingPacketLost, setPacketLost] = useState(0); 
 
     /* API List handler */
     function notif_Ap_List_Handler(event){
@@ -418,9 +420,24 @@ const WifiCommissioning = (props) => {
         setShowDisconnect(true);
         console.log("What's happen");
       }else if(buf[0] == 0x05){
-        const newDelays = [buf[1], buf[2], buf[3], buf[4]];
-        setPingDelays(newDelays);
+        setPacketLost(buf[1]);
+        setPingCount(buf[2]);
+        setPingDelay(buf[7]);
         setShowPingTable(true);
+
+
+
+
+
+    //     const average_ping = (buf[4] << 24) | (buf[5] << 16) | (buf[6] << 8) | buf[7];
+
+
+
+
+
+
+
+
       }else if(buf[0] == 0x06){
         if(buf[1] == 0x01){
           console.log("Error connection ");
@@ -463,77 +480,10 @@ const WifiCommissioning = (props) => {
     //   </div>
     // )}
 
-
-
-    return (
-      <div className="container-fluid">
-        <div className="container">
-          <div className="row justify-content-center mt-3">
-            <div className="col-12 col-md-6 col-lg-4 m-2 mb-6">
-              
-                <div className="d-flex justify-content-between">
-                  <button className="defaultButton w-100" type="button" onClick={ScanRequestButtonClick} id="scanButton">
-                    Wi-Fi Scan Request
-                  </button>
-
-                </div>
-                <div className="d-flex justify-content-between mt-3">
-                  <label htmlFor="Wifi_selected">SSID Selected:</label>
-                  <input type="text" id="Wifi_selected" value="Select your Wi-Fi" readOnly style={{ backgroundColor: "#f2f2f2" }} />
-                </div>
-                <div className="d-flex justify-content-between mt-3">
-                  <label htmlFor="pwd_text">Password:</label>
-                  <input type="text" id="pwd_text" />
-                </div>
-                <div className="d-flex justify-content-between mt-3">
-                  <label htmlFor="security_mode">Security: </label>
-                  <select type= "text" id="security_mode" ></select>
-                </div>
-                <div className="d-flex justify-content-between mt-3">
-                  <button className="defaultButton w-100" type="button" onClick={ConnectRequestButtonClick} id="connectButton">
-                    Wi-Fi Connection Request
-                  </button>
-                </div>
-              
-            </div>
-            <div className="d-grid col-xs-12 col-sm-12 col-md-6 col-lg-4 m-2">
-              <div className="wifiListContainer">
-                <div className="wifiList" id="wifiList"></div>
-              </div>
-            </div>
-          </div>
-    
-          <hr />
-    
-          <div className="row justify-content-center mt-3 wifi-container">
-            <div className="col-12">
-              <h2 className="wifi-state-title">Wifi State</h2>
-            </div>
-            <div className="col-md-6">
-              <img src={no_wifi} id='wifi_state_img' alt="Wifi State" className="wifi-state-image" />
-              {showDisconnect && (
-                <div className="col-12">
-                  <button id="disconnect-button" className="btn btn-warning" onClick={handleDisconnect}>
-                    Disconnect
-                  </button>
-                </div>
-              )}
-            </div>
-            <div className="col-md-6">
-              <div className="wifi-status-container">
-                <p className="wifi-status-text">{wifiStatusText}</p>
-              </div>
-              
-            </div>
-    
-            {showPingTable && (
-              <div className="row justify-content-center mt-3">
-                <div className="col-auto">
-                  <table className="table text-white">
-                    <thead>
+{/* <thead>
                       <tr>
-                        <th>Ping n°</th>
-                        <th>Delay Ping (ms)</th>
+                        <th>Ping Count</th>
+                        <th>Average Ping Delay (ms)</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -543,15 +493,92 @@ const WifiCommissioning = (props) => {
                           <td>{delay}</td>
                         </tr>
                       ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
+                    </tbody> */}
+
+  return (
+    <div className="container-fluid">
+      <div className="container">
+        <div className="row justify-content-center mt-3">
+          <div className="col-12 col-md-6 col-lg-4 m-2 mb-6">
+
+            <div className="d-flex justify-content-between">
+              <button className="defaultButton w-100" type="button" onClick={ScanRequestButtonClick} id="scanButton">
+                Wi-Fi Scan Request
+              </button>
+
+            </div>
+            <div className="d-flex justify-content-between mt-3">
+              <label htmlFor="Wifi_selected">SSID Selected:</label>
+              <input type="text" id="Wifi_selected" value="Select your Wi-Fi" readOnly style={{ backgroundColor: "#f2f2f2" }} />
+            </div>
+            <div className="d-flex justify-content-between mt-3">
+              <label htmlFor="pwd_text">Password:</label>
+              <input type="text" id="pwd_text" />
+            </div>
+            <div className="d-flex justify-content-between mt-3">
+              <label htmlFor="security_mode">Security: </label>
+              <select type="text" id="security_mode" ></select>
+            </div>
+            <div className="d-flex justify-content-between mt-3">
+              <button className="defaultButton w-100" type="button" onClick={ConnectRequestButtonClick} id="connectButton">
+                Wi-Fi Connection Request
+              </button>
+            </div>
+
+          </div>
+          <div className="d-grid col-xs-12 col-sm-12 col-md-6 col-lg-4 m-2">
+            <div className="wifiListContainer">
+              <div className="wifiList" id="wifiList"></div>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+
+        <div className="row justify-content-center mt-3 wifi-container">
+          <div className="col-12">
+            <h2 className="wifi-state-title">Wifi State</h2>
+            <p className="wifi-status-text">{wifiStatusText}</p>
+          </div>
+
+
+          <div class="content-wifi-wrapper">
+
+            <div className="content-wifi-box">
+              <img src={no_wifi} id='wifi_state_img' alt="Wifi State" className="wifi-state-image" />
+              {showDisconnect && (
+                <button id="disconnect-button" className="btn-wifi" onClick={handleDisconnect}> Disconnect </button>
+              )}
+            </div>
+
+            <div className="content-wifi-box">
+              {showPingTable && (
+                <table class="ping-table">
+                  <thead>
+                    <tr>
+                      <th>Ping Count</th>
+                      <th>Average Ping Delay</th>
+                      <th>Packet Lost</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{pingCount}</td>
+                      <td>{pingDelay}ms</td>
+                      <td>{pingPacketLost} %</td>
+                    </tr>
+                  </tbody>
+                </table>
+              )}
+              {showDisconnect && (
+                <button id="ping-button" className="btn-wifi" onClick={handlePing}> Ping </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    );
+    </div>
+  );
 
 
 };

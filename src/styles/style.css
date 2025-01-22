@@ -702,6 +702,52 @@ tr:last-child td {
 	gap: 10px;
   }
 
+  .ping-table {
+	width: 100%;
+	border-collapse: collapse;
+	color:#ffffff;
+
+  }
+  
+  .ping-table th, .ping-table td {
+	border-bottom: 1px solid #ffffff;
+	padding: 10px;
+	text-align: center;
+  }
+  
+  .btn-wifi {
+	background-color: #FFD200; 
+	border: none; 
+	color: rgb(0, 0, 0); 
+	padding: 5px 15px; 
+	text-align: center;
+	text-decoration: none;
+	display: inline-block; 
+	font-size: 16px; 
+	margin: 5px 2px; 
+	cursor: pointer;
+	border-radius: 8px;
+  }
+  
+  .btn-wifi:hover {
+	background-color: #ffe46e; /* Couleur de fond au survol */
+  }
+
+
+  .content-wifi-box {
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    flex: 1 1 auto;
+}
+
+.content-wifi-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+
   /*#################  Fan Control ################*/
 
   .CoolingFan {
@@ -2323,3 +2369,10 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 .table-newImage th {
 	background-color: #FFD200
 }
+
+
+
+
+
+
+

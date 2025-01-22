@@ -402,22 +402,9 @@ const Header = (props) => {
 
     }
 
-    switch (HSvp2) {
 
-      case '0x0f':
-        hsvp1 = 'Tag 0.15'
-        break;
-
-      case '0x10':
-        hsvp1 = 'Tag 0.16'
-        break;
-      
-      case '0x11':
-        hsvp1 = 'Tag 0.17'
-        break;
-
-    }
-
+    hsvp1 = 'Tag 0.'+ hexToDecimal(HSvp2);
+    
     switch (HSvp1) {
       case '0x00':
         hsvp2 = 'Full Stack'
@@ -922,7 +909,9 @@ const Header = (props) => {
     document.location.href = "/Web_Bluetooth_App_WBA/";
   }
 
-
+  function hexToDecimal(hex) {
+    return parseInt(hex, 16);
+  }
 
 
   return (
