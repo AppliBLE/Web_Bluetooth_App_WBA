@@ -123,7 +123,7 @@ const Header = (props) => {
           }, {
             namePrefix: "WBA"              // other WBA projects
           }, {
-            namePrefix: "GHS"              // BLE_Electrocardiogram
+            namePrefix: "ECG"              // BLE_Electrocardiogram
           }],
 
         optionalServices: OptionalServices  
@@ -525,7 +525,7 @@ const Header = (props) => {
 
 
     console.log("----- Device Info -----");
-    console.log("Device : ", deviceId);
+    console.log("Device id : ", deviceId);
     console.log("Rev : ", rev);
     console.log("Board : ", board);
     console.log("HW package : ", hw);

@@ -427,15 +427,7 @@ const WifiCommissioning = (props) => {
 
 
 
-
-
     //     const average_ping = (buf[4] << 24) | (buf[5] << 16) | (buf[6] << 8) | buf[7];
-
-
-
-
-
-
 
 
       }else if(buf[0] == 0x06){
