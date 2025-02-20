@@ -20,6 +20,7 @@ import { Buffer } from 'buffer';
 import logoST from '../images/st-logo.svg';
 import nucleo from '../images/NUCLEO_board.png';
 import nucleoWBA6 from '../images/NUCLEO_board_WBA6.png';
+import STM32WBA65I_DK1 from '../images/STM32WBA65I_DK1.png';
 import dk1 from '../images/DK1.png';
 import bluetooth from '../images/bluetoothLogo.png';
 import BLlogo from '../images/BLlogo.png';
@@ -322,13 +323,13 @@ const Header = (props) => {
 
     switch (BoardID) {
       case '0x8b':
-        board = 'Nucleo WBA5'
+        board = 'Nucleo-WBA55CG'
         imgSrc = nucleo
         updateDeviceType(board)
         break;
 
       case '0x8c':
-        board = 'DK1 WBA'
+        board = 'STM32WBA55G-DK1'
         imgSrc = dk1 
         updateDeviceType(board)
         break;
@@ -339,11 +340,16 @@ const Header = (props) => {
         break;
 
       case '0x8e':
-      board = 'Nucleo WBA6'
-      imgSrc = nucleoWBA6
-      updateDeviceType(board)
-      break;
-        
+          board = 'Nucleo-WBA65RI'
+          imgSrc = nucleoWBA6
+          updateDeviceType(board)
+          break;
+
+      case '0x8f':
+        board = 'STM32WBA65I-DK1'
+        imgSrc = STM32WBA65I_DK1
+        updateDeviceType(board)
+        break;
         
       
     }
