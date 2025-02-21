@@ -90,6 +90,11 @@ const Ota = (props) => {
           document.getElementById("applicationSelectFilePart").style.display = "block";
         }
       }
+
+      const element = document.getElementById('ota-section');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     
       return () => {
         window.removeEventListener('githubUrlUpdated', handleGithubUrlUpdate);

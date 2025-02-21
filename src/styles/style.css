@@ -1655,13 +1655,17 @@ img {
 
 .InfoTableTd{
 	color: #03234B;
-    background-color: #BDC5D0;
 	display: flex;
 	align-items: left;
 	justify-content: left;
 	padding-inline-start: 1.5rem;
-	
-	
+}
+.Chartitle__card3 h4{
+    font-size: 12px;
+	font-style: italic;
+    color: #03234B;
+    text-align: left;
+    padding-left: 0.5rem;
 }
 
 
@@ -1941,7 +1945,7 @@ img {
 
 .app-list-container {
 	background-color: transparent;
-	height: 150px; 
+	height: 200px; 
 	overflow-y: auto;
 
   }
