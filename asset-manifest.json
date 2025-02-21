@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Web_Bluetooth_App_WBA/static/css/main.d64f8400.css",
-    "main.js": "/Web_Bluetooth_App_WBA/static/js/main.e8b51f0d.js",
+    "main.css": "/Web_Bluetooth_App_WBA/static/css/main.1c9fbc3a.css",
+    "main.js": "/Web_Bluetooth_App_WBA/static/js/main.cbf28b17.js",
     "static/media/STM32WBA65I_DK1.png": "/Web_Bluetooth_App_WBA/static/media/STM32WBA65I_DK1.e0c3d255c568d14774d9.png",
     "static/media/DK1.png": "/Web_Bluetooth_App_WBA/static/media/DK1.870e121b928bf5ca6181.png",
     "static/media/NUCLEO_board.png": "/Web_Bluetooth_App_WBA/static/media/NUCLEO_board.f9049e57e4ff95efec2c.png",
@@ -28,10 +28,7 @@
     "index.html": "/Web_Bluetooth_App_WBA/index.html",
     "static/media/HRlogo.png": "/Web_Bluetooth_App_WBA/static/media/HRlogo.6d2c247d856e44cb2faa.png",
     "static/media/Zigbee.png": "/Web_Bluetooth_App_WBA/static/media/Zigbee.8e9505eef343cf529eb6.png",
-    "static/media/WSlogo.png": "/Web_Bluetooth_App_WBA/static/media/WSlogo.751fb306b261e8977cb0.png",
     "static/media/P2PSlogo.png": "/Web_Bluetooth_App_WBA/static/media/P2PSlogo.aa40e8d95a98f48318b1.png",
-    "static/media/RSClogo.png": "/Web_Bluetooth_App_WBA/static/media/RSClogo.a848195544d33097b2d2.png",
-    "static/media/BLlogo.png": "/Web_Bluetooth_App_WBA/static/media/BLlogo.e117818b5fa8db3f3ef1.png",
     "static/media/st-logo.svg": "/Web_Bluetooth_App_WBA/static/media/st-logo.01d65641d9828fd6847ef785b4019063.svg",
     "static/media/glucose-meter.svg": "/Web_Bluetooth_App_WBA/static/media/glucose-meter.4bbe5df63c7bd20151e61a03c477add3.svg",
     "static/media/sneaker.svg": "/Web_Bluetooth_App_WBA/static/media/sneaker.30769323ec0d1abad1f6d84aa8a5595b.svg",
@@ -52,11 +49,11 @@
     "static/media/iconInfoPink.svg": "/Web_Bluetooth_App_WBA/static/media/iconInfoPink.49d9aa3d6fa6dd9e80201e48b7b701bd.svg",
     "static/media/lightOffBlue.svg": "/Web_Bluetooth_App_WBA/static/media/lightOffBlue.7aca40f9fa79ed781538dbc1f0d55df3.svg",
     "static/media/lightOffPink.svg": "/Web_Bluetooth_App_WBA/static/media/lightOffPink.b14fc70dbf17669d9e7dab5664c4c580.svg",
-    "main.d64f8400.css.map": "/Web_Bluetooth_App_WBA/static/css/main.d64f8400.css.map",
-    "main.e8b51f0d.js.map": "/Web_Bluetooth_App_WBA/static/js/main.e8b51f0d.js.map"
+    "main.1c9fbc3a.css.map": "/Web_Bluetooth_App_WBA/static/css/main.1c9fbc3a.css.map",
+    "main.cbf28b17.js.map": "/Web_Bluetooth_App_WBA/static/js/main.cbf28b17.js.map"
   },
   "entrypoints": [
-    "static/css/main.d64f8400.css",
-    "static/js/main.e8b51f0d.js"
+    "static/css/main.1c9fbc3a.css",
+    "static/js/main.cbf28b17.js"
   ]
 }
