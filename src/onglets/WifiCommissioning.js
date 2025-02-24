@@ -281,48 +281,54 @@ const WifiCommissioning = (props) => {
     }
 
     const SECURITY_MODES = {
-      //0: 'WLAN_SECURITY_WEP',
-      //1: 'WLAN_SECURITY_WPA_PSK',
-      //2: 'WLAN_SECURITY_WPA_EAP',
-      3: 'WPA_2', //'WLAN_SECURITY_WPA2_PSK',
-      4: 'WPA_2', //'WLAN_SECURITY_WPA2_EAP',
-      5: 'WPA_3', //'WLAN_SECURITY_WPA3',
-      6: 'OWE', //WLAN_SECURITY_OWE',
-      //7: 'WLAN_SECURITY_DPP',
-      //8: 'WLAN_SECURITY_PSK_SHA256',
-      //9: 'WLAN_SECURITY_WPA3_EAP',
-      //10: 'WLAN_SECURITY_SAE_PK',
-      //11: 'WLAN_SECURITY_SAE_H2E'
+      0x00: 'Open', // 0x00 – Open, no security
+      0x01: 'WEP', // 0x01 – WEP
+      0x02: 'WPA', // 0x02 – WPA
+      0x03: 'WPA2', // 0x03 – WPA2
+      0x04: 'WPA/WPA2', // 0x04 – WPA/WPA2
+      0x05: 'WPA Enterprise', // 0x05 – WPA Enterprise
+      0x06: 'WPA3', // 0x06 – WPA3
+      0x07: 'WPA2/WPA3', // 0x07 – WPA2/WPA3
+      0x08: 'Unknown' // 0x08 – Unknown
     };
-
+    
     function updateSecurityModes(securityByte) {
       var securitySelect = document.getElementById('security_mode');
-      securitySelect.innerHTML = ''; //Erase old content
-
-      var noSecurity = 1;
+      var connectionReqButton = document.getElementById('connectButton');
+      securitySelect.innerHTML = ''; // Clear the old content
     
-      for (var bit = 0; bit < 12; bit++) {
-        if (securityByte & (1 << bit)) { 
-          noSecurity = 0;
-          var modeName = SECURITY_MODES[bit];
-          if (modeName) {
-            var option = document.createElement('option');
-            option.value = bit;
-            option.textContent = modeName;
-            securitySelect.appendChild(option);
+      var noSecurity = 1;
+      var maxBits = Object.keys(SECURITY_MODES).length; // Total number of security options
+    
+      for (var bit = 0; bit < maxBits; bit++) {
+        // Check if the value of 'securityByte' matches a key in SECURITY_MODES
+        if (securityByte === bit) {
+          noSecurity = 0; // A security option is selected
+          var modeName = SECURITY_MODES[bit] || 'Unsupported'; // Get the name of the security mode
+    
+          // Create a new option for the dropdown list
+          var option = document.createElement('option');
+          option.value = bit;
+          option.textContent = modeName;
+          securitySelect.appendChild(option); // Add the option to the dropdown list
+
+          // Disable the connect button for specific security modes
+          if (bit === 0x06 || bit === 0x07 || bit === 0x08) 
+          {
+            connectionReqButton.disabled = true;
           }
         }
       }
-
-      if(noSecurity){
+    
+      // If no security option is selected, add 'Open'
+      if (noSecurity) {
         var option = document.createElement('option');
         option.value = 0;
         option.textContent = 'Open';
         securitySelect.appendChild(option);
       }
     }
-
-
+    
     
 
 
