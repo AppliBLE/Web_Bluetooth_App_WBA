@@ -79,6 +79,9 @@ const SMP = (props) => {
     let buffer = new Uint8Array();
     let mtu = 140;
 
+    useEffect(() => {
+        cmdImageState();
+    }, []);
 
     function onImageUploadProgress(percentage){
         var fileStatus = document.getElementById('file-status');
