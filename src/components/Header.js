@@ -113,6 +113,11 @@ const Header = (props) => {
             namePrefix: "WBA"              // other WBA projects
           }, {
             namePrefix: "ECG"              // BLE_Electrocardiogram
+          }, {
+            namePrefix : "GHS"             // BLE_GHS
+          }, 
+          {
+            namePrefix : "PO"             // BLE_PulseOxymeter
           }],
 
         optionalServices: OptionalServices  
@@ -516,6 +521,10 @@ const Header = (props) => {
       case '0x9d':
         app= 'Electrocardiogram'
         apprep = 'BLE_GenericHealth_ECG'
+
+      case '0x9e':
+        app= 'Pulse Oximeter'
+        apprep = 'BLE_GenericHealth_POX'
 
     }
 
