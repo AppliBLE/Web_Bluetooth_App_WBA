@@ -343,8 +343,13 @@ const Header = (props) => {
         imgSrc = STM32WBA65I_DK1
         updateDeviceType(board)
         break;
-        
       
+      case '0x90':
+        board = 'Nucleo-WBA25CE'
+        imgSrc = nucleoWBA6
+        updateDeviceType(board)
+        break;
+        
     }
 
     setGithubBaseUrl(board);
@@ -782,7 +787,7 @@ const Header = (props) => {
       fileName: 'BLE_p2pServer_ota',
       logo: p2pslogo,
       link: 'https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer',
-      deviceTypes: ['all']
+      deviceTypes: [ 'Nucleo-WBA55CG', 'Nucleo-WBA65RI']
     },
     {
       id: 'app1',
@@ -798,7 +803,7 @@ const Header = (props) => {
       fileName: 'BLE_HeartRate_ota',
       logo: hrlogo,
       link: 'https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_HeartRate',
-      deviceTypes: ['all']
+      deviceTypes: ['Nucleo-WBA55CG', 'Nucleo-WBA65RI']
     }
   ];
 

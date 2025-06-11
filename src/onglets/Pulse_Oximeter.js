@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Chart, registerables } from 'chart.js';
 import { createLogElement } from "../components/Header";
-import HRlogo from '../images/HRlogo.png';
 
 Chart.register(...registerables);
 
@@ -9,6 +8,8 @@ const PulseOximeter = (props) => {
     const GRAPH_MAX_LABELS = 25;
     let GHSP_Characteristic_Write_Indicate;
     let LHO_Characteristic_Notify_Indicate;
+    const [isMeasuring, setIsMeasuring] = useState(false);
+    let displayRebootPanel = "none";
 
     const oxygenSaturationChartContainer = useRef(null);
     const [oxygenSaturationChartInstance, setOxygenSaturationChartInstance] = useState(null);
@@ -19,9 +20,6 @@ const PulseOximeter = (props) => {
     const [heartRateChartInstance, setHeartRateChartInstance] = useState(null);
     let heartRateDataSet = [];
     let heartRateTime = [];
-
-    const [heartRateValue, setHeartRateValue] = useState(0);
-
 
     useEffect(() => {
         if (oxygenSaturationChartContainer && oxygenSaturationChartContainer.current) {
@@ -152,18 +150,31 @@ const PulseOximeter = (props) => {
 
     async function onStartMeasurementClick() {
         let myWord = new Uint8Array(1);
-        myWord[0] = 0x1;
-
-        try {
-            await GHSP_Characteristic_Write_Indicate.characteristic.writeValue(myWord);
-            createLogElement(myWord, 1, "Start Measure");
+        if (!isMeasuring) {
+            // Start notifications
+            myWord[0] = 0x1;
+            try {
+                await GHSP_Characteristic_Write_Indicate.characteristic.writeValue(myWord);
+                createLogElement(myWord, 1, "Start Measure");
+                console.log('Start Heart Rate and Oximeter Measurement');
+                LHO_Characteristic_Notify_Indicate.characteristic.oncharacteristicvaluechanged = notifHandler;
+            } catch (error) {
+                console.log('Error: ' + error);
+            }
+        } else {
+            // Stop notifications
+            myWord[0] = 0x2;
+            try {
+                await GHSP_Characteristic_Write_Indicate.characteristic.writeValue(myWord);
+                await LHO_Characteristic_Notify_Indicate.characteristic.stopNotifications();
+                createLogElement(myWord, 1, "Stop Measure");
+                console.log('Stop Heart Rate and Oximeter Measurement');
+            } catch (error) {
+                console.log('Error: ' + error);
+            }
         }
-        catch (error) {
-            console.log('Error: ' + error);
-        }
 
-        console.log('Start Heart Rate and Oximeter Measurement');
-        LHO_Characteristic_Notify_Indicate.characteristic.oncharacteristicvaluechanged = notifHandler;
+        setIsMeasuring(!isMeasuring);
     }
 
     function notifHandler(event) {
@@ -183,7 +194,7 @@ const PulseOximeter = (props) => {
             <div className="row justify-content-center mt-3 mb-3">
                 <div className="d-grid col-xs-6 col-sm-6 col-md-4 col-lg-4 m-2">
                     <button className="defaultButton w-100" type="button" onClick={onStartMeasurementClick} id="startButton">
-                        Start Measurement
+                        {isMeasuring ? "Stop Measurement" : "Start Measurement"}
                     </button>
                 </div>
             </div>
