@@ -94,8 +94,10 @@ allServices.map(service => {
     listItems.push(<li className="liProfile"><Link to="/SMP">Simple Management Protocol</Link></li>);
   }
   if(service.service.uuid === "00001840-0000-1000-8000-00805f9b34fb"){
-    listItems.push(<li className="liProfile"><Link to="/Electrocardiogram">Electrocardiogram</Link></li>);
-    listItems.push(<li className="liProfile"><Link to="/Pulse_Oximeter">Pulse Oximeter</Link></li>);
+    if(service.device.name.startsWith("ECG_"))
+      listItems.push(<li className="liProfile"><Link to="/Electrocardiogram">Electrocardiogram</Link></li>);
+    if(service.device.name.startsWith("PO_"))
+      listItems.push(<li className="liProfile"><Link to="/Pulse_Oximeter">Pulse Oximeter</Link></li>);
   }
   if(service.service.uuid === "0000fe90-cc7a-482a-984a-7f2ed5b3e58f"){
     listItems.push(<li className="liProfile"><Link to="/HUB_DYN">BLE HUB Zigbee</Link></li>);

@@ -142,7 +142,8 @@ const Header = (props) => {
             props.setAllServices((prevService) => [
               ...prevService,
               {
-                service
+                service,
+                device: service.device
               },
             ]);
             queue = queue.then(_ => service.getCharacteristics()
@@ -199,7 +200,8 @@ const Header = (props) => {
             props.setAllServices((prevService) => [
               ...prevService,
               {
-                service
+                service,
+                device: service.device
               },
             ]);
             queue = queue.then(_ => service.getCharacteristics()
@@ -521,10 +523,12 @@ const Header = (props) => {
       case '0x9d':
         app= 'Electrocardiogram'
         apprep = 'BLE_GenericHealth_ECG'
+        break;
 
       case '0x9e':
         app= 'Pulse Oximeter'
         apprep = 'BLE_GenericHealth_POX'
+        break;
 
     }
 
