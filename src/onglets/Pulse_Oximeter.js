@@ -13,13 +13,13 @@ const PulseOximeter = (props) => {
 
     const oxygenSaturationChartContainer = useRef(null);
     const [oxygenSaturationChartInstance, setOxygenSaturationChartInstance] = useState(null);
-    let oxygenSaturationDataSet = [];
-    let oxygenSaturationTime = [];
+    let oxygenSaturationDataSet = useRef([]);
+    let oxygenSaturationTime = useRef([]);
 
     const heartRateChartContainer = useRef(null);
     const [heartRateChartInstance, setHeartRateChartInstance] = useState(null);
-    let heartRateDataSet = [];
-    let heartRateTime = [];
+    let heartRateDataSet = useRef([]);
+    let heartRateTime = useRef([]);
 
     useEffect(() => {
         if (oxygenSaturationChartContainer && oxygenSaturationChartContainer.current) {
@@ -89,19 +89,19 @@ const PulseOximeter = (props) => {
             hour12: false
         });
 
-        if (oxygenSaturationDataSet.length >= GRAPH_MAX_LABELS) {
-            oxygenSaturationDataSet.pop();
-            oxygenSaturationDataSet.unshift(oxygenSaturationValue);
-            oxygenSaturationTime.pop();
-            oxygenSaturationTime.unshift(currentTime);
+        if (oxygenSaturationDataSet.current.length >= GRAPH_MAX_LABELS) {
+            oxygenSaturationDataSet.current.pop();
+            oxygenSaturationDataSet.current.unshift(oxygenSaturationValue);
+            oxygenSaturationTime.current.pop();
+            oxygenSaturationTime.current.unshift(currentTime);
         } else {
-            oxygenSaturationDataSet.unshift(oxygenSaturationValue);
-            oxygenSaturationTime.unshift(currentTime);
+            oxygenSaturationDataSet.current.unshift(oxygenSaturationValue);
+            oxygenSaturationTime.current.unshift(currentTime);
         }
 
         if (oxygenSaturationChartInstance) {
-            oxygenSaturationChartInstance.data.datasets[0].data = oxygenSaturationDataSet;
-            oxygenSaturationChartInstance.data.labels = oxygenSaturationTime;
+            oxygenSaturationChartInstance.data.datasets[0].data = oxygenSaturationDataSet.current;
+            oxygenSaturationChartInstance.data.labels = oxygenSaturationTime.current;
             oxygenSaturationChartInstance.update();
         }
     };
@@ -114,19 +114,19 @@ const PulseOximeter = (props) => {
             hour12: false
         });
 
-        if (heartRateDataSet.length >= GRAPH_MAX_LABELS) {
-            heartRateDataSet.pop();
-            heartRateDataSet.unshift(heartRateValue);
-            heartRateTime.pop();
-            heartRateTime.unshift(currentTime);
+        if (heartRateDataSet.current.length >= GRAPH_MAX_LABELS) {
+            heartRateDataSet.current.pop();
+            heartRateDataSet.current.unshift(heartRateValue);
+            heartRateTime.current.pop();
+            heartRateTime.current.unshift(currentTime);
         } else {
-            heartRateDataSet.unshift(heartRateValue);
-            heartRateTime.unshift(currentTime);
+            heartRateDataSet.current.unshift(heartRateValue);
+            heartRateTime.current.unshift(currentTime);
         }
 
         if (heartRateChartInstance) {
-            heartRateChartInstance.data.datasets[0].data = heartRateDataSet;
-            heartRateChartInstance.data.labels = heartRateTime;
+            heartRateChartInstance.data.datasets[0].data = heartRateDataSet.current;
+            heartRateChartInstance.data.labels = heartRateTime.current;
             heartRateChartInstance.update();
         }
     };
@@ -177,6 +177,25 @@ const PulseOximeter = (props) => {
         setIsMeasuring(!isMeasuring);
     }
 
+    const resetCharts = () => {
+        oxygenSaturationDataSet.current = [];
+        oxygenSaturationTime.current = [];
+        if (oxygenSaturationChartInstance) {
+            oxygenSaturationChartInstance.data.datasets[0].data = [];
+            oxygenSaturationChartInstance.data.labels = [];
+            oxygenSaturationChartInstance.update();
+        }
+        heartRateDataSet.current = [];
+        heartRateTime.current = [];
+        if (heartRateChartInstance) {
+            heartRateChartInstance.data.datasets[0].data = [];
+            heartRateChartInstance.data.labels = [];
+            heartRateChartInstance.update();
+        }
+
+        console.log("Charts have been reset");
+    };
+
     function notifHandler(event) {
         console.log("Notification Received");
         var buf = new Uint8Array(event.target.value.buffer);
@@ -189,12 +208,19 @@ const PulseOximeter = (props) => {
         updateHeartRateChart(heartRate);
     }
 
+
+
     return (
         <div className="container-fluid">
             <div className="row justify-content-center mt-3 mb-3">
                 <div className="d-grid col-xs-6 col-sm-6 col-md-4 col-lg-4 m-2">
                     <button className="defaultButton w-100" type="button" onClick={onStartMeasurementClick} id="startButton">
                         {isMeasuring ? "Stop Measurement" : "Start Measurement"}
+                    </button>
+                </div>
+                <div className="d-grid col-xs-6 col-sm-6 col-md-4 col-lg-4 m-2">
+                    <button className="defaultButton w-100" type="button" onClick={resetCharts} id="resetButton">
+                        Reset
                     </button>
                 </div>
             </div>
