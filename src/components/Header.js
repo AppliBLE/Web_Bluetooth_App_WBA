@@ -346,7 +346,6 @@ const Header = (props) => {
       
       case '0x90':
         board = 'Nucleo-WBA25CE'
-        imgSrc = nucleoWBA6
         updateDeviceType(board)
         break;
         
