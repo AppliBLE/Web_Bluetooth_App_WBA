@@ -82,7 +82,7 @@ const Ota = (props) => {
         }
         else
         {
-          if(deviceId == '2'){
+          if(deviceId == 'X'){
             actionChoice.value = "040000";
           }
           else {
@@ -262,7 +262,7 @@ const Ota = (props) => {
 
     async function calculateNbSector(){
       let SECTOR_SIZE;
-      if (deviceId === '2') {
+      if (deviceId === 'X') {
         SECTOR_SIZE = 4 * 1024;
       } else {
         SECTOR_SIZE = 8 * 1024;
@@ -307,7 +307,7 @@ const Ota = (props) => {
         }
         else
         {
-          if(deviceId == '2'){
+          if(deviceId == 'X'){
             actionChoice.value = "040000";
           }
           else {
