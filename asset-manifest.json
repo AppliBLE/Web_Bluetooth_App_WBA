@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Web_Bluetooth_App_WBA/static/css/main.adfb7204.css",
-    "main.js": "/Web_Bluetooth_App_WBA/static/js/main.391fe4ef.js",
+    "main.js": "/Web_Bluetooth_App_WBA/static/js/main.246d79ce.js",
     "static/media/STM32WBA65I_DK1.png": "/Web_Bluetooth_App_WBA/static/media/STM32WBA65I_DK1.e0c3d255c568d14774d9.png",
     "static/media/DK1.png": "/Web_Bluetooth_App_WBA/static/media/DK1.870e121b928bf5ca6181.png",
     "static/media/NUCLEO_board.png": "/Web_Bluetooth_App_WBA/static/media/NUCLEO_board.f9049e57e4ff95efec2c.png",
@@ -50,10 +50,10 @@
     "static/media/lightOffBlue.svg": "/Web_Bluetooth_App_WBA/static/media/lightOffBlue.7aca40f9fa79ed781538dbc1f0d55df3.svg",
     "static/media/lightOffPink.svg": "/Web_Bluetooth_App_WBA/static/media/lightOffPink.b14fc70dbf17669d9e7dab5664c4c580.svg",
     "main.adfb7204.css.map": "/Web_Bluetooth_App_WBA/static/css/main.adfb7204.css.map",
-    "main.391fe4ef.js.map": "/Web_Bluetooth_App_WBA/static/js/main.391fe4ef.js.map"
+    "main.246d79ce.js.map": "/Web_Bluetooth_App_WBA/static/js/main.246d79ce.js.map"
   },
   "entrypoints": [
     "static/css/main.adfb7204.css",
-    "static/js/main.391fe4ef.js"
+    "static/js/main.246d79ce.js"
   ]
 }
