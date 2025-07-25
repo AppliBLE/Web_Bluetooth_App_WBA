@@ -298,6 +298,9 @@ const Header = (props) => {
       case '0x04 b0':
         deviceId = '6'
         break;
+      case '0x04 b2':
+        deviceId = '2'
+        break;
     }
 
     switch (RevID) {
@@ -677,7 +680,9 @@ const Header = (props) => {
    function setGithubBaseUrl(board) {
     if (board === 'Nucleo-WBA65RI') {
       githubBaseUrl = 'https://api.github.com/repos/AppliBLE/STM32WBA_Binaries/contents/STM32WBA6_Binaries/';
-    } else {
+    } else if (board === 'Nucleo-WBA25CE'){
+      githubBaseUrl = 'https://api.github.com/repos/AppliBLE/STM32WBA_Binaries/contents/STM32WBA2_Binaries/';
+    } else{
       githubBaseUrl = 'https://api.github.com/repos/AppliBLE/STM32WBA_Binaries/contents/STM32WBA5_Binaries/';
     }
   }
@@ -786,7 +791,7 @@ const Header = (props) => {
       fileName: 'BLE_p2pServer_ota',
       logo: p2pslogo,
       link: 'https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_Peer_To_Peer',
-      deviceTypes: [ 'Nucleo-WBA55CG', 'Nucleo-WBA65RI']
+      deviceTypes: [ 'Nucleo-WBA55CG', 'Nucleo-WBA65RI', 'Nucleo-WBA25CE']
     },
     {
       id: 'app1',
@@ -802,7 +807,7 @@ const Header = (props) => {
       fileName: 'BLE_HeartRate_ota',
       logo: hrlogo,
       link: 'https://wiki.st.com/stm32mcu/wiki/Connectivity:STM32WBA_HeartRate',
-      deviceTypes: ['Nucleo-WBA55CG', 'Nucleo-WBA65RI']
+      deviceTypes: ['Nucleo-WBA55CG', 'Nucleo-WBA65RI', 'Nucleo-WBA25CE']
     }
   ];
 

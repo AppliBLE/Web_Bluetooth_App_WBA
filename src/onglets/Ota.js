@@ -25,7 +25,6 @@ const REBOOT = 1;
 const READY_TO_RECEIVE = 2;
 const ERROR_NO_FREE = 3;
 const CHUNK_LENGTH = 240;
-const SECTOR_SIZE = 8*1024;
 
 let writeAddressCharacteristic;
 let indicateCharacteristic;
@@ -83,7 +82,12 @@ const Ota = (props) => {
         }
         else
         {
-          actionChoice.value = "080000";
+          if(deviceId == '2'){
+            actionChoice.value = "040000";
+          }
+          else {
+            actionChoice.value = "080000";
+          }
         }        
         uploadAction = "002";
         if (selectedAction === 'application') {
@@ -257,8 +261,14 @@ const Ota = (props) => {
     }
 
     async function calculateNbSector(){
+      let SECTOR_SIZE;
+      if (deviceId === '2') {
+        SECTOR_SIZE = 4 * 1024;
+      } else {
+        SECTOR_SIZE = 8 * 1024;
+      }
       fileLength = fileContent.length;
-      nbSector = fileLength/SECTOR_SIZE;
+      nbSector = fileLength / SECTOR_SIZE;
       nbSector = Math.ceil(nbSector);
       document.getElementById("nbSector").value = nbSector;
 
@@ -297,8 +307,13 @@ const Ota = (props) => {
         }
         else
         {
-          actionChoice.value = "080000";
-        }
+          if(deviceId == '2'){
+            actionChoice.value = "040000";
+          }
+          else {
+            actionChoice.value = "080000";
+          }
+        }   
 
         break;
     }
