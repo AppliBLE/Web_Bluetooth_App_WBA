@@ -62,8 +62,9 @@ const Header = (props) => {
     '0000181f-0000-1000-8000-00805f9b34fb',
     '8d53dc1d-1db7-4cd3-868b-8a527460aa84',
     '00001840-0000-1000-8000-00805f9b34fb', 
-    '0000ff1a-cc7a-482a-984a-7f2ed5b3e58f'
-  ];// service uuid of [P2P service, Heart Rate service, DataThroughput, Ota, P2P Router, Health Thermomiter, Finger Print, Blood Pressure, Weight Scale, Running Speed and Cadence, Continuous Glucose Monitoring]
+    '0000ff1a-cc7a-482a-984a-7f2ed5b3e58f', 
+    '0000ab40-cc7a-482a-984a-7f2ed5b3e58f'
+  ];// service uuid of [P2P service, Heart Rate service, DataThroughput, Ota, P2P Router, Health Thermomiter, Finger Print, Blood Pressure, Weight Scale, Running Speed and Cadence, Continuous Glucose Monitoring, SolarDemo]
 
 
 
@@ -115,10 +116,12 @@ const Header = (props) => {
             namePrefix: "ECG"              // BLE_Electrocardiogram
           }, {
             namePrefix : "GHS"             // BLE_GHS
-          }, 
-          {
+          }, {
             namePrefix : "PO"             // BLE_PulseOxymeter
-          }],
+          }, {
+            namePrefix: "Solar"           // Solar Demo : Server 
+          }
+        ],
 
         optionalServices: OptionalServices  
 

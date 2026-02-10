@@ -15,12 +15,21 @@ This web interface using Web Bluetooth® APIs can be used to establish a Bluetoo
 
 Here is the list of STM32WBA applications supported by this Bluetooth® web application:
 
--	Peer To Peer Server
--	HeartRate
--	Firmware Update Over The Air
--   Data Throughput
--   Peer To Peer Router
--   Health Thermometer
+- [Peer To Peer Server](https://github.com/STMicroelectronics/STM32CubeWBA/tree/main/Projects/NUCLEO-WBA65RI/Applications/BLE/BLE_p2pServer)
+- [Peer To Peer Router](https://github.com/STMicroelectronics/STM32CubeWBA/tree/main/Projects/NUCLEO-WBA65RI/Applications/BLE/BLE_p2pRouter)
+- [HeartRate](https://github.com/STMicroelectronics/STM32CubeWBA/tree/main/Projects/NUCLEO-WBA65RI/Applications/BLE/BLE_HeartRate)
+- [Firmware Update Over The Air](https://github.com/STMicroelectronics/STM32CubeWBA/tree/main/Projects/NUCLEO-WBA65RI/Applications/BLE/BLE_ApplicationInstallManager)
+- [Data Throughput](https://github.com/STMicroelectronics/STM32CubeWBA/tree/main/Projects/NUCLEO-WBA65RI/Applications/BLE/BLE_DataThroughput_Server)
+- [Health Thermometer](https://github.com/STMicroelectronics/STM32CubeWBA/tree/main/Projects/NUCLEO-WBA65RI/Applications/BLE/BLE_HealthThermometer)
+- [Electrocardiogram](https://github.com/STMicroelectronics/STM32CubeWBA/tree/main/Projects/NUCLEO-WBA65RI/Applications/BLE/BLE_GenericHealth_ECG_ota)
+- [BLE OEMiROT FOTA](https://github.com/stm32-hotspot/STM32WBA-BLE-OEMiROT-FOTA)
+- [Continuous Glucose Monitoring](https://github.com/stm32-hotspot/STM32WBA-BLE-ContinuousGlucoseMonitoring)
+- [Doorlock](https://github.com/stm32-hotspot/STM32WBA-BLE-TFM-Doorlock)
+- [Blood Pressure](https://github.com/stm32-hotspot/STM32WBA-BLE-BloodPressure)
+- [Running Speed and Cadence](https://github.com/stm32-hotspot/STM32WBA-BLE-RunningSpeedAndCadence)
+- [Weight Scale](https://github.com/stm32-hotspot/STM32WBA-BLE-WeightScale)
+- [AI Fan Control](https://github.com/stm32-hotspot/STM32WBA-BLE-AI-Fan-Control)
+- Solar Panel Demo
 
 Example of the interface when a connection is established with Firmware Update Over The Air application and HeartRate application
 ![Firmware Update Over The Air on smartphone & Heart Rate on PC](/public/illustrations/pannelExample.PNG "Firmware Update Over The Air on smartphone & Heart Rate on PC")
@@ -215,6 +224,28 @@ Example with the [NUCLEO-WBA5x](https://www.st.com/en/evaluation-tools/nucleo-wb
 
 
 For more information about this application, please refer to [STM32WBA Health Thermometer](https://github.com/AppliBLE/STM32WBA_Binaries/tree/master/BLE_HealthThermometer/ "https://github.com/AppliBLE/STM32WBA_Binaries/tree/master/BLE_HealthThermometer").
+
+***
+
+## **Solar DEMO**
+
+The Solar Demo Profile is used by SolarDemo running on STM32WBAx. 
+The Solar Demo interafce proposes a button to enable/disable notifications. 
+
+### **Requirements**
+
+Example with the [NUCLEO-WBA25] (Not ye availbal : On demand - code will be shared on STM32hotSpot) .  
+
+
+
+### **Follow the next steps to learn how to use the application Health Thermometer**
+
+**Step 1.** Start the STM32WBA board with the Solar demo application flashed in and activate the Bluetooth® on your machine.   
+**Step 2.** Open [this](https://applible.github.io/Web_Bluetooth_App_WBA/ "https://applible.github.io/Web_Bluetooth_App_WBA") web page in your browser.  
+**Step 3.** Click on the connect button then select Solar_xx in the device list and click pair.  
+*You are now connected*  
+**Step 4.** Click on Solar Panle to show the interface. 
+
 
 ***
 
