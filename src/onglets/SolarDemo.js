@@ -217,8 +217,8 @@ const SolarDemo = (props) => {
         var buf = new Uint8Array(event.target.value.buffer);
         console.log(buf);
         
-        createLogElement(buf, 2, "Lux NOTIFICATION");
-        updateTempDataset(0, buf[0])
+        createLogElement(buf, 2, "Temperature NOTIFICATION");
+        updateTempDataset(0, buf[0]+(buf[1]/10))
     }
     function notifHandlerLux(event) {
         console.log("Lux Notification Received");
