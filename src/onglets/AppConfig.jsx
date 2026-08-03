@@ -19,15 +19,16 @@ import { createLogElement } from '../components/Header';
 const APPCONFIG_DATA_CHAR_UUID = '0000fe51-8e22-4541-9d4c-21edae82ed19';
 const CONFIG_PROTOCOL_VERSION = 0x03;
 const CONFIG_HEADER_SIZE = 10;
-const DEVICE_NAME_PREFIX = 'EE_';
+const DEVICE_NAME_PREFIX = 'PS_';
 const DEVICE_NAME_MAX_LENGTH = 10;
 const DEVICE_NAME_SUFFIX_MAX_LENGTH = DEVICE_NAME_MAX_LENGTH - DEVICE_NAME_PREFIX.length;
 const CONNECTION_INTERVAL_MIN_MS = 8;
 const CONNECTION_INTERVAL_MAX_MS = 4000;
 const LOW_POWER_TABLE_ACTUAL_DBM = [
-  -20.5, -19.5, -17.9, -17.0, -16.0, -15.0, -14.1, -13.1,
-  -12.2, -11.3, -10.4, -9.4, -8.3, -7.2, -6.2, -5.5,
-  -4.5, -3.5, -2.5, -0.6, -0.4, 0.7, 2.0, 2.6,
+  -20.4, -20.4, -20.4, -20.4, -20.4, -20.4, -19.5, -17.9,
+  -17.0, -16.0, -15.0, -14.1, -13.1, -12.2, -11.3, -10.4,
+  -9.4, -8.3, -7.2, -6.2, -5.5, -4.5, -3.5, -2.5,
+  -0.6, -0.4, 0.7, 2.0, 2.6,
 ];
 const TX_POWER_MIN = 0;
 const TX_POWER_MAX = LOW_POWER_TABLE_ACTUAL_DBM.length - 1;
@@ -209,7 +210,7 @@ const AppConfig = (props) => {
       <div className="config-panel-header">
         <div>
           <p className="eyebrow">AppConfig Service</p>
-          <h2>BLE Parameters Stored In EEPROM</h2>
+          <h2>BLE Parameters in Persistent Storage</h2>
         </div>
         <div className="button-row">
           <button className="defaultButton" type="button" onClick={readCurrentConfig} disabled={!configCharacteristic || isBusy}>

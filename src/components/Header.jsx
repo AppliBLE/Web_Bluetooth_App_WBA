@@ -139,7 +139,7 @@ const Header = (props) => {
     '0x9c': { app: 'BLE Sensor - HeartRate - P2PServer', apprep: 'BLE_Sensor_HR_P2PServer' },
     '0x9d': { app: 'Electrocardiogram', apprep: 'BLE_GenericHealth_ECG' },
     '0x9e': { app: 'Pulse Oximeter', apprep: 'BLE_GenericHealth_POX' },
-    '0xfc': { app: 'Peer 2 Peer Server Config EEPROM Emul', apprep: 'BLE_p2pServer_Config_EEPROM_Emul' },
+    '0xfc': { app: 'Peer 2 Peer Server Config Persistent Storage', apprep: 'BLE_p2pServer_Config_PerStorage' },
   };
 
   // App name prefixes to filter devices during Bluetooth device discovery
