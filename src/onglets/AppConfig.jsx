@@ -224,7 +224,7 @@ const AppConfig = (props) => {
 
       <h3 className="field-label">BLE Parameters</h3>
       <div className="config-grid">
-        <label className="field-label" htmlFor="deviceNameSuffix">Device name suffix (after EE_)</label>
+        <label className="field-label" htmlFor="deviceNameSuffix">Device name suffix (after PS_)</label>
         <input
           id="deviceNameSuffix"
           name="deviceNameSuffix"
