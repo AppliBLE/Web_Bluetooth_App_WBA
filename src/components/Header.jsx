@@ -166,7 +166,7 @@ const Header = (props) => {
     "ECG",            // BLE_Electrocardiogram
     "PO",             // BLE_PulseOxymeter
     "Solar",          // Solar Demo : Server
-    "EE"              // BLE_p2pServer_Config_EEPROM_Emul
+    "PS"              // BLE_p2pServer_Config_PerStorage
   ];
 
   const bluetoothFilters = appPrefixTable.map((namePrefix) => ({ namePrefix }));
